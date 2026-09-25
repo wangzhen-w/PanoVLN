@@ -1,0 +1,5 @@
+# Install the PanoVLN model environment from ../../README.md first.
+# These are only the additional HTTP server dependencies.
+fastapi
+uvicorn
+python-multipart

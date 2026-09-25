@@ -1,0 +1,109 @@
+{
+  "method": "NaVid",
+  "official_repository": "https://github.com/jzhzhang/NaVid-VLN-CE",
+  "source_snapshot": "NaVid-VLN-CE-main",
+  "files": [
+    {
+      "path": "requirements.txt",
+      "source_path": "requirements.txt",
+      "source_sha256": "00914064b16763bb535eb83e17d98f7d0ecef3e656696ea576ee152d70c9e7ff",
+      "runtime_sha256": "fef919f7cf1b4b0c2193b6c5fdb2a7e326723ef7876bd20ddcd85eaaafdccd87"
+    },
+    {
+      "path": "model_code/navid/mm_utils.py",
+      "source_path": "navid/mm_utils.py",
+      "source_sha256": "0ab68a3b66df6ba760ab4b8e418040496f13caa1c7aa36518c7e3f063dd0d968",
+      "runtime_sha256": "ab2062e41188e96a70f2cd23315c53106eb765499f9d0bc28f43010fbc9da977"
+    },
+    {
+      "path": "model_code/navid/conversation.py",
+      "source_path": "navid/conversation.py",
+      "source_sha256": "c2ce703ee981efb1aa89dcb28868dad8cabfec8c5fa41abee0117f97f6948c5d",
+      "runtime_sha256": "c2ce703ee981efb1aa89dcb28868dad8cabfec8c5fa41abee0117f97f6948c5d"
+    },
+    {
+      "path": "model_code/navid/constants.py",
+      "source_path": "navid/constants.py",
+      "source_sha256": "da21c341b74464ccb4066b747093a9f7ece005d3a946a9e58391e197f22b32ea",
+      "runtime_sha256": "da21c341b74464ccb4066b747093a9f7ece005d3a946a9e58391e197f22b32ea"
+    },
+    {
+      "path": "model_code/navid/__init__.py",
+      "source_path": "navid/__init__.py",
+      "source_sha256": "113f14fca84e66e442381795f5efff2753d86bcc79342b83d1fe555fe2be9d3a",
+      "runtime_sha256": "113f14fca84e66e442381795f5efff2753d86bcc79342b83d1fe555fe2be9d3a"
+    },
+    {
+      "path": "model_code/navid/model/__init__.py",
+      "source_path": "navid/model/__init__.py",
+      "source_sha256": "3c3fd1aba2860572cd950df43181ef8c27032353d3555969d383f0cd9dd27698",
+      "runtime_sha256": "3c3fd1aba2860572cd950df43181ef8c27032353d3555969d383f0cd9dd27698"
+    },
+    {
+      "path": "model_code/navid/model/builder.py",
+      "source_path": "navid/model/builder.py",
+      "source_sha256": "fa0377eec05756c1032304c5918a8fa4a6b2398b1d7d300127a79100c3814f18",
+      "runtime_sha256": "149480d323f6f99617809a57de4f6509e1e0c19c8d0eb2225a6b75a2ec8a9b23"
+    },
+    {
+      "path": "model_code/navid/model/navid_arch.py",
+      "source_path": "navid/model/navid_arch.py",
+      "source_sha256": "dc0d1cf0acfa165b5335ed6ce23539e46c5304d9f94304ea5585069e156a2100",
+      "runtime_sha256": "0975584b6aeb89693f17320002c77ac2a0a63a7d55d62bcc75aba66a49b4ce6f"
+    },
+    {
+      "path": "model_code/navid/processor/clip-patch14-224/config.json",
+      "source_path": "navid/processor/clip-patch14-224/config.json",
+      "source_sha256": "8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a",
+      "runtime_sha256": "8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a"
+    },
+    {
+      "path": "model_code/navid/processor/clip-patch14-224/preprocessor_config.json",
+      "source_path": "navid/processor/clip-patch14-224/preprocessor_config.json",
+      "source_sha256": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd",
+      "runtime_sha256": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd"
+    },
+    {
+      "path": "model_code/navid/processor/clip-patch14-336/config.json",
+      "source_path": "navid/processor/clip-patch14-336/config.json",
+      "source_sha256": "51b1c14aabcdf639c4a0370eeda1010b773bbe1df78319c7d0f5882c22ac0ac0",
+      "runtime_sha256": "51b1c14aabcdf639c4a0370eeda1010b773bbe1df78319c7d0f5882c22ac0ac0"
+    },
+    {
+      "path": "model_code/navid/processor/clip-patch14-336/preprocessor_config.json",
+      "source_path": "navid/processor/clip-patch14-336/preprocessor_config.json",
+      "source_sha256": "d253881f65322dc546df59cf925a408e5538b8ecb5a1b496cdd36af9992686d4",
+      "runtime_sha256": "d253881f65322dc546df59cf925a408e5538b8ecb5a1b496cdd36af9992686d4"
+    },
+    {
+      "path": "model_code/navid/model/language_model/llava_navid.py",
+      "source_path": "navid/model/language_model/llava_navid.py",
+      "source_sha256": "77c01e02dd53a7756e58a768a169952a0adcfc55cba94c1d0cbe4f8703d2028b",
+      "runtime_sha256": "0fd103e29bbf98e30b2210047c6a165bf3b0e57987aad283f00058eafa74ec55"
+    },
+    {
+      "path": "model_code/navid/model/multimodal_encoder/builder.py",
+      "source_path": "navid/model/multimodal_encoder/builder.py",
+      "source_sha256": "a114a2ed6781e59f3c319e11d996b74e107519441e1f9652a061da365c9908d1",
+      "runtime_sha256": "222bedef471c3d304ad431e10df03847b613709654458be30bab760293e152f0"
+    },
+    {
+      "path": "model_code/navid/model/multimodal_encoder/eva_vit.py",
+      "source_path": "navid/model/multimodal_encoder/eva_vit.py",
+      "source_sha256": "37eefba11093d535aa287377af848750e91d023cd43b331c00aee1b6f7d9787f",
+      "runtime_sha256": "b4d9dea759a7ee8e335be8abaa1722a9723344247a97815bf99d1f2fa3abac1b"
+    },
+    {
+      "path": "model_code/navid/model/multimodal_projector/builder.py",
+      "source_path": "navid/model/multimodal_projector/builder.py",
+      "source_sha256": "19f127682ffad6a7bb71a35fc7a463dbb3eb76594180ba54931bee02331a0bd9",
+      "runtime_sha256": "19f127682ffad6a7bb71a35fc7a463dbb3eb76594180ba54931bee02331a0bd9"
+    }
+  ],
+  "derived_entrypoints": {
+    "go2_client.py": "PanoVLN/realworld/go2_client.py",
+    "navigation_metrics.py": "PanoVLN/realworld/navigation_metrics.py",
+    "inference.py": "agent_navid.py:NaVid_Agent"
+  },
+  "integration": "Runtime files flattened under realworld/navid; official packages under model_code; model algorithms unchanged."
+}

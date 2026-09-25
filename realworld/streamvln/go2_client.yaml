@@ -1,0 +1,84 @@
+# 默认由 run_go2_client.sh 加载；命令行参数优先于这里的配置。
+# 查看最终配置：bash realworld/streamvln/run_go2_client.sh --print-config
+# 切换配置文件：bash realworld/streamvln/run_go2_client.sh --config /path/to/config.yaml
+
+server:
+  server_base_url: "http://127.0.0.1:8000"
+
+experiment:
+  # 输出目录：method_name_scene_name_route_id_trial_id，例如 StreamVLN_office_1_1。
+  # 未填写的字段使用 null；目录已存在时拒绝覆盖，请修改 trial_id。
+  method_name: "StreamVLN"
+  scene_name: null # Hallway / Office / Campus，或具体场景名。
+  route_id: null # 不同方法对比时使用相同路线编号。
+  trial_id: null # 同一路线的重复实验编号；字符串编号建议加引号。
+
+navigation:
+  instruction: "Walk straight to the glass wall, then turn right and stop in front of the large TV set."
+  instruction_file: null # 非空时优先从文件读取指令。
+  max_replans: 100
+  actions_per_replan: 0 # 执行官方完整动作队列；baseline 不支持 uncertainty 或截断队列。
+  uncertainty_budget: 1.2
+  replan_action_range: [4, 8] # 按原始 atom 数量计数，再合并连续相同动作。
+  stop_commit_max_actions: 12 # uncertainty 模式下优先执行到窗口内的 STOP；0 关闭。
+  execution_mode: continuous # atomic：逐动作停车采图；continuous：连续执行、逐 atom 采图。
+  prefetch_after_actions: 0 # 必须为 0；有状态推理在本轮动作执行完毕后请求。
+  history_limit: 120 # 兼容字段；baseline 按完整 episode 保留观测，服务端按官方策略选帧。
+
+robot:
+  control_backend: ros2 # dry-run 仅打印控制命令；ros2 控制真机。
+  real_robot_ack: "yes" # 必须带引号，避免 YAML 将 yes 解析成布尔值。
+
+motion:
+  forward_distance: 0.25 # 单个 atom 前进距离，米。
+  forward_speed: 0.35 # 米/秒。
+  turn_degrees: 15.0 # 单个 atom 转向角度。
+  yaw_speed: 0.8 # 弧度/秒。
+  command_period: 0.05 # 运动中的控制指令发送周期，秒。
+  settle_time: 0.1 # 停车后等待相机稳定，再采图。
+  post_capture_settle_time: 0.05 # 停车采图后到下一段运动的等待。
+  # atomic 模式每步等待；continuous 模式只在合并段末尾等待。
+
+odometry:
+  disable_odom_control: false # false 使用里程计闭环；true 使用定时开环。
+  odom_timeout: 1.0
+  forward_tolerance: 0.04
+  turn_tolerance_degrees: 3.0
+  forward_kp: 3.0
+  forward_kd: 0.0
+  turn_kp: 3.0
+  turn_kd: 0.0
+  min_forward_speed: 0.15
+  min_yaw_speed: 0.35
+
+camera:
+  camera: "/dev/video0"
+  frame_width: 2880
+  frame_height: 1440
+  camera_fps: 30
+  jpeg_quality: 90
+  capture_flush_frames: 2
+  # 原始相机仍采集全景；客户端投影后统一用于上传、保存图片和录制视频。
+  perspective_hfov: 79.0
+  perspective_width: 640
+  perspective_height: 480
+  perspective_yaw: 0.0 # 全景中心对应机器人正前方；正值向右。
+  perspective_pitch: 0.0 # 正值向上。
+
+recording:
+  save_output_dir: "./outputs/realworld"
+  # 按 experiment 的四个字段新建子目录，保存 navigation.mp4、navigation.json 和 summary.json。
+  save_contents: video,json # 如需单独保存采样图，改为 all（图片放在 images/）。
+  video_fps: 10
+  video_width: 640
+  video_height: 480
+  video_writer: ffmpeg
+  video_codec: libx264
+
+upload:
+  # 上传全部新增 atom 帧；下面两个旧选帧字段仅保留 CLI 兼容，不再执行客户端采样。
+  upload_max_memory_images: 10 # 最多 10 张历史图 + 1 张当前图。
+  upload_memory_pool_window_frames: 100
+  upload_image_mode: raw # 原样上传客户端投影后的透视图，不再缩放或二次投影。
+  upload_width: 640
+  upload_height: 480

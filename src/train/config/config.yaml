@@ -1,0 +1,77 @@
+model:
+  name_or_path: "./checkpoints/Qwen3.5-4B"
+  trust_remote_code: false
+  torch_dtype: "bfloat16"
+  attn_implementation: "flash_attention_2"
+  cache_dir: null
+  image_token: "<|image_pad|>"
+  model_max_length: null
+  trainable_modules:
+    visual: true
+    visual_merger: true
+    language_model: true
+    panovggt_mlp: true
+  erp_top_crop_degrees: 20.0
+  erp_bottom_crop_degrees: 20.0
+  panovggt_enabled: true
+  panovggt_checkpoint_path: "./checkpoints/PanoVGGT/model.pt"
+  panovggt_alpha_value: 0.20
+  panovggt_force_fp32: false
+
+data:
+  train_jsonl: "./data/train.jsonl"
+  eval_jsonl: "./data/val.jsonl"
+  train_image_root: "./data"
+  eval_image_root: "./data"
+  train_max_samples: null
+  eval_max_samples: 3000
+  shuffle: true
+  action_vocab: ["stop", "forward", "left", "right"]
+  f1_action_weight: [1.0, 1.0, 1.0, 1.0]
+  prompt_format: "chat_template"
+
+training:
+  output_dir: "./checkpoints/PanoVLN"
+  seed: 42
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-5
+  language_model_lr: 2.0e-5
+  visual_lr: 2.0e-6
+  visual_merger_lr: 2.0e-5
+  panovggt_mlp_lr: 2.0e-5
+  weight_decay: 0.01
+  num_train_epochs: 1
+  logging_steps: 5
+  save_steps: 1000
+  eval_steps: 1000
+  max_steps: -1
+  eval_strategy: "no"
+  save_strategy: "steps"
+  save_model_at_end: true
+  max_shard_size: "50GB"
+  load_best_model_at_end: false
+  metric_for_best_model: null
+  greater_is_better: null
+  save_total_limit: 2
+  warmup_steps: 0.03  #new huggingface version
+  lr_scheduler_type: "cosine"
+  fp16: false
+  bf16: true
+  optim: "adamw_torch_fused"
+  report_to: ["wandb"]
+  remove_unused_columns: false
+  dataloader_num_workers: 6
+  gradient_checkpointing: true
+  max_grad_norm: 10.0
+  deepspeed: "./scripts/zero2.json"
+
+run:
+  do_eval: false
+  resume_from_checkpoint: false
+
+wandb:
+  project: "PanoVLN"
+  mode: "offline"
+  resume: "never"

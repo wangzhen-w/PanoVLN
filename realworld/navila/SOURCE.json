@@ -1,0 +1,133 @@
+{
+  "method": "NaVILA",
+  "official_repository": "https://github.com/AnjieCheng/NaVILA",
+  "source_snapshot": "NaVILA-main",
+  "files": [
+    {
+      "path": "model_code/llava/__init__.py",
+      "source_path": "llava/__init__.py",
+      "source_sha256": "ab4913c72ea58cde0a44f2bc75b6f71894cefdfc89b012ac8d627ea826119837",
+      "runtime_sha256": "2da4d046f06f46ca74a151551736aab14055fe3d0601280e9d16029e95893885"
+    },
+    {
+      "path": "model_code/llava/mm_utils.py",
+      "source_path": "llava/mm_utils.py",
+      "source_sha256": "117d382783c3eba5f6336ff1ee6ee7adedec737fa440a2f8834f40f7ddf7de81",
+      "runtime_sha256": "932819764f967a371b8e08ed2bd369fa27f87cdb9884afd6134ded163ae7660d"
+    },
+    {
+      "path": "model_code/llava/conversation.py",
+      "source_path": "llava/conversation.py",
+      "source_sha256": "5995bc8d45e153395bdeaa31ca7f6c0d1f637135c24e66a1947e9d56ebaa39a1",
+      "runtime_sha256": "5995bc8d45e153395bdeaa31ca7f6c0d1f637135c24e66a1947e9d56ebaa39a1"
+    },
+    {
+      "path": "model_code/llava/constants.py",
+      "source_path": "llava/constants.py",
+      "source_sha256": "eb2d293a06404c5e380d8d419d410e4c5831c29468dff4f70475587540bda36d",
+      "runtime_sha256": "eb2d293a06404c5e380d8d419d410e4c5831c29468dff4f70475587540bda36d"
+    },
+    {
+      "path": "model_code/llava/utils/__init__.py",
+      "source_path": "llava/utils/__init__.py",
+      "source_sha256": "6a52031819f1587e09bcff945beecdf7db1e0418b4af5195d61f1fd4444505e7",
+      "runtime_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "model_code/llava/utils/logging.py",
+      "source_path": "llava/utils/logging.py",
+      "source_sha256": "5ad8ae727987c9e4611459be7aa52e7a8e9db7a1f868673b95701de7dc63caf1",
+      "runtime_sha256": "5ad8ae727987c9e4611459be7aa52e7a8e9db7a1f868673b95701de7dc63caf1"
+    },
+    {
+      "path": "model_code/llava/model/__init__.py",
+      "source_path": "llava/model/__init__.py",
+      "source_sha256": "7a2d4f12560ddebe2dfaa41518b33b4b5f07c3d442719d8b0b0032eb79afc2d7",
+      "runtime_sha256": "3ffeea195d17605526674aee56d50f743a6a5a385f9b99000134fae506e8467b"
+    },
+    {
+      "path": "model_code/llava/model/builder.py",
+      "source_path": "llava/model/builder.py",
+      "source_sha256": "7df26111b6ccb5dfc9698b13de260f84193bc60e58258a2737576296ed94a64e",
+      "runtime_sha256": "62718f90ae65c9c7d941490d43da045d31955b2b426b72d3380f65ed8f223130"
+    },
+    {
+      "path": "model_code/llava/model/configuration_llava.py",
+      "source_path": "llava/model/configuration_llava.py",
+      "source_sha256": "dc48365324db6ad3ae545d2e0aecacbb884f3914f4d1dbf241a991e8915629bc",
+      "runtime_sha256": "dc48365324db6ad3ae545d2e0aecacbb884f3914f4d1dbf241a991e8915629bc"
+    },
+    {
+      "path": "model_code/llava/model/llava_arch.py",
+      "source_path": "llava/model/llava_arch.py",
+      "source_sha256": "3ae2c4e293ac59420fb60c08c59bf9ce6ef5747a434bb3451a4a09d847fd5247",
+      "runtime_sha256": "3191b0b3a169f658eb78e614b2dab273f9698e2f48fc3d791861246d9e2aaffd"
+    },
+    {
+      "path": "model_code/llava/model/utils.py",
+      "source_path": "llava/model/utils.py",
+      "source_sha256": "50b761eaaa52f0dd56a2590906650820d199694ca77b584c9fd74fbfb996b677",
+      "runtime_sha256": "1611c0f50d936334dc01ad7969ac39cfa6aba45cfbb861fee414e64c1f160319"
+    },
+    {
+      "path": "model_code/llava/model/language_model/llava_llama.py",
+      "source_path": "llava/model/language_model/llava_llama.py",
+      "source_sha256": "2686f9b1bc5ddd12fddc2fbf7ac5605fc9eaafa28d71182ffa19ea537df694ad",
+      "runtime_sha256": "58d756b4085b68f00f9ab27a17271ce8a5c2f82054bd0214e36e34099f150e35"
+    },
+    {
+      "path": "model_code/llava/model/language_model/builder.py",
+      "source_path": "llava/model/language_model/builder.py",
+      "source_sha256": "90847af5a9353ea002589c528b63b1a1f47fee55cc20b4d6709831ef86acccf8",
+      "runtime_sha256": "25769ef6a916f81cd56c74c0d55d82e7a7acad8855c1603401cc6e0116747658"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/builder.py",
+      "source_path": "llava/model/multimodal_encoder/builder.py",
+      "source_sha256": "342257a4f2fcd763fda4406e23ad181ae4cefbd3796daf52ca18e8250f9e8a9f",
+      "runtime_sha256": "5b1f119bf8d6679b98c2f975c8e6780ff56ddc3822e3aeede53f73aeb26a89df"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/clip_encoder.py",
+      "source_path": "llava/model/multimodal_encoder/clip_encoder.py",
+      "source_sha256": "950b6a7491ce3def3925df09dd7d45698b8fc419b386599bb0d1fb5f35d3f48d",
+      "runtime_sha256": "75b1bb228775611a41827d6c7e5e7203ac737c64f9d5023bca0d37fdcd062f2b"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/siglip_encoder.py",
+      "source_path": "llava/model/multimodal_encoder/siglip_encoder.py",
+      "source_sha256": "85c48b61b70b4a6071d0cf261bb80f079b079f6cd2836935a57da288803d0215",
+      "runtime_sha256": "814edfca4d7fd0c93b1a2d3ee573c1393b76c632b9820c5ff9088a45252f18d3"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/vision_encoder.py",
+      "source_path": "llava/model/multimodal_encoder/vision_encoder.py",
+      "source_sha256": "9a24c3a46758bc611e4babbc5eee5bb79bb9164f61439249e311c4904c4e0f7e",
+      "runtime_sha256": "bca2151387c7897bbe60e3dc0edafdda2d8c52927d24ac682f529ea0e62316d6"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_projector/builder.py",
+      "source_path": "llava/model/multimodal_projector/builder.py",
+      "source_sha256": "d4de28794ab1a84ce37f25c6625bdc4c11f38d7ab1dcd014c2b3f2acc0032de7",
+      "runtime_sha256": "d3746e90e21948b32a12fee043449d08533a1da04d9ad1b03e6ce111e1178996"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_projector/base_projector.py",
+      "source_path": "llava/model/multimodal_projector/base_projector.py",
+      "source_sha256": "52f699c2839870959c68f72b86a686cca07e81036a2ef4e0bc85930b91e064f4",
+      "runtime_sha256": "87bff4859b8670cd489f17eb6a5f41ff37f421eb12222da0a09100029f077852"
+    },
+    {
+      "path": "model_code/llava/model/language_model/chat_templates/qwen2.jinja",
+      "source_path": "llava/model/language_model/chat_templates/qwen2.jinja",
+      "source_sha256": "4479f9a46f0d88d73ac224157122f749a5b335a1247933c5b2bc2a172a5d9dd9",
+      "runtime_sha256": "4479f9a46f0d88d73ac224157122f749a5b335a1247933c5b2bc2a172a5d9dd9"
+    }
+  ],
+  "derived_entrypoints": {
+    "go2_client.py": "PanoVLN/realworld/go2_client.py",
+    "navigation_metrics.py": "PanoVLN/realworld/navigation_metrics.py",
+    "inference.py": "llava/eval/run_navigation.py + evaluation/vlnce_baselines/navila_trainer.py"
+  },
+  "integration": "Runtime files flattened under realworld/navila; official packages under model_code; model algorithms unchanged."
+}

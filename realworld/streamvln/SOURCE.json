@@ -1,0 +1,175 @@
+{
+  "method": "StreamVLN",
+  "official_repository": "https://github.com/InternRobotics/StreamVLN",
+  "source_snapshot": "StreamVLN-main",
+  "files": [
+    {
+      "path": "requirements.txt",
+      "source_path": "requirements.txt",
+      "source_sha256": "8fc324bd5ccc73a8d9e30544fb3e690912ab02b31087b115fb846021a60f5ee0",
+      "runtime_sha256": "ac1813914451573079738e6533b831b9206237a114a37238fd087ce8d3854550"
+    },
+    {
+      "path": "model_code/llava/utils.py",
+      "source_path": "llava/utils.py",
+      "source_sha256": "445e5aaf447e58157532d1517cf2efb7eef91c5f84db5a9dc07cc39a7f5bef11",
+      "runtime_sha256": "cc31d65034678bdb04001419596b18b1d98ca566461144841495931604105590"
+    },
+    {
+      "path": "model_code/llava/__init__.py",
+      "source_path": "llava/__init__.py",
+      "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+      "runtime_sha256": "2da4d046f06f46ca74a151551736aab14055fe3d0601280e9d16029e95893885"
+    },
+    {
+      "path": "model_code/llava/constants.py",
+      "source_path": "llava/constants.py",
+      "source_sha256": "2c5a8a659b3c5c1c70360808ae901511db67da8fbe331e1329cd754f6f3a0879",
+      "runtime_sha256": "2c5a8a659b3c5c1c70360808ae901511db67da8fbe331e1329cd754f6f3a0879"
+    },
+    {
+      "path": "model_code/streamvln/model/stream_video_vln.py",
+      "source_path": "streamvln/model/stream_video_vln.py",
+      "source_sha256": "e106e16a7de4a8086ed526e55d877506e480d05980ddf1c6909286439acca8dc",
+      "runtime_sha256": "1933bf01ce6cf8c9bc633e44653dfa6550ddbbe6060de7f754cc46d37f3cfbd6"
+    },
+    {
+      "path": "model_code/llava/model/__init__.py",
+      "source_path": "llava/model/__init__.py",
+      "source_sha256": "16714be8b5e852887466b048d2bde886ff37f9cbbc701cd0565822a5e9507d5c",
+      "runtime_sha256": "c3658ff4f9bc13c9be42cfcb486f317a43c3f59f65e9f7d8fb62ea5c572ca7e5"
+    },
+    {
+      "path": "model_code/llava/model/llava_arch.py",
+      "source_path": "llava/model/llava_arch.py",
+      "source_sha256": "ce3d69fbcd69fcb0d056d419a1b6760237a209f1fc09584174bb10e54b9ff3af",
+      "runtime_sha256": "7b934518095d862d4820703860848b3af177d41f3959566e755f5dae590fcd80"
+    },
+    {
+      "path": "model_code/llava/model/language_model/llava_qwen.py",
+      "source_path": "llava/model/language_model/llava_qwen.py",
+      "source_sha256": "f55015d1b7f618462bea4f902004a8a3f9ac1e41c2e8d4dfa9b73fb1fb0c1cba",
+      "runtime_sha256": "a6410f55dcd5c9b560e3c8f78a6db5ddc9f03c7c4cb4a8cd292cee6be670a27f"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_projector/builder.py",
+      "source_path": "llava/model/multimodal_projector/builder.py",
+      "source_sha256": "b0e019aa3f2031b028d6d35b71ef40e16b4b9566c26ad5947dceba1d53777964",
+      "runtime_sha256": "b0e019aa3f2031b028d6d35b71ef40e16b4b9566c26ad5947dceba1d53777964"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_projector/pooler_projector.py",
+      "source_path": "llava/model/multimodal_projector/pooler_projector.py",
+      "source_sha256": "5d9ed31673b3a3ac157f5ebcc5695503ed3e01c44214a42db80a96f8184235ee",
+      "runtime_sha256": "5d9ed31673b3a3ac157f5ebcc5695503ed3e01c44214a42db80a96f8184235ee"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_resampler/builder.py",
+      "source_path": "llava/model/multimodal_resampler/builder.py",
+      "source_sha256": "2e82104348574effc7d2b65c502f439653e4b78bd62815c34a5e77dc7c7a3a5f",
+      "runtime_sha256": "408b8e30d0c3c48875b1d6133a289ebf62f573c4a1446dd77ca9cb322e7abbff"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/builder.py",
+      "source_path": "llava/model/multimodal_encoder/builder.py",
+      "source_sha256": "7c436d20f34b0c05b09150234896f6cb193eb453a4850552eb4569b93990d127",
+      "runtime_sha256": "a988ea740e3249e6552f597c52ee44dcf9f75d00c770fbb376f02a17c9893e80"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/clip_encoder.py",
+      "source_path": "llava/model/multimodal_encoder/clip_encoder.py",
+      "source_sha256": "1ca15402531773b2f81acc6bbc54078e72b48805903f41960bc23d08310c5fd5",
+      "runtime_sha256": "7b886758267cc0767cbaad4d8d5dcbcd1c8b6feec90d97cd48f39a5c8977cc54"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/siglip_encoder.py",
+      "source_path": "llava/model/multimodal_encoder/siglip_encoder.py",
+      "source_sha256": "09b0e16ed6f0281d86f39fb2ad1c938cb684d8df5272f8b952c3f9e41156cfc3",
+      "runtime_sha256": "5c4b07b8c1d3b29cf355bccf41b6390b98930a50b1c0d7153bf33f37a7b236c7"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA-CLIP-18B.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA-CLIP-18B.json",
+      "source_sha256": "990d4780a5d511695385adf286bb46f32a7f08dff10d8960b153a959e9cc4195",
+      "runtime_sha256": "990d4780a5d511695385adf286bb46f32a7f08dff10d8960b153a959e9cc4195"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA-CLIP-8B.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA-CLIP-8B.json",
+      "source_sha256": "c205b327680858c49884374978892e4dd069b9e13e6fa781ee899898e2d18d41",
+      "runtime_sha256": "c205b327680858c49884374978892e4dd069b9e13e6fa781ee899898e2d18d41"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA-CLIP-8B-plus.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA-CLIP-8B-plus.json",
+      "source_sha256": "e68d6a2e710fed0d38fbe39a714b12444bbbdbf5d42b28e673c162efd702dbc3",
+      "runtime_sha256": "e68d6a2e710fed0d38fbe39a714b12444bbbdbf5d42b28e673c162efd702dbc3"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA01-CLIP-B-16.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA01-CLIP-B-16.json",
+      "source_sha256": "5578cf993b759812aaab4d74f491d57f6929e35ece4cc4b9b2c25aefb39a8f1a",
+      "runtime_sha256": "5578cf993b759812aaab4d74f491d57f6929e35ece4cc4b9b2c25aefb39a8f1a"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA01-CLIP-g-14-plus.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA01-CLIP-g-14-plus.json",
+      "source_sha256": "d5a01d9855a608efc8ddff1a8c0607aaad0ca171cc826764a8b1c23340b6620f",
+      "runtime_sha256": "d5a01d9855a608efc8ddff1a8c0607aaad0ca171cc826764a8b1c23340b6620f"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA01-CLIP-g-14.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA01-CLIP-g-14.json",
+      "source_sha256": "86b1b673220494603cf13435c81b63e458a7325eafe8b7253ec7b76069bf2dd3",
+      "runtime_sha256": "86b1b673220494603cf13435c81b63e458a7325eafe8b7253ec7b76069bf2dd3"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-B-16.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-B-16.json",
+      "source_sha256": "34d8b8b4ed7ed08b797f7a69b04088be016a785579e6775bd142e3103d60bbc5",
+      "runtime_sha256": "34d8b8b4ed7ed08b797f7a69b04088be016a785579e6775bd142e3103d60bbc5"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-L-14-336.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-L-14-336.json",
+      "source_sha256": "deb4f3c231f1263c346ad212808f1d08e267414f59d2f9915b7d6153494c44e6",
+      "runtime_sha256": "deb4f3c231f1263c346ad212808f1d08e267414f59d2f9915b7d6153494c44e6"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-L-14.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-L-14.json",
+      "source_sha256": "af3acdaecc935956f696c826b9e1ae353770908e7f2c96ccc5eb27531f76515a",
+      "runtime_sha256": "af3acdaecc935956f696c826b9e1ae353770908e7f2c96ccc5eb27531f76515a"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-bigE-14-plus.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-bigE-14-plus.json",
+      "source_sha256": "9b30b750339a8f6e328326449542cf7e5f47b2a22f130b1cf2b288a7d92c5e70",
+      "runtime_sha256": "9b30b750339a8f6e328326449542cf7e5f47b2a22f130b1cf2b288a7d92c5e70"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-bigE-14.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/EVA02-CLIP-bigE-14.json",
+      "source_sha256": "755f0abff9a32091106f71a8b771f19763577681d3d5eafe3ff23db16ff298a2",
+      "runtime_sha256": "755f0abff9a32091106f71a8b771f19763577681d3d5eafe3ff23db16ff298a2"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/Internal-EVA02-CLIP-10B-14-448.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/Internal-EVA02-CLIP-10B-14-448.json",
+      "source_sha256": "99ffa0829bd984284a662ea6acec7406938e7e0acf7361a3adc53cf7cda3d5d1",
+      "runtime_sha256": "99ffa0829bd984284a662ea6acec7406938e7e0acf7361a3adc53cf7cda3d5d1"
+    },
+    {
+      "path": "model_code/llava/model/multimodal_encoder/eva_clip/model_configs/Internal-EVA02-CLIP-10B-14.json",
+      "source_path": "llava/model/multimodal_encoder/eva_clip/model_configs/Internal-EVA02-CLIP-10B-14.json",
+      "source_sha256": "435626e340a155c91f8b0ddd9b816ff08308b12bd18bc6ea156c41f573d24d01",
+      "runtime_sha256": "435626e340a155c91f8b0ddd9b816ff08308b12bd18bc6ea156c41f573d24d01"
+    }
+  ],
+  "derived_entrypoints": {
+    "go2_client.py": "PanoVLN/realworld/go2_client.py",
+    "navigation_metrics.py": "PanoVLN/realworld/navigation_metrics.py",
+    "inference.py": "streamvln/streamvln_agent.py + streamvln/http_realworld_server.py"
+  },
+  "integration": "Runtime files flattened under realworld/streamvln; official packages under model_code; model algorithms unchanged."
+}
