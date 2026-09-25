@@ -1,67 +1,67 @@
-# PanoVLN 数据制作
+# Creating the PanoVLN dataset
 
-全部可用 HM3D 场景共同制作一份训练数据，不划分训练集与验证集。HM3D 原始资源目录中的 `train/`、`val/` 仍是场景文件路径的一部分，不决定 PanoVLN 的用途。
+All available HM3D scenes contribute to one training dataset. PanoVLN does not split these scenes into training and validation sets. The `train/` and `val/` directories in the original HM3D assets remain part of the scene paths; they do not determine how PanoVLN uses a scene.
 
-## 目录
+## Directory layout
 
 ```text
 ./data/general_vln_dataset/panovln/
 ├── trajectory/
-│   ├── trajectories.json.gz       # 原始动作、pose、决策事件
+│   ├── trajectories.json.gz       # Source actions, poses, and decision events
 │   └── trajectories_stats.json
 ├── train.json
-├── train.json.gz                   # 标准 R2R，全部用于训练
-└── .work/                         # 制作期间的检查点
+├── train.json.gz                   # Standard R2R format; all episodes are for training
+└── .work/                         # Checkpoints used during generation
     ├── trajectory/
     └── instruction/
 ```
 
-场景根目录为 `./data/scene/hm3d/`，保留 `train/场景目录/` 和 `val/场景目录/`。
-图片单独写入 `./data/images/panovln/<episode_id>/frame_<i>.jpg`，与训练使用的 `images/` 布局一致；`sub_dataset/` 布局保持不变。
+The scene root is `./data/scene/hm3d/`. Keep each scene under its original `train/<scene>/` or `val/<scene>/` path. Training images are written to `./data/images/panovln/<episode_id>/frame_<i>.jpg`, following the layout used by training. The `sub_dataset/` layout stays the same.
 
-轨迹文件与最终 R2R 文件分开，避免覆盖动作和决策元数据。`.work/` 支持中断续跑，两个阶段各用一个子目录；对应阶段成功完成后自动清理其检查点。图片、视频和 compass 按当前轨迹即时制作；最终只保留训练 ERP 和 R2R 文件，原始轨迹继续作为动作对齐依据。
+Source trajectories are stored separately from the final R2R file so their actions and decision metadata are preserved. The `.work/` directories support resuming either generation stage after an interruption; each stage removes its checkpoints after successful completion. Images, videos, and compass views are produced for the current trajectory as needed. The final outputs retain only the training ERP images and R2R files. The source trajectory file remains available for action alignment.
 
-## 轨迹制作
+## Generate trajectories
 
-[create_trajectories.sh](create_trajectories.sh) 顶部直接设置场景根目录、输出、GPU 和运行模式。默认扫描所有含 GLB 和 NavMesh 的 HM3D 场景，收集到同一个 `trajectory/trajectories.json.gz`。`SCENE_IDS=()` 表示使用全部场景，也可设置明确的场景列表。
+Set the scene root, output, GPUs, and run mode at the top of [create_trajectories.sh](create_trajectories.sh). By default, the script scans every HM3D scene with both a GLB and a NavMesh and collects them into one `trajectory/trajectories.json.gz` file. `SCENE_IDS=()` selects all scenes; set a list of IDs to select specific scenes.
+
+Run from the repository root:
 
 ```bash
-# 在仓库根目录执行
 ./dataset_create/create_trajectories.sh inspect
 ./dataset_create/create_trajectories.sh collect
 ./dataset_create/create_trajectories.sh validate
 ```
 
-采集过程先划分 Navigation Regions，再通过全景深度检验有区分意义的分支，最后从不同区域采集自然最短路径。路线必须经过有效决策，相同决策顺序和相近区域结构的坐标变体仅保留一个代表。它不人为添加 decision waypoint，也不按场景设置固定轨迹配额。
+Collection first partitions navigation regions, then uses panoramic depth to identify meaningful branches, and finally samples natural shortest paths between regions. A route must pass a valid decision. Routes with the same decision sequence and similar region structure keep only one representative coordinate variant. The process does not add artificial decision waypoints or enforce a fixed trajectory quota per scene.
 
-每条轨迹保存起点、目标、实际 stop pose、region/connection sequence、基础动作与 decision events。事件的 `action_index` 是到达该状态前已经执行的动作数，执行 `action_ids[:action_index]` 即可复现对应 pose。
+Each trajectory records its start, goal, actual stop pose, region and connection sequences, primitive actions, and decision events. An event's `action_index` is the number of actions executed before reaching that state. Replaying `action_ids[:action_index]` reproduces the corresponding pose.
 
-采集完成的场景有独立检查点。中断后重新运行 `collect` 复用这些场景；已存在完整最终轨迹时默认保留，`OVERWRITE=true` 才重新采集。`validate` 会独立回放全部动作，检查决策 pose、最终 pose、碰撞和目标到达，全部通过后清理轨迹检查点。
+Completed scenes have separate checkpoints. Rerunning `collect` after an interruption reuses them. An existing complete trajectory file is retained by default; set `OVERWRITE=true` to recollect it. `validate` independently replays every action and checks decision poses, final poses, collisions, and goal arrival. It removes trajectory checkpoints only after all checks pass.
 
-## Instruction 与图片制作
+## Generate instructions and images
 
-[create_instructions.sh](create_instructions.sh) 默认读取统一轨迹文件，GPU 0–7、16 个 Habitat 进程，每个进程并发处理 9 条轨迹，API 并发上限为 144；`LIMIT=0` 处理全部轨迹。只将未完成任务按场景分批，空闲进程从共享队列领取下一批。API 等待可以重叠，渲染仍在每个进程的主线程依次执行，每张卡只常驻两个模拟器。
+[create_instructions.sh](create_instructions.sh) reads the unified trajectory file by default. It uses GPUs 0–7 and 16 Habitat processes, with up to nine concurrent trajectories per process and an API concurrency limit of 144. `LIMIT=0` processes all trajectories. Only unfinished tasks are batched by scene; idle processes take the next batch from a shared queue. API waits can overlap, while each process renders sequentially on its main thread, keeping at most two simulators on each GPU.
 
 ```bash
 ./dataset_create/create_instructions.sh inspect
 ./dataset_create/create_instructions.sh generate
 ```
 
-按自然片段、视觉材料、局部语言、轻量整理、局部验证这五阶段处理。通过验证后导出 clean ERP 和标准 R2R；无法清楚描述或验证的轨迹隔离。详情见 [instruction/README.md](instruction/README.md)。
+The pipeline has five stages: natural segmentation, visual evidence, local language generation, light editing, and local verification. After verification, it exports clean ERP images and standard R2R data. Trajectories that cannot be described or verified clearly are quarantined. See the [instruction generation guide](instruction/README.md) for details.
 
-中断后使用相同命令继续；不要在未完成时删除 `.work/instruction`。已完成轨迹跳过，未完成轨迹复用已保存的局部文本和模型响应。最后输出 `images/panovln/` 下的图片，以及 `general_vln_dataset/panovln/` 下的 `train.json` 和 `train.json.gz`。
+Rerun the same command after an interruption. Do not delete `.work/instruction` while generation is incomplete. Completed trajectories are skipped; unfinished trajectories reuse saved local text and model responses. Final outputs are the images under `images/panovln/` and `train.json` plus `train.json.gz` under `general_vln_dataset/panovln/`.
 
-## 已有轨迹合并
+## Merge existing trajectory collections
 
-现有的两部分轨迹已合并为 **105,307 条**统一训练输入。共检查 900 个场景，其中 872 个产生符合要求的轨迹。每条轨迹的 ID、动作、pose、决策事件与停止位置均保持原样，没有重新采集或重规划路线。
+Two existing collections were merged into a unified training input of **105,307 trajectories**. Of 900 inspected scenes, 872 produced qualifying trajectories. Every trajectory kept its original ID, actions, poses, decision events, and stop position; no routes were recollected or replanned.
 
-生产入口只读取统一轨迹文件，已有轨迹不必重新制作。
+The production entry point reads only the unified trajectory file, so existing trajectories do not need to be regenerated.
 
-[trajectory/merge.py](trajectory/merge.py) 可合并参数一致、场景互不重叠的已有轨迹集，同时核对 ID、逐场景数量并合并统计。已有回放结论明确标为继承自内容未变的源轨迹，不当作一次新的全量回放。
+[trajectory/merge.py](trajectory/merge.py) can merge collections with matching parameters and disjoint scene sets. It checks IDs and per-scene counts and combines statistics. Replay conclusions inherited from unchanged source trajectories are marked as inherited, rather than presented as a new full replay.
 
 ```bash
 python -m dataset_create.trajectory.merge \
-  --datasets /path/to/first.json.gz /path/to/second.json.gz \
-  --stats /path/to/first_stats.json /path/to/second_stats.json \
+  --datasets ./data/first.json.gz ./data/second.json.gz \
+  --stats ./data/first_stats.json ./data/second_stats.json \
   --output-root ./data/general_vln_dataset/panovln/trajectory
 ```
