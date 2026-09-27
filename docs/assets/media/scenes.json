@@ -48,32 +48,32 @@
     "type": "realworld",
     "title": "Water dispenser",
     "instruction": "Turn right and go straight. There is a black storage rack against the wall. Walk up to the water dispenser beside the rack and stop.",
-    "playback": "2× source playback, inherited from the audited prior edit.",
+    "playback": "2× playback, rendered directly from original camera recordings.",
     "scope": "Full edited route",
     "duration": 21.5,
-    "width": 1920,
-    "height": 540
+    "width": 2560,
+    "height": 720
   },
   {
     "id": "realworld-hallway",
     "type": "realworld",
     "title": "Turn around and find a chair",
     "instruction": "Turn around and walk to the chair and stop there.",
-    "playback": "2× source playback, inherited from the audited prior edit.",
+    "playback": "2× playback, rendered directly from original camera recordings.",
     "scope": "Full edited route",
     "duration": 36.3,
-    "width": 1920,
-    "height": 540
+    "width": 2560,
+    "height": 720
   },
   {
     "id": "realworld-campus",
     "type": "realworld",
     "title": "Outdoor navigation",
     "instruction": "Go straight. On the left, there is a brown recliner. Walk over there and stop.",
-    "playback": "2× source playback, inherited from the audited prior edit.",
-    "scope": "24-second excerpt of the edited route",
+    "playback": "2× playback, rendered directly from original camera recordings.",
+    "scope": "24-second excerpt",
     "duration": 24.0,
-    "width": 1920,
-    "height": 540
+    "width": 2560,
+    "height": 720
   }
 ]
