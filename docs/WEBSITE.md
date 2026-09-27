@@ -1,57 +1,27 @@
-# Project website
+# Website and release video
 
-The project page is a static HTML/CSS/JavaScript site in `docs/`. It has no build-time JavaScript dependencies. Fonts, images, panoramic recordings, comparison recordings, and the paper PDF are served by Pages. Complete 1080p camera recordings are hosted as GitHub Release assets.
+GitHub Pages serves this static `docs/` directory through the repository workflow. Preview it with `python -m http.server 8765 --directory docs`. There is no framework build or external font dependency.
 
-## Preview
+## Video
 
-From the repository root:
+The project page loads one YouTube embed only after the visitor presses Play. The README links a still thumbnail to the same video, since GitHub Markdown does not render YouTube iframes. The released film contains an opening title and three original real-world routes: office TV, hallway red carpet, and campus chair. Motion is encoded at 3×; the viewer should leave YouTube playback at 1×.
 
-```bash
-python3 -m http.server 8765 --directory docs
-```
+The upload master is 3840×2160 at 29.97 fps after the iMovie export. Its panoramic inputs are native 1280×640 at 10 fps; its external cameras are 1920×1080 HLG recordings. The 4K frame is the composition size, not a claim of native 4K camera detail. Phone footage is tone-mapped from BT.2020 HLG into BT.709 SDR with Hable highlight roll-off. No masking, brightness boost, or intermediate compressed demo is used. The two cameras use fixed start offsets; the phone's final frame is held where its recorder stops earlier. Capture metadata and original camera audio are removed. The final iMovie edit adds 0.6-second cross dissolves and an instrumental soundtrack, with a 2.5-second fade-in and 6-second fade-out. Navigation footage remains at 3×; source edges overlap during transitions.
 
-Open `http://localhost:8765`. Use an HTTP server: scene metadata is loaded with `fetch`, so opening `index.html` directly as a local file is not supported.
+The original recordings, source-rendering scripts, editable iMovie library, and master are kept on T9 outside this Git repository. The iMovie library is stored inside the APFS sparse disk image on T9. `tools/build_release_film.py` prepares the source-derived scene clips; the final transitions and soundtrack are assembled in iMovie. The site tracks thumbnails and `assets/media/film.json`, not MP4/GIF files. Older media remain in Git history; no history rewrite is needed for this release.
 
-## Publish on GitHub Pages
+To replace the video, update the `data-video-id` and watch URL in `index.html`, the watch URL in `../README.md`, and the ID in `assets/media/film.json`. Replace `film-poster.jpg` and the social card if the footage changes. Keep the embed's descriptive title and click-to-load behavior.
 
-In repository Settings → Pages, select **GitHub Actions** as the source. The `Deploy project page` workflow publishes `docs/` when a change to the site reaches `main`, or when manually dispatched. The expected URL is `https://wangzhen-w.github.io/PanoVLN/`.
+### Soundtrack attribution
 
-## Update content
+“Machinery of the Stars” by Scott Buckley, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [Track and license](https://www.scottbuckley.com.au/library/machinery-of-the-stars/). The score is excerpted, leveled, and faded for the film. Keep the attribution in the YouTube description whenever uploading or replacing this edit.
 
-- Page layout and links: `docs/index.html`.
-- Colors, typography, responsive layout: `docs/styles.css`.
-- Video controls, scene tabs, citation copy: `docs/site.js`.
-- Simulation scenes and instructions: `docs/assets/media/scenes.json`.
-- Original real-world recordings, timing, and camera URLs: `docs/assets/media/originals/manifest.json`.
-- Animated project header: `docs/assets/media/project-banner.json` and `tools/build_project_banner.py`.
-- Five-method office comparison: `docs/assets/media/comparison/manifest.json`.
-- Visual direction, reference prompts, and icon selection: [`DESIGN.md`](DESIGN.md).
-- Paper-derived figures and tables: follow [`tools/README-paper-assets.md`](../tools/README-paper-assets.md).
-- Replace the disabled arXiv button with a link after the identifier is available, then update the README badge and citation metadata together.
+## Paper content
 
-The header uses original navigation footage and the PanoVLN name; it has no project pictogram or promotional tagline. The favicon uses the sourced Phosphor Panorama Duotone icon. Interface and platform icons, provenance, and licenses are in [`assets/icons/`](assets/icons/README.md). `assets/brand/social-card.png` is the 1200 × 630 sharing image; its editable source is `tools/social-card.html`. Render it after fonts and images load.
+`tools/build_project_content.py` regenerates the three marked main-result table slots from manuscript-derived content using `tools/project-page-curation.json`. The success-rate slot is derived from `realworld_navigation` in `assets/research-data.json`. Preserve the marked slots when editing HTML. The downloadable paper retains all experiments and ablations.
 
+## Design and licenses
 
-## Main-result content
+See [DESIGN.md](DESIGN.md) for the JanusVLN layout reference, liquid-glass treatment, and accessibility fallbacks. The site uses self-hosted Geist; the film uses Geist and Gilda Display. Both licenses are included. Platform and Phosphor icon provenance is in [assets/icons/README.md](assets/icons/README.md).
 
-The results section contains two semantic HTML tables: selected simulation baselines and real-world execution efficiency, each with five methods. The selection in [`tools/project-page-curation.json`](../tools/project-page-curation.json) names rows and columns without duplicating numeric values. Run `tools/build_project_content.py` against the extracted paper-content JSON to refresh the two marked slots in `index.html`. The complete source tables and figure records remain in `assets/research-data.json` for provenance; the page does not render a full figure gallery or ablations.
-
-The architecture illustration is followed by three independent real-world success-rate panels for Hallway, Office and Campus. [`tools/render_realworld_sr.py`](../tools/render_realworld_sr.py) creates these SVGs with Matplotlib from the same source JSON, retaining all five methods, exact values and the same 0–100% scale. Their source and values are recorded in `assets/figures/realworld-sr-provenance.json`. See the [asset rebuilding guide](../tools/README-paper-assets.md) for commands and font dependencies.
-
-## Media delivery
-
-The README opens with an eight-second animated mosaic made from two original robot camera recordings and two simulation panoramas. The corresponding 1920 × 872 H.264 video appears on the project page. These are overview assets; the gallery provides complete recordings in separate full-width players.
-
-The real-world gallery switches between the original first-person panorama and the external camera:
-
-- **First person:** all original H.264 video frames are copied without re-encoding. Office, hallway, and campus recordings retain 1280 × 640, 10 fps, complete durations, and original timestamps.
-- **External camera:** complete 1920 × 1080 recordings retain the original approximately 60 fps timing and audio. The original HLG/HEVC recordings are tone mapped to SDR and encoded once as H.264 at CRF 16 for browser support. They are not cropped, resized, retimed, or masked. Large MP4s are served from the [`navigation-media-v4` release](https://github.com/wangzhen-w/PanoVLN/releases/tag/navigation-media-v4), keeping them out of the Git history and Pages artifact.
-- **Playback:** starts at 1× with 2×/4× controls. Switching camera views uses a documented approximate timing correspondence. Native video controls allow seeking, fullscreen playback, and unmuting the camera audio. MP4s have their metadata at the front for streaming. Preload is limited to metadata for the selected clip; other videos load only when selected.
-
-`assets/media/originals/manifest.json` records source-relative paths, sizes, checksums, dimensions, frame rates, timing mappings, and verification results. `assets/media/project-banner.json` records the overview composition separately. No earlier low-resolution or anonymized supplementary export is used as a source.
-
-The five-method comparison uses the complete original first-person recordings from one shared office-to-TV task: PanoVLN, JanusVLN, StreamVLN, NaVILA and NaVid. Streams are copied without re-encoding, cropping, resizing or masking. Files retain 1× timestamps and 10 fps; the comparison starts at a shared 1× playback speed and offers 2×/4×. Each recording runs to its own endpoint. Selecting a baseline resets both players. Pause / Resume preserve position; Restart returns to the beginning. A finished recording stays on its final frame while the other continues. Once both have ended, Replay together starts again. Success/failure labels are not inferred from the qualitative videos.
-
-Simulation recordings preserve source timing and 3 fps sampling. The hero plays muted only while visible and when reduced motion is not requested. Starting another recording pauses unrelated videos. All recordings are illustrative examples; the tables report quantitative evaluation.
-
-Font licenses for Manrope and DM Sans are included in `assets/fonts/`. The banner's Instrument Sans typography uses the [SIL Open Font License](https://github.com/Instrument/instrument-sans/blob/main/OFL.txt). Model, dataset, and code terms remain in the repository's License section.
+Before deployment, check desktop and mobile layouts, keyboard controls, the YouTube link and embed, table overflow, citation copying, local links, and the disabled arXiv control.

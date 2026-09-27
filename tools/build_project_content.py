@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Render two curated main-result tables, preserving the complete research JSON.
+"""Render curated main-result tables, preserving the complete research JSON.
 
 Usage: python tools/build_project_content.py path/to/paper-content.json
 The selection configuration contains only method/column names, never result values.
-The HTML template must provide the benchmark-table and efficiency-table slots.
+The HTML template must provide every marked slot in project-page-curation.json.
 """
 from __future__ import annotations
 
