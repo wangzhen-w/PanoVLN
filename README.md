@@ -23,8 +23,8 @@
     <a href="https://huggingface.co/datasets/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/🤗_Dataset-PanoVLN-E6B94B?style=flat-square" alt="PanoVLN training data" /></a>
   </p>
 
-  <a href="https://www.youtube.com/watch?v=YOUTUBE_ID"><img src="docs/assets/media/film-poster.jpg" alt="Watch PanoVLN real-world navigation on YouTube: office TV, hallway red carpet, and campus chair, at 3× speed" width="100%" /></a>
-  <p><a href="https://www.youtube.com/watch?v=YOUTUBE_ID">▶ Watch the real-world navigation video</a></p>
+  <a href="https://www.youtube.com/watch?v=wiMWJ8pS-QI"><img src="docs/assets/media/film-poster.jpg" alt="Watch PanoVLN real-world navigation on YouTube: office TV, hallway red carpet, and campus chair, at 3× speed" width="100%" /></a>
+  <p><a href="https://www.youtube.com/watch?v=wiMWJ8pS-QI">▶ Watch the real-world navigation video</a></p>
 </div>
 
 ## Contents
