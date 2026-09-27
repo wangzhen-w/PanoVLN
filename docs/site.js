@@ -99,7 +99,9 @@ let clips = [];
 function currentSpeed() { return Number(speed.value); }
 function updateComparisonButton() {
   const playing = comparisonVideos.some(v => !v.paused && !v.ended);
-  comparisonButton.querySelector('span').textContent = playing ? 'Pause both' : 'Play together';
+  const finished = comparisonVideos.every(v => v.ended);
+  const started = comparisonVideos.some(v => v.currentTime > 0);
+  comparisonButton.querySelector('span').textContent = playing ? 'Pause both' : finished ? 'Replay together' : started ? 'Resume both' : 'Play together';
   comparisonButton.querySelector('img').src = `assets/icons/phosphor/regular/${playing ? 'pause' : 'play'}.svg`;
 }
 function updateStatus(video) {
@@ -135,9 +137,12 @@ $('#compare-restart').addEventListener('click', resetComparison);
 speed.addEventListener('change', () => { comparisonVideos.forEach(v => { v.defaultPlaybackRate = currentSpeed(); v.playbackRate = currentSpeed(); }); });
 comparisonButton.addEventListener('click', async () => {
   if (comparisonVideos.some(v => !v.paused && !v.ended)) { comparisonVideos.forEach(v => v.pause()); return; }
-  // A new joint playback starts from the same point even after independent inspection.
-  resetComparison(); pauseOtherMedia('comparison');
-  const results = await Promise.allSettled(comparisonVideos.map(v => v.play()));
+  const replay = comparisonVideos.every(v => v.ended);
+  if (replay) resetComparison();
+  pauseOtherMedia('comparison');
+  // Keep an ended recording on its final frame while the other one resumes.
+  const pending = replay ? comparisonVideos : comparisonVideos.filter(v => !v.ended);
+  const results = await Promise.allSettled(pending.map(v => v.play()));
   if (results.some(r => r.status === 'rejected')) $('#comparison-error').textContent = 'Use the play controls inside each video to start playback.';
   else $('#comparison-error').textContent = '';
 });
