@@ -1,0 +1,70 @@
+{
+  "speed": 3,
+  "audio": "silent research visualizations",
+  "comparison": [
+    {
+      "method": "NaVid",
+      "source": "realworld/supplement/NaVid_office_tv_1/navigation.mp4",
+      "ours_source": "realworld/supplement/PanoVLN_office_tv_1/navigation.mp4",
+      "start": 0,
+      "duration": 32.86666666666667,
+      "source_duration": 95.6,
+      "ours_duration": 68.8
+    },
+    {
+      "method": "NaVILA",
+      "source": "realworld/supplement/NaVILA_office_tv_2/navigation.mp4",
+      "ours_source": "realworld/supplement/PanoVLN_office_tv_1/navigation.mp4",
+      "start": 32.86666666666667,
+      "duration": 23.933333333333334,
+      "source_duration": 42.8,
+      "ours_duration": 68.8
+    },
+    {
+      "method": "StreamVLN",
+      "source": "realworld/supplement/StreamVLN_office_tv_1/navigation.mp4",
+      "ours_source": "realworld/supplement/PanoVLN_office_tv_1/navigation.mp4",
+      "start": 56.8,
+      "duration": 41.06666666666667,
+      "source_duration": 120.20000000000002,
+      "ours_duration": 68.8
+    },
+    {
+      "method": "JanusVLN",
+      "source": "realworld/supplement/JanusVLN_office_tv_1/navigation.mp4",
+      "ours_source": "realworld/supplement/PanoVLN_office_tv_1/navigation.mp4",
+      "start": 97.86666666666667,
+      "duration": 50.833333333333336,
+      "source_duration": 149.5,
+      "ours_duration": 68.8
+    }
+  ],
+  "simulation": [
+    {
+      "id": "simulation-01",
+      "title": "Living room to porch",
+      "source": "r2r/episode_72/navigation.mp4",
+      "instruction": "leave sitting room and head towards the kitchen, turn right at living room and enter. walk through living room to dinning room and enter. Turn left and head to front door. Exit the house and stop on porch.",
+      "source_duration": 30.666666999999997,
+      "duration": 10.222222333333333,
+      "source_fps": "3/1",
+      "source_dimensions": [
+        2366,
+        640
+      ]
+    },
+    {
+      "id": "simulation-02",
+      "title": "Hallway to sliding door",
+      "source": "rxr/episode_8632/navigation.mp4",
+      "instruction": "Right now you're facing towards a wall, turn right from the place where you're standing and move forward until you reach an open arch on the left side. Now, turn left and move little forward. Turn right and you can see a passage, walk in the passage till you reach an open entrance on the left side. Now, turn left here you're facing towards a portrait. Slightly turn left and walk forward. Right now you're standing at the entrance of a room, where you can see a sink on the left side. Move forward that stand near the sliding door and that is the end point.",
+      "source_duration": 34.0,
+      "duration": 11.333333333333334,
+      "source_fps": "3/1",
+      "source_dimensions": [
+        2358,
+        640
+      ]
+    }
+  ]
+}

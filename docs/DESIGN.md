@@ -1,34 +1,36 @@
-# PanoVLN — research page and widescreen film
+# PanoVLN research page
 
 ## Direction
-A centered research page: title, authors, resources, one wide demonstration, abstract, approach and selected results. JanusVLN informs the research hierarchy and full-width media. Apple iPhone, iPad and MacBook pages inform the restrained glass navigation, large type and single media focal point. This is an original layout using our own footage and research assets.
 
-## Tokens
-- Porcelain `#f5f5f7`: canvas.
-- White `#ffffff`: article and media light.
-- Graphite `#1d1d1f`: main type.
-- Slate `#62666d`: secondary type.
-- Blue `#0066cc`: links and actions.
-- Ice `#dceafa`: a faint hero light, not a section fill.
+JanusVLN informs the centered research hierarchy and wide media. Apple product pages inform the black canvas, large type and restrained, floating controls. The page contains the paper's teaser, exact abstract, real-world film, model architecture, dataset pipeline, main results, method comparison, VLN-CE visualizations, resources and citation. Ablations remain in the paper.
 
-Geist throughout: 76–92px project name, 34–38px paper title, 34px section titles, 19px body, 16px control labels. Text measure 76 characters maximum. 980px article / 1120px media. Desktop horizontal grid collapses to a single column. Glass is reserved for navigation, resource buttons and the media rim.
+## Tokens and layout
 
-```
-previous                         revised
-text  / angled photo            centered title + authors
-      / angled panorama         centered resource links
-abstract card                   ONE complete 16:9 film
-three vertical crops            abstract (reading column)
-boxed sections                  approach / main results
-```
+- Black `#000000`: canvas.
+- Charcoal `#141416`: media and citation surface.
+- White `#f5f5f7`: primary text.
+- Gray `#a1a1a8`: secondary text.
+- Blue `#8bc4ff`: links and selected results.
+- Graphite `#303034`: table separators.
 
-No rotated media, triptych, extra slogan or ablation gallery. The film cover is a single complete wide frame. All routes appear sequentially: Office TV → Hallway red carpet → Campus chair. A full 16:9 third-person image is the main frame, with the complete 2:1 panorama inset. Navigation is 3×; phone HDR is explicitly converted to SDR. There is no anonymization or source-footage crop. The title and closing use the same sans-serif typography. A licensed score and short dissolves are finished in iMovie.
+Self-hosted Geist throughout; 66–104px project name, 25–38px paper title, 34–56px section titles, 18–20px body and 15–17px controls. Research content is 1120px wide; videos are 1280px wide. Authors form four columns on desktop and two on mobile. Paper figures retain their white canvas and original colors.
 
-## Sources studied
-- https://miv-xjtu.github.io/JanusVLN.github.io/
-- https://www.apple.com/sg/iphone-18-pro/
-- https://www.apple.com/sg/ipad-pro/
-- https://www.apple.com/sg/macbook-pro/
+Glass is reserved for navigation, resource controls, play buttons and the comparison chapter selector. The effect uses a translucent material, backdrop blur and saturation, bright upper rim, dark lower edge and pointer-responsive reflection. Content itself stays crisp. Reduced transparency replaces glass with a solid surface; reduced motion disables transitions and smooth scrolling. This is a CSS approximation of the material, not Apple's native renderer.
+
+## Adapted design prompt
+
+> Build a dark academic project page for panoramic vision-and-language navigation. Use a true black background, large neutral sans-serif type, centered title and authors, and full-width, unrotated media. Keep the research hierarchy explicit: teaser, abstract, method, dataset pipeline, main results and videos. Reserve liquid glass for floating controls: diffused backdrop, a fine reflective rim, subtle inner shadow and interaction-driven highlights. Keep charts and body text on clear, stable surfaces. Preserve every image's original aspect ratio. Show execution efficiency directly. Do not add slogans, decorative illustrations or an ablation gallery.
+
+This prompt is an original synthesis of the references below, not a copied template. All footage and research assets belong to this project; no Apple or JanusVLN visual assets are reused.
+
+## References
+
+- [JanusVLN project page](https://miv-xjtu.github.io/JanusVLN.github.io/)
+- [Apple iPhone](https://www.apple.com/sg/iphone-18-pro/), [iPad Pro](https://www.apple.com/sg/ipad-pro/), [MacBook Pro](https://www.apple.com/sg/macbook-pro/)
+- [Apple: Meet Liquid Glass](https://developer.apple.com/videos/play/wwdc2025/219/) — material, hierarchy and interaction
+- [Design for AI: Liquid Glass](https://designforai.dev/style/liquid-glass) — prompt and CSS treatment
+- [Liquid Glass design prompts](https://liquidglassdesign.com/prompts) — prompt references
 
 ## Verification
-Inspect desktop and mobile renders, original aspect ratios, YouTube loading and citation copy. Check film contact sheets, endpoints, color metadata, audio loudness and final duration before upload. All masters and iMovie work stay on T9.
+
+Check 390px, 768px and 1440px layouts, keyboard focus, table scrolling, citation copying and reduced-motion behavior. Only a clicked video loads an external player; switching videos removes the previous player. Inspect full video frames and endpoint labels, and verify duration, color metadata and audio loudness before upload. Masters stay on T9.
