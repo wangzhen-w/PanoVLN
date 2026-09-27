@@ -1,26 +1,29 @@
-# Project-page design
+# PanoVLN research page — liquid glass
 
-The page uses the Luxterra typographic direction: Gilda Display research headings, Geist body text, warm paper, and wine accents. A centered paper identity leads into one large YouTube film. Method, main results, downloads, and citation follow in a compact 1160 px content column. Body text is 19 px on desktop and 17 px on mobile; secondary text is 16–17 px. Navigation videos, status labels, and comparison controls are consolidated into the film.
+The current layout follows the research hierarchy of the [JanusVLN project page](https://miv-xjtu.github.io/JanusVLN.github.io/): a split paper identity / research visual, followed by Abstract, Demo Video, Approach, Experiments, and BibTeX. PanoVLN adds practical model and data links. The page uses its own copy, footage, figures, typography, and implementation.
 
-## Design references
-
-- [Jiro — Blogs Luxterra](https://jiro.build/components/blogs-articles/blogs-luxterra): its **Copy Prompt** was accessible in the signed-in account. Gilda Display / Geist, a cream-and-maroon palette, image-led content, and clear headline hierarchy informed this page. We adapted the article-grid idea to research content and reduced its large section gaps.
-- [Jiro — Footer 04 Kelo](https://jiro.build/components/footer/footer-04-kelo): its **Copy Prompt** was accessible. The photographic background and translucent footer panel informed the footer. We use our own hallway recording, larger links, and a compact layout; no newsletter or stock imagery.
-- [Jiro — Luxterra full template](https://jiro.build/templates/real-estate-construction/real-estate-listing-website-luxterra): the public preview was inspected. The full template prompt requires a paid plan and was not accessed.
-- [JanusVLN project page](https://miv-xjtu.github.io/JanusVLN.github.io/): its concise title/authors/resources and primary-video hierarchy informed the research-page structure.
-
-No external website source or stock photographs were copied. Research diagrams and photographs belong to PanoVLN. Interface icons are from Phosphor and official platform sources; see [icon provenance](assets/icons/README.md). Fonts are self-hosted under their included SIL Open Font Licenses.
-
-## Tokens and decisions
+## Visual system
 
 | Token | Value |
 | --- | --- |
-| Paper | `#FFF8F0` |
-| Ink | `#321C22` |
-| Wine | `#63252F` |
-| Secondary text | `#64555B` |
-| Rule | `#DCCFCD` |
+| Ice background | `#EEF3FA` |
+| Primary text | `#15243B` |
+| Secondary text | `#4D6178` |
+| Ocean accent | `#1558A6` |
+| White | `#FFFFFF` |
+| Mist | `#D6E8F3` |
+| Typeface | Geist, self-hosted |
 | Main width | 1160 px |
-| Section spacing | 56 px desktop / 40 px mobile |
+| Body text | 19 px desktop / 17 px mobile |
 
-The page has no invented slogan or custom illustrated logo. Main simulation results and real-world success rates are readable HTML tables. Execution efficiency is available in a disclosure; ablations remain in the paper. The arXiv control is explicitly unavailable until a real identifier exists.
+Liquid glass is concentrated in the floating navigation, resource buttons, photographic frames, and player control. Translucent surfaces combine backdrop blur, bright inner rims, a shaded lower edge, and soft shadows. A faint background derived from the panoramic observation gives the glass something to transmit. Pointer highlights respond only to deliberate interaction; there is no continuous floating animation.
+
+The title, author information, and links form a compact left column. Two unobscured views from the TV navigation route form the right visual: the Unitree Go2 and its panoramic observation. Main sections share one content column with centered headings. Figures and table cells remain sharp, with no filter applied to their contents. The page has no invented slogan, decorative stats strip, ablation gallery, or custom illustrated logo.
+
+The mobile layout stacks the research header and keeps table overflow inside each table. Focus states, semantic table headers, clipboard fallback, reduced-motion behavior, reduced-transparency preferences, and an opaque backdrop-filter fallback are included.
+
+## Assets and earlier references
+
+Photographs are taken from PanoVLN's original recordings. The external camera still uses the same HLG-to-SDR conversion as the release film; the panorama comes directly from the native recording. Research values come from `assets/research-data.json`, with provenance to the manuscript. Icons use Phosphor and official platform sources; see [icon provenance](assets/icons/README.md).
+
+The preceding cream/serif proposal used the accessible Jiro Blogs Luxterra and Footer 04 Kelo prompts. This revision replaces that visual direction in response to the author's requested JanusVLN layout and liquid-glass treatment. Those templates are no longer the website's design specification. The film retains its existing title treatment; its font licenses remain included alongside the site font license.

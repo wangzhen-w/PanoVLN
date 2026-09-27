@@ -18,6 +18,6 @@ To replace the video, update the `data-video-id` and watch URL in `index.html`, 
 
 ## Design and licenses
 
-See [DESIGN.md](DESIGN.md) for the Jiro prompts actually accessed, adaptations, and layout tokens. Geist and Gilda Display are self-hosted with their licenses. Platform and Phosphor icon provenance is in [assets/icons/README.md](assets/icons/README.md).
+See [DESIGN.md](DESIGN.md) for the JanusVLN layout reference, liquid-glass treatment, and accessibility fallbacks. The site uses self-hosted Geist; the film uses Geist and Gilda Display. Both licenses are included. Platform and Phosphor icon provenance is in [assets/icons/README.md](assets/icons/README.md).
 
 Before deployment, check desktop and mobile layouts, keyboard controls, the YouTube link and embed, table overflow, citation copying, local links, and the disabled arXiv control.
