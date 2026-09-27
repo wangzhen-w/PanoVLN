@@ -128,6 +128,8 @@ for (const video of comparisonVideos) {
   video.addEventListener('error', () => { $('#comparison-error').textContent = 'A recording could not load. Please reload the page or open the videos from the repository.'; });
 }
 comparisonButton.disabled = true;
+baselineSelect.disabled = true;
+speed.disabled = true;
 baselineSelect.addEventListener('change', () => { resetComparison(); setComparisonClip(baseline, clips.find(c => c.id === baselineSelect.value)); });
 $('#compare-restart').addEventListener('click', resetComparison);
 speed.addEventListener('change', () => { comparisonVideos.forEach(v => { v.defaultPlaybackRate = currentSpeed(); v.playbackRate = currentSpeed(); }); });
@@ -141,7 +143,7 @@ comparisonButton.addEventListener('click', async () => {
 });
 fetch('assets/media/comparison/manifest.json').then(r => { if (!r.ok) throw new Error('Missing comparison'); return r.json(); }).then(data => {
   clips = data.clips; setComparisonClip(ours, clips.find(c => c.id === 'panovln')); setComparisonClip(baseline, clips.find(c => c.id === baselineSelect.value));
-  $('#ours-time').textContent = '360° panoramic view'; comparisonButton.disabled = false;
+  $('#ours-time').textContent = '360° panoramic view'; comparisonButton.disabled = false; baselineSelect.disabled = false; speed.disabled = false;
 }).catch(() => { $('#comparison-error').textContent = 'Comparison metadata could not load. Reload the page to try again.'; baselineSelect.disabled = true; });
 
 $('#copy-citation').addEventListener('click', async () => {
