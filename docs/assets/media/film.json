@@ -1,11 +1,11 @@
 {
-  "master": "PanoVLN_realworld_navigation_4K_music.mp4",
   "canvas": [
     3840,
     2160
   ],
   "fps": 29.97002997002997,
   "speed": 3,
+  "layout": "Full 16:9 external camera; complete 2:1 panorama inset; sequential routes",
   "phone_tonemap": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
   "original_panorama": [
     1280,
@@ -17,8 +17,9 @@
       "slug": "office-tv",
       "folder": "PanoVLN_office_tv_set_1",
       "phone": "video_20260920_132421.mp4",
-      "title": "Office · TV",
-      "instruction": "Walk straight to the glass wall, then turn right and stop in front of the large TV set.",
+      "title": "Office",
+      "goal": "TV",
+      "instruction": "Walk straight to the glass wall, then turn right\nand stop in front of the large TV set.",
       "duration": 71.3,
       "offset": 1.0,
       "still": 36
@@ -27,8 +28,9 @@
       "slug": "hallway-carpet",
       "folder": "PanoVLN_hallway_carpet_1",
       "phone": "video_20260920_155459.mp4",
-      "title": "Hallway · Red carpet",
-      "instruction": "Turn left and go straight. Walk until you reach the red carpet and stop.",
+      "title": "Hallway",
+      "goal": "Red carpet",
+      "instruction": "Turn left and go straight.\nWalk until you reach the red carpet and stop.",
       "duration": 118.4,
       "offset": 1.0,
       "still": 55
@@ -37,17 +39,19 @@
       "slug": "campus-chair",
       "folder": "PanoVLN_campus_chair_1",
       "phone": "video_20260920_164421.mp4",
-      "title": "Campus · Chair",
-      "instruction": "Go straight. On the left, there is a brown recliner. Walk over there and stop.",
+      "title": "Campus",
+      "goal": "Chair",
+      "instruction": "Go straight. On the left, there is a brown recliner.\nWalk over there and stop.",
       "duration": 137.7,
       "offset": 6.1,
       "still": 130
     }
   ],
-  "youtube_id": "wiMWJ8pS-QI",
+  "master": "PanoVLN_widescreen_4K.mp4",
+  "youtube_id": "_QsBD9Mlrw4",
   "duration_seconds": 112.245467,
   "color_output": "BT.709 SDR, limited range",
-  "master_sha256": "e8efe816d1ac2ca77b757a70fa8815daec274ea21b14c564cbe06bd9a413e07d",
+  "master_sha256": "023f459823179c78e37c6b4337b08f48b703a0e418aa52f33cddfd5459248ea5",
   "notes": [
     "Original 1280x640 10fps panoramas and 1920x1080 HLG external recordings composed on a 3840x2160 30fps canvas.",
     "All navigation motion runs at 3x.",

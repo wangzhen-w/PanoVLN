@@ -10,8 +10,8 @@
   </p>
 
   <p>
-    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-63252F?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
-    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-63252F?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
+    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-0066CC?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
+    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-0066CC?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
     <img src="https://img.shields.io/badge/arXiv-Coming_soon-6B7280?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv — coming soon" />
     <a href="https://github.com/wangzhen-w/PanoVLN/stargazers"><img src="https://img.shields.io/github/stars/wangzhen-w/PanoVLN?style=flat-square&color=2955E8" alt="GitHub stars" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/issues"><img src="https://img.shields.io/github/issues/wangzhen-w/PanoVLN?style=flat-square&color=102C43" alt="Open issues" /></a>
@@ -23,8 +23,8 @@
     <a href="https://huggingface.co/datasets/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/🤗_Dataset-PanoVLN-E6B94B?style=flat-square" alt="PanoVLN training data" /></a>
   </p>
 
-  <a href="https://www.youtube.com/watch?v=wiMWJ8pS-QI"><img src="docs/assets/media/film-poster.jpg" alt="Watch PanoVLN real-world navigation on YouTube: office TV, hallway red carpet, and campus chair, at 3× speed" width="100%" /></a>
-  <p><a href="https://www.youtube.com/watch?v=wiMWJ8pS-QI">▶ Watch the real-world navigation video</a></p>
+  <a href="https://www.youtube.com/watch?v=_QsBD9Mlrw4"><img src="docs/assets/media/release-poster.jpg" alt="Watch PanoVLN real-world navigation on YouTube: office TV, hallway red carpet, and campus chair, at 3× speed" width="100%" /></a>
+  <p><a href="https://www.youtube.com/watch?v=_QsBD9Mlrw4">▶ Watch the real-world navigation video</a></p>
 </div>
 
 ## Contents
