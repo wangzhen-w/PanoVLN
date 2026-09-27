@@ -232,6 +232,11 @@ realworld/**/*.py[codz]
 /docs/assets/figures/*.png
 /build/
 
-# Release videos are hosted on YouTube.
-/docs/assets/media/**/*.mp4
-/docs/assets/media/**/*.gif
+# Video files are hosted as GitHub attachments; keep them out of Git history.
+*.[mM][pP]4
+*.[mM][oO][vV]
+*.[mM]4[vV]
+*.[wW][eE][bB][mM]
+*.[aA][vV][iI]
+*.[mM][kK][vV]
+*.[gG][iI][fF]
