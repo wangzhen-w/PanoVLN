@@ -1,0 +1,262 @@
+{
+  "version": 4,
+  "generated_at": "2026-09-27T22:35:17.921119+08:00",
+  "purpose": "Full-size independent original camera views for quality inspection. Native panorama is the primary view; external camera is separately selectable.",
+  "default_playback_rate": 1,
+  "presentation": {
+    "panorama": "Use the full available player width at a 2:1 aspect ratio; offer fullscreen or direct open. Do not make a half-width burned-in composite the only inspection view.",
+    "external": "One complete 1920×1080 external-camera recording per scene, hosted on GitHub Release. Original AAC audio retained; approximately 60 fps and original 1× timing. Muted by default with unmute controls.",
+    "preview": "The 8-second mosaic is a preview; use these full-size independent video views for detailed inspection."
+  },
+  "scenes": [
+    {
+      "id": "office",
+      "folder": "PanoVLN_office_water_dispenser_1",
+      "phone": "video_20260920_132240.mp4",
+      "name": "Water dispenser",
+      "nav_anchor": 0.2,
+      "external_anchor": 5.9,
+      "external_relative_rate": 0.9325581395348838,
+      "panorama": {
+        "file": "office-panorama.mp4",
+        "bytes": 15891078,
+        "duration_seconds": 43.6,
+        "width": 1280,
+        "height": 640,
+        "fps": "10/1",
+        "frame_count": 436,
+        "codec": "h264",
+        "pixel_format": "yuv420p",
+        "color_transfer": null,
+        "audio_present": false,
+        "sha256": "7f0d8f48edb61b4be23a7c24045242dc6fe2b384d9ce15248b2c95bcf0215819",
+        "source_relative_path": "realworld/PanoVLN_office_water_dispenser_1/navigation.mp4",
+        "poster": "posters/office-panorama.jpg",
+        "processing": "Original H.264 bitstream copied, complete source at 1×; no crop, scale, frame-rate conversion, masks, sharpening, or re-encoding.",
+        "scope": "Complete supplied navigation recording",
+        "stored_playback_rate": 1,
+        "media_start_seconds": 0
+      },
+      "instruction": "Turn right and go straight. There is a black storage rack against the wall. Walk up to the water dispenser beside the rack and stop.",
+      "original_source_metadata": {
+        "navigation": "model_stop"
+      },
+      "external": {
+        "source_relative_path": "realworld/PanoVLN_office_water_dispenser_1/video_20260920_132240.mp4",
+        "master": {
+          "file": "office-external-sdr.mp4",
+          "bytes": 86323130,
+          "duration_seconds": 46.65,
+          "width": 1920,
+          "height": 1080,
+          "fps": "56000/933",
+          "frame_count": 2800,
+          "codec": "h264",
+          "pixel_format": "yuv420p",
+          "color_transfer": "bt709",
+          "audio_present": true,
+          "sha256": "4dec3ca0aa4545672cbd0f038f40828b5fe2899143d7b9bcca4e3028425adbd4"
+        },
+        "processing": "Single H.264 CRF16 encode from original 1920×1080 HLG HEVC; no crop, resize, masks, or speed change. All original frames retained at approximately 60 fps. Mobius HDR-to-SDR BT.709 conversion; original AAC audio copied.",
+        "stored_playback_rate": 1,
+        "synchronization_reference": {
+          "panorama_seconds": 0.2,
+          "external_seconds": 5.9,
+          "external_seconds_per_panorama_second": 0.9325581395348838,
+          "note": "Reference from prior manual alignment; recordings are provided independently at original 1× timing, not retimed or claimed frame-synchronous."
+        },
+        "chapters": [
+          {
+            "file": "https://github.com/wangzhen-w/PanoVLN/releases/download/navigation-media-v4/office-external-sdr.mp4",
+            "bytes": 86323130,
+            "duration_seconds": 46.65,
+            "width": 1920,
+            "height": 1080,
+            "fps": "56000/933",
+            "frame_count": 2800,
+            "codec": "h264",
+            "pixel_format": "yuv420p",
+            "color_transfer": "bt709",
+            "audio_present": true,
+            "sha256": "4dec3ca0aa4545672cbd0f038f40828b5fe2899143d7b9bcca4e3028425adbd4",
+            "index": 0,
+            "source_start_seconds": 0,
+            "source_end_seconds": 46.652867,
+            "media_start_seconds": 0.0,
+            "poster": "posters/office-external.jpg",
+            "full_recording": true
+          }
+        ],
+        "source_duration_seconds": 46.652867,
+        "original_hdr_bytes": 115207134,
+        "delivery": "One complete high-quality SDR recording on GitHub Release; no chapters in the website."
+      }
+    },
+    {
+      "id": "hallway",
+      "folder": "PanoVLN_hallway_table_1",
+      "phone": "video_20260920_161634.mp4",
+      "name": "Turn around and find a chair",
+      "nav_anchor": 0.2,
+      "external_anchor": 1.9,
+      "external_relative_rate": 1,
+      "panorama": {
+        "file": "hallway-panorama.mp4",
+        "bytes": 34823897,
+        "duration_seconds": 73.2,
+        "width": 1280,
+        "height": 640,
+        "fps": "10/1",
+        "frame_count": 732,
+        "codec": "h264",
+        "pixel_format": "yuv420p",
+        "color_transfer": null,
+        "audio_present": false,
+        "sha256": "3a4846905c13eda0f98712cc94793e5eaed53db2d0aebd9e64f7d0d9554f0cf8",
+        "source_relative_path": "realworld/PanoVLN_hallway_table_1/navigation.mp4",
+        "poster": "posters/hallway-panorama.jpg",
+        "processing": "Original H.264 bitstream copied, complete source at 1×; no crop, scale, frame-rate conversion, masks, sharpening, or re-encoding.",
+        "scope": "Complete supplied navigation recording",
+        "stored_playback_rate": 1,
+        "media_start_seconds": 0
+      },
+      "instruction": "Turn around and walk to the chair and stop there.",
+      "original_source_metadata": {
+        "navigation": "user_interrupt"
+      },
+      "external": {
+        "source_relative_path": "realworld/PanoVLN_hallway_table_1/video_20260920_161634.mp4",
+        "master": {
+          "file": "hallway-external-sdr.mp4",
+          "bytes": 185502160,
+          "duration_seconds": 75.1,
+          "width": 1920,
+          "height": 1080,
+          "fps": "60/1",
+          "frame_count": 4506,
+          "codec": "h264",
+          "pixel_format": "yuv420p",
+          "color_transfer": "bt709",
+          "audio_present": true,
+          "sha256": "bb4c9f0a4183e1b88728dad87c2939e12ac5cabfd53db701cc57bb228db516fe"
+        },
+        "processing": "Single H.264 CRF16 encode from original 1920×1080 HLG HEVC; no crop, resize, masks, or speed change. All original frames retained at approximately 60 fps. Mobius HDR-to-SDR BT.709 conversion; original AAC audio copied.",
+        "stored_playback_rate": 1,
+        "synchronization_reference": {
+          "panorama_seconds": 0.2,
+          "external_seconds": 1.9,
+          "external_seconds_per_panorama_second": 1,
+          "note": "Reference from prior manual alignment; recordings are provided independently at original 1× timing, not retimed or claimed frame-synchronous."
+        },
+        "chapters": [
+          {
+            "file": "https://github.com/wangzhen-w/PanoVLN/releases/download/navigation-media-v4/hallway-external-sdr.mp4",
+            "bytes": 185502160,
+            "duration_seconds": 75.1,
+            "width": 1920,
+            "height": 1080,
+            "fps": "60/1",
+            "frame_count": 4506,
+            "codec": "h264",
+            "pixel_format": "yuv420p",
+            "color_transfer": "bt709",
+            "audio_present": true,
+            "sha256": "bb4c9f0a4183e1b88728dad87c2939e12ac5cabfd53db701cc57bb228db516fe",
+            "index": 0,
+            "source_start_seconds": 0,
+            "source_end_seconds": 75.093333,
+            "media_start_seconds": 0.0,
+            "poster": "posters/hallway-external.jpg",
+            "full_recording": true
+          }
+        ],
+        "source_duration_seconds": 75.093333,
+        "original_hdr_bytes": 185575742,
+        "delivery": "One complete high-quality SDR recording on GitHub Release; no chapters in the website."
+      }
+    },
+    {
+      "id": "campus",
+      "folder": "PanoVLN_campus_chair_1",
+      "phone": "video_20260920_164421.mp4",
+      "name": "Outdoor navigation",
+      "nav_anchor": 0.2,
+      "external_anchor": 6.3,
+      "external_relative_rate": 1.0123906705539358,
+      "panorama": {
+        "file": "campus-panorama.mp4",
+        "bytes": 95725678,
+        "duration_seconds": 137.7,
+        "width": 1280,
+        "height": 640,
+        "fps": "10/1",
+        "frame_count": 1377,
+        "codec": "h264",
+        "pixel_format": "yuv420p",
+        "color_transfer": null,
+        "audio_present": false,
+        "sha256": "b09d4e87d84efd19436a7ddd87e0e2b0a3394d81aef8d0d2932552740d7c4801",
+        "source_relative_path": "realworld/PanoVLN_campus_chair_1/navigation.mp4",
+        "poster": "posters/campus-panorama.jpg",
+        "processing": "Original H.264 bitstream copied, complete source at 1×; no crop, scale, frame-rate conversion, masks, sharpening, or re-encoding.",
+        "scope": "Complete supplied navigation recording",
+        "stored_playback_rate": 1,
+        "media_start_seconds": 0
+      },
+      "instruction": "Go straight. On the left, there is a brown recliner. Walk over there and stop.",
+      "original_source_metadata": {
+        "navigation": "user_interrupt"
+      },
+      "external": {
+        "source_relative_path": "realworld/PanoVLN_campus_chair_1/video_20260920_164421.mp4",
+        "master": {
+          "file": "campus-external-sdr.mp4",
+          "bytes": 471804024,
+          "duration_seconds": 145.766667,
+          "width": 1920,
+          "height": 1080,
+          "fps": "262410/4373",
+          "frame_count": 8747,
+          "codec": "h264",
+          "pixel_format": "yuv420p",
+          "color_transfer": "bt709",
+          "audio_present": true,
+          "sha256": "a63f7af8b22c19663c2aaf7523c0fe3db28da4e5119f30cf1674944c92b66d32"
+        },
+        "processing": "Single H.264 CRF16 encode from original 1920×1080 HLG HEVC; no crop, resize, masks, or speed change. All original frames retained at approximately 60 fps. Mobius HDR-to-SDR BT.709 conversion; original AAC audio copied.",
+        "stored_playback_rate": 1,
+        "synchronization_reference": {
+          "panorama_seconds": 0.2,
+          "external_seconds": 6.3,
+          "external_seconds_per_panorama_second": 1.0123906705539358,
+          "note": "Reference from prior manual alignment; recordings are provided independently at original 1× timing, not retimed or claimed frame-synchronous."
+        },
+        "chapters": [
+          {
+            "file": "https://github.com/wangzhen-w/PanoVLN/releases/download/navigation-media-v4/campus-external-sdr.mp4",
+            "bytes": 471804024,
+            "duration_seconds": 145.766667,
+            "width": 1920,
+            "height": 1080,
+            "fps": "262410/4373",
+            "frame_count": 8747,
+            "codec": "h264",
+            "pixel_format": "yuv420p",
+            "color_transfer": "bt709",
+            "audio_present": true,
+            "sha256": "a63f7af8b22c19663c2aaf7523c0fe3db28da4e5119f30cf1674944c92b66d32",
+            "index": 0,
+            "source_start_seconds": 0,
+            "source_end_seconds": 145.770167,
+            "media_start_seconds": 0.0,
+            "poster": "posters/campus-external.jpg",
+            "full_recording": true
+          }
+        ],
+        "source_duration_seconds": 145.770167,
+        "original_hdr_bytes": 359952298,
+        "delivery": "One complete high-quality SDR recording on GitHub Release; no chapters in the website."
+      }
+    }
+  ]
+}

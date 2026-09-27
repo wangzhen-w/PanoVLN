@@ -1,0 +1,50 @@
+{
+  "purpose": "Animated repository header, separate from full-resolution demonstration recordings.",
+  "duration_seconds": 8,
+  "width": 1920,
+  "height": 872,
+  "font": "Instrument Sans Bold (SIL Open Font License)",
+  "clips": [
+    {
+      "source_relative_path": "realworld/PanoVLN_office_water_dispenser_1/video_20260920_132240.mp4",
+      "start_seconds": 12,
+      "duration_seconds": 8,
+      "source_speed": 1,
+      "HDR_to_SDR": true
+    },
+    {
+      "source_relative_path": "realworld/PanoVLN_campus_chair_1/video_20260920_164421.mp4",
+      "start_seconds": 24,
+      "duration_seconds": 8,
+      "source_speed": 1,
+      "HDR_to_SDR": true
+    },
+    {
+      "source_relative_path": "r2r/episode_896/navigation.mp4",
+      "start_seconds": 3,
+      "duration_seconds": 8,
+      "source_speed": 1,
+      "HDR_to_SDR": false
+    },
+    {
+      "source_relative_path": "r2r/episode_72/navigation.mp4",
+      "start_seconds": 7,
+      "duration_seconds": 8,
+      "source_speed": 1,
+      "HDR_to_SDR": false
+    }
+  ],
+  "outputs": {
+    "mp4": {
+      "fps": 30,
+      "codec": "H.264",
+      "crf": 14
+    },
+    "gif": {
+      "width": 1280,
+      "fps": 10,
+      "palette_colors": 256
+    }
+  },
+  "redaction": false
+}
