@@ -4,15 +4,57 @@
       "slot": "benchmark-table",
       "source_id": "simulation_main",
       "title": "Simulation navigation: selected baselines on Val-Unseen",
-      "methods": ["JanusVLN", "DualVLN", "CorrectNav†", "AwareVLN", "PanoVLN (Ours)"],
-      "columns": ["Method", "R2R SR ↑", "R2R SPL ↑", "RxR SR ↑", "RxR SPL ↑"]
+      "methods": [
+        "JanusVLN",
+        "DualVLN",
+        "CorrectNav\u2020",
+        "AwareVLN",
+        "PanoVLN (Ours)"
+      ],
+      "columns": [
+        "Method",
+        "R2R SR \u2191",
+        "R2R SPL \u2191",
+        "RxR SR \u2191",
+        "RxR SPL \u2191"
+      ]
+    },
+    {
+      "slot": "realworld-table",
+      "source_id": "realworld_navigation",
+      "title": "Real-world success rate (%)",
+      "methods": [
+        "NaVid",
+        "NaVILA",
+        "StreamVLN",
+        "JanusVLN",
+        "PanoVLN"
+      ],
+      "columns": [
+        "Method",
+        "Hallway SR \u2191",
+        "Office SR \u2191",
+        "Campus SR \u2191"
+      ]
     },
     {
       "slot": "efficiency-table",
       "source_id": "realworld_efficiency",
       "title": "Real-world execution efficiency",
-      "methods": ["NaVid", "NaVILA", "StreamVLN", "JanusVLN", "PanoVLN (Ours)"],
-      "columns": ["Method", "Time (s) ↓", "Speed (cm/s) ↑", "Pauses ↓", "Calls ↓"]
+      "methods": [
+        "NaVid",
+        "NaVILA",
+        "StreamVLN",
+        "JanusVLN",
+        "PanoVLN (Ours)"
+      ],
+      "columns": [
+        "Method",
+        "Time (s) \u2193",
+        "Speed (cm/s) \u2191",
+        "Pauses \u2193",
+        "Calls \u2193"
+      ]
     }
   ]
 }

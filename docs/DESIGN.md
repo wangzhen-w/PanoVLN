@@ -1,21 +1,29 @@
-# Project-page design
+# PanoVLN research page — liquid glass
 
-PanoVLN’s page leads with original navigation footage, followed by demonstrations, a shared-instruction comparison, the method, main benchmark results, downloadable resources, and citation. Deep teal (`#086b63`), pale surfaces, Manrope headings, and DM Sans body text provide a consistent visual system. The header combines original robot and simulation footage with a typographic project name. Phosphor supplies interface icons; platform marks use their official sources. Asset provenance and licenses are recorded in [assets/icons/README.md](assets/icons/README.md).
+The current layout follows the research hierarchy of the [JanusVLN project page](https://miv-xjtu.github.io/JanusVLN.github.io/): a split paper identity / research visual, followed by Abstract, Demo Video, Approach, Experiments, and BibTeX. PanoVLN adds practical model and data links. The page uses its own copy, footage, figures, typography, and implementation.
 
-## References and access
+## Visual system
 
-- [JanusVLN](https://github.com/MIV-XJTU/JanusVLN): a readable progression from installation and data preparation to training, evaluation, and deployment informs the repository documentation.
-- [InternNav](https://github.com/InternRobotics/InternNav): the motion-led repository introduction inspired a footage-based header. PanoVLN uses its own asymmetrical four-view composition, footage, colors, and typography.
+| Token | Value |
+| --- | --- |
+| Ice background | `#EEF3FA` |
+| Primary text | `#15243B` |
+| Secondary text | `#4D6178` |
+| Ocean accent | `#1558A6` |
+| White | `#FFFFFF` |
+| Mist | `#D6E8F3` |
+| Typeface | Geist, self-hosted |
+| Main width | 1160 px |
+| Body text | 19 px desktop / 17 px mobile |
 
-- [Design Prompts — Swiss Minimalist](https://www.designprompts.dev/swiss-minimalist): the public **Prompt** button opened its readable prompt without an account. The useful ideas are asymmetric grids, clear alignment, strong heading hierarchy, numbered sections, and responsive stacking. The page adapts these principles without copying its full prompt, red palette, or heavy borders.
-- [VibUI — planetary pulse](https://vibui.dev/prompts/planetary-pulse): its prompt is publicly readable and the entry appears in the [free catalog](https://vibui.dev/free), although the detail page also says “Members only.” Its large looping-media composition informed the video-first hierarchy. No source-code unlock or external media was used.
-- [Aura — Robotics Spatial Control](https://www.aura.build/s/industrial-robotics-73): a public rendered template, used only as a visual comparison for large typography and grouped technical information. Its original generation prompt was not available in the inspected preview.
-- [Jiro](https://jiro.build/): the Finsyc **Copy Prompt** action required login. Its original prompt was not obtained. Only the publicly visible pale-sky atmosphere was considered as visual inspiration.
+Liquid glass is concentrated in the floating navigation, resource buttons, photographic frames, and player control. Translucent surfaces combine backdrop blur, bright inner rims, a shaded lower edge, and soft shadows. A faint background derived from the panoramic observation gives the glass something to transmit. Pointer highlights respond only to deliberate interaction; there is no continuous floating animation.
 
-## PanoVLN adaptation prompt
+The title, author information, and links form a compact left column. Two unobscured views from the TV navigation route form the right visual: the Unitree Go2 and its panoramic observation. Main sections share one content column with centered headings. Figures and table cells remain sharp, with no filter applied to their contents. The page has no invented slogan, decorative stats strip, ablation gallery, or custom illustrated logo.
 
-This brief was written for this project; it is not a copied external prompt:
+The mobile layout stacks the research header and keeps table overflow inside each table. Focus states, semantic table headers, clipboard fallback, reduced-motion behavior, reduced-transparency preferences, and an opaque backdrop-filter fallback are included.
 
-> Build a calm academic project page around a large original navigation video. Use a pale opening section and deep teal accents. Keep the project title, authors, affiliations, and working code/model/data links easy to scan. Give the same-instruction robot comparison a distinct section with synchronized playback, native video proportions, and complete recordings. Explain the method briefly, then present readable main-result tables and charts backed by the paper. Finish with setup resources and citation. Use mature, sourced icons and actual research figures. On mobile, stack content naturally, preserve media proportions, keep controls reachable, and respect reduced-motion preferences. Every claim must correspond to released assets or reported results.
+## Assets and earlier references
 
-Browser playback and selectors are implemented in the website. The accompanying Figma file records visual design states; the deployed site is the reference for interactive behavior.
+Photographs are taken from PanoVLN's original recordings. The external camera still uses the same HLG-to-SDR conversion as the release film; the panorama comes directly from the native recording. Research values come from `assets/research-data.json`, with provenance to the manuscript. Icons use Phosphor and official platform sources; see [icon provenance](assets/icons/README.md).
+
+The preceding cream/serif proposal used the accessible Jiro Blogs Luxterra and Footer 04 Kelo prompts. This revision replaces that visual direction in response to the author's requested JanusVLN layout and liquid-glass treatment. Those templates are no longer the website's design specification. The film retains its existing title treatment; its font licenses remain included alongside the site font license.

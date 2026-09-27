@@ -21,18 +21,20 @@ For the public PDF, compile the paper's `public_preprint.tex` entry point using 
 
 ## Curated project-page results
 
-`build_project_content.py` renders only the two main-result tables in `docs/index.html`: the selected simulation benchmark and real-world execution efficiency. Each table shows five methods. [`project-page-curation.json`](project-page-curation.json) selects source tables, methods and columns by name; all displayed values come from the extracted JSON. The page must contain the `benchmark-table` and `efficiency-table` slots with their matching end comments. The builder refuses to overwrite a page with missing or duplicate slots. Use `--site` for another template directory or `--curation` for another selection file.
+`build_project_content.py` renders three main-result tables: the selected simulation benchmark, real-world success rate, and real-world execution efficiency. Each shows five methods. `project-page-curation.json` selects source tables, methods and columns by name; all values come from the extracted JSON. Keep the marked `benchmark-table`, `realworld-table`, and `efficiency-table` slots in the HTML. Missing or duplicate slots stop the builder before it writes the page.
 
-The builder also preserves all eight source tables, 15 figure records and source notes in `docs/assets/research-data.json` for provenance. It does not generate a complete figure gallery or ablation tables. The landing page uses the architecture figure and three compact real-world success-rate panels.
+All eight source tables, 15 figure records, and source notes remain in `docs/assets/research-data.json`. The public page shows the architecture and main results, with efficiency in a disclosure; the full paper contains the ablations. `render_realworld_sr.py` remains available as an optional standalone chart exporter, but the website uses HTML tables for readable labels on small screens.
 
-Rebuild those panels after updating the source JSON:
+## Release film
+
+`build_release_film.py` renders the three selected real-world routes from their original recordings, with an opening title and 3× playback. Keep the working files and upload master outside Git, preferably on the volume containing the originals. The FFmpeg build must include `zscale`, `tonemap`, `h264_metadata`, and `libx264`.
 
 ```bash
-uv run --with matplotlib --with fonttools --with brotli tools/render_realworld_sr.py
+python tools/build_release_film.py \
+  --source-root /path/to/navigation_demo \
+  --output /path/to/release-film \
+  --font-dir /path/to/fonts \
+  --ffmpeg /path/to/ffmpeg
 ```
 
-Alternatively, install those three Python packages in your existing environment and run `python tools/render_realworld_sr.py`. The default input is `docs/assets/research-data.json`; pass a content JSON file as a positional argument to use another export. Options: `--output-dir`, `--font-dir`, and `--preview-dir` for optional PNG review images.
-
-`render_realworld_sr.py` uses Matplotlib to write `realworld-sr-hallway.svg`, `realworld-sr-office.svg`, and `realworld-sr-campus.svg`. All five methods remain visible on a common 0–100% axis, with direct method and value labels. PanoVLN is dark teal and the other methods are muted gray-blue. The script uses the local DM Sans or Manrope font when readable and otherwise DejaVu Sans. The original SR values come from the verified `realworld_navigation` table; no extra averaging or uncertainty is introduced. Each SVG includes a title and description, and `realworld-sr-provenance.json` records the source, exact values and rendering metadata.
-
-PNG exports are optional working assets and are ignored by Git. The page uses WebP for the architecture and SVG for the three SR panels; original figure PDFs remain available for full-resolution inspection.
+The font directory contains `Geist.ttf` (the variable font) and `GildaDisplay.ttf`, obtained from the official [Google Fonts repository](https://github.com/google/fonts), under their SIL Open Font Licenses. The script requires Pillow. Its manifest records the source files, fixed camera offsets, speed, resolution, and HDR-to-SDR filter. The film is muted, has no masks, and removes capture metadata. Upload `PanoVLN_navigation_release.mp4` to YouTube; see `docs/WEBSITE.md` for linking it. Do not add the MP4 or rendering intermediates to this repository.
