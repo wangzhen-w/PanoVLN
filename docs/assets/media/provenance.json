@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "created": "2026-09-27",
   "encoding": {
     "video": "H.264",
@@ -126,6 +126,28 @@
         "duration": 6.0,
         "source": "realworld/PanoVLN_office_water_dispenser_1/video_20260920_132240.mp4"
       }
-    ]
+    ],
+    "sha256": "c1d67b0150ce06a9e372425223725b898088a65c90a7b65a9f5d1d9f031689db",
+    "bytes": 48950991,
+    "duration_seconds": 33,
+    "width": 1920,
+    "height": 1080,
+    "brand_icon": "Phosphor panorama-duotone",
+    "brand_color": "#086b63",
+    "poster_file": "hero-poster.jpg",
+    "poster_sha256": "faaa66742c83e86b884644cb3f55ad58791efdd8e5041df1f0a2ed11c0158283",
+    "encoding_source": "Original recordings through lossless FFV1 intermediates; one final H.264 CRF16 encode."
+  },
+  "brand": {
+    "icon": "Phosphor panorama-duotone",
+    "color": "#086b63",
+    "source": "PanoVLN_open_source/redesign/icons/phosphor/duotone/panorama-duotone.svg",
+    "change": "Replaces the former custom orbit icon in each hero footer. Gallery videos have no icon and are unchanged."
+  },
+  "readme_preview": {
+    "file": "readme-preview.gif",
+    "sha256": "14ffcac30219c0c1ce277aa0cd3dda4458b40d5859a9ef83836859ae7f479bf6",
+    "bytes": 7094586,
+    "brand_icon": "Phosphor panorama-duotone"
   }
 }

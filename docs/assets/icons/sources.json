@@ -1,0 +1,266 @@
+{
+  "upstream_commits": {
+    "phosphor": "2b75f3ad12b420c9504ef05df8d2564a28f8500e",
+    "simple-icons": "d4e6ba93e48f178898707f0145ec285f28b64b38"
+  },
+  "assets": [
+    {
+      "file": "phosphor/regular/aperture.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/aperture.svg",
+      "license": "MIT",
+      "bytes": 705,
+      "sha256": "dc292be18c248bfc1ec9474ac7c2200d1303aca077a47530ebe0da9b064f2781"
+    },
+    {
+      "file": "phosphor/regular/compass-rose.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/compass-rose.svg",
+      "license": "MIT",
+      "bytes": 825,
+      "sha256": "e1ea9281666f9bd1ccb1580ddc7399b55398f1145791dd6162a4cceab0f3fafa"
+    },
+    {
+      "file": "phosphor/regular/panorama.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/panorama.svg",
+      "license": "MIT",
+      "bytes": 758,
+      "sha256": "1c17f4c4d915927dd4b31859b75809a6d4501611d4236fbbc5b14b13f53ee6c5"
+    },
+    {
+      "file": "phosphor/regular/navigation-arrow.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/navigation-arrow.svg",
+      "license": "MIT",
+      "bytes": 376,
+      "sha256": "d3c3a31c8cbeedf1a61771251d04c901687da1649a52c183109257fb9a7802ae"
+    },
+    {
+      "file": "phosphor/regular/path.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/path.svg",
+      "license": "MIT",
+      "bytes": 296,
+      "sha256": "76f5e16efb2333fb42f40d5685c2d3b0bb037597fa8253ee1974dfece3514f44"
+    },
+    {
+      "file": "phosphor/regular/map-trifold.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/map-trifold.svg",
+      "license": "MIT",
+      "bytes": 430,
+      "sha256": "2de856029430ca68cfd9c1d8c8c45255c8d998d7716630d362c1eec153548da6"
+    },
+    {
+      "file": "phosphor/regular/cube.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/cube.svg",
+      "license": "MIT",
+      "bytes": 402,
+      "sha256": "7c0f13cb492d0dd212e48ab259dabec4627df32d71aa00ce31b3228c0f35112b"
+    },
+    {
+      "file": "phosphor/regular/stack.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/stack.svg",
+      "license": "MIT",
+      "bytes": 483,
+      "sha256": "ee9eaaeb345e8a28c9662cf8a59147cb86080bd922e41f143444189e0116ea7e"
+    },
+    {
+      "file": "phosphor/regular/database.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/database.svg",
+      "license": "MIT",
+      "bytes": 810,
+      "sha256": "da7d3598430cbe3b334c308c03ca41e8c4c7bbbfa7891e914d7aa8e87d847423"
+    },
+    {
+      "file": "phosphor/regular/file-pdf.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/file-pdf.svg",
+      "license": "MIT",
+      "bytes": 645,
+      "sha256": "a8fb648659a7af4093f00b87a4f054e00da9ff0d2563ce598067a19057225a0a"
+    },
+    {
+      "file": "phosphor/regular/arrow-up-right.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/arrow-up-right.svg",
+      "license": "MIT",
+      "bytes": 217,
+      "sha256": "44db5257b360ec04863eb6daaa41f220c8b714d23fb81403517d0a30acfda9f4"
+    },
+    {
+      "file": "phosphor/regular/play.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/play.svg",
+      "license": "MIT",
+      "bytes": 293,
+      "sha256": "885b3ed2095889c4ff063dac35dc424cb9f6c00273ab44e2f90dc9dadbee661a"
+    },
+    {
+      "file": "phosphor/regular/download-simple.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/download-simple.svg",
+      "license": "MIT",
+      "bytes": 317,
+      "sha256": "c48678aa09b44ba4974954690ee6cc846379c448a7214f8c802604c2a1562014"
+    },
+    {
+      "file": "phosphor/regular/eye.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/eye.svg",
+      "license": "MIT",
+      "bytes": 701,
+      "sha256": "91d39f20bf95e0f36c07bd79b83a85fe6ff4ca20e2759c4afee7419ef80403fe"
+    },
+    {
+      "file": "phosphor/regular/book-open.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/book-open.svg",
+      "license": "MIT",
+      "bytes": 396,
+      "sha256": "b38cdb3a15dcf00cfa4811e318b021e25c6a87b47acbb11888e16d107a5642da"
+    },
+    {
+      "file": "phosphor/regular/circuitry.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/circuitry.svg",
+      "license": "MIT",
+      "bytes": 500,
+      "sha256": "66462621f641baef70566b00894131dfdda5e12dc9452c00f46c50dc89637f37"
+    },
+    {
+      "file": "phosphor/regular/chart-bar.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/chart-bar.svg",
+      "license": "MIT",
+      "bytes": 282,
+      "sha256": "d161e503af4f5386a370ffd742d19d85e98625fd6d6eadbabbdb36d58dcca22c"
+    },
+    {
+      "file": "phosphor/regular/code.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/code.svg",
+      "bytes": 451,
+      "sha256": "882462ff89cc7b864cb2af1a3a2660bd796f01bdac35b6d4cff7c131fb74e3dc",
+      "license": "MIT"
+    },
+    {
+      "file": "phosphor/regular/copy.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/copy.svg",
+      "license": "MIT",
+      "bytes": 279,
+      "sha256": "5a892fc6a72866e60c67db2088a87653cf44b57b1a5d183b36e950cdc5dd66b3"
+    },
+    {
+      "file": "phosphor/regular/pause.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/regular/pause.svg",
+      "license": "MIT",
+      "bytes": 320,
+      "sha256": "7a9a8fe311234262b85c6e332f77db4ba9a59b6ca4292c41d327977cf61a2fc9"
+    },
+    {
+      "file": "phosphor/duotone/aperture-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/aperture-duotone.svg",
+      "license": "MIT",
+      "bytes": 868,
+      "sha256": "dc52ca71ee7adef0482c35ec3197d1a9b07512200326c60b950ffa41d9d013c1"
+    },
+    {
+      "file": "phosphor/duotone/panorama-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/panorama-duotone.svg",
+      "license": "MIT",
+      "bytes": 990,
+      "sha256": "6c27121837ba14d11d7ea35a132aac3512ab522cfd5f93c7927a34048f940fed"
+    },
+    {
+      "file": "phosphor/duotone/compass-rose-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/compass-rose-duotone.svg",
+      "license": "MIT",
+      "bytes": 903,
+      "sha256": "21f40b31f7f3f73af9a05b0d669b2dcfba28ceff0f57247253c1f55b2442f46a"
+    },
+    {
+      "file": "phosphor/duotone/navigation-arrow-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/navigation-arrow-duotone.svg",
+      "license": "MIT",
+      "bytes": 516,
+      "sha256": "e8d0e0c6837631ce41e3ed167c354404e049c6bf77a506d6f085929d8a3a1967"
+    },
+    {
+      "file": "phosphor/duotone/path-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/path-duotone.svg",
+      "license": "MIT",
+      "bytes": 369,
+      "sha256": "973dc0fba7a17598d9347b44d8cec6f74588b1ae24b44a50dc8923016aeee253"
+    },
+    {
+      "file": "phosphor/duotone/map-trifold-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/map-trifold-duotone.svg",
+      "license": "MIT",
+      "bytes": 478,
+      "sha256": "51fc6df1cb4a67fcf8ec828735f3d2eb163c14d998b2bd34b1507782bf40bb5c"
+    },
+    {
+      "file": "phosphor/duotone/cube-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/cube-duotone.svg",
+      "license": "MIT",
+      "bytes": 511,
+      "sha256": "5a4833e706e0d7431e607b930ce22af06fcb8ee29ff05da50cb12701a8e64e5b"
+    },
+    {
+      "file": "phosphor/duotone/database-duotone.svg",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/assets/duotone/database-duotone.svg",
+      "license": "MIT",
+      "bytes": 913,
+      "sha256": "2543df52f9d509307cd7d08d8bf2ba9033aa23207791c32e2526841ef869ea1c"
+    },
+    {
+      "file": "licenses/PHOSPHOR-MIT.txt",
+      "source": "https://raw.githubusercontent.com/phosphor-icons/core/2b75f3ad12b420c9504ef05df8d2564a28f8500e/LICENSE",
+      "license": "source metadata",
+      "bytes": 1071,
+      "sha256": "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"
+    },
+    {
+      "file": "licenses/SIMPLE-ICONS-CC0.txt",
+      "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/d4e6ba93e48f178898707f0145ec285f28b64b38/LICENSE.md",
+      "license": "source metadata",
+      "bytes": 6569,
+      "sha256": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5"
+    },
+    {
+      "file": "licenses/SIMPLE-ICONS-DISCLAIMER.md",
+      "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/d4e6ba93e48f178898707f0145ec285f28b64b38/DISCLAIMER.md",
+      "license": "source metadata",
+      "bytes": 4604,
+      "sha256": "5757a1f28eff735a8b5e7425478f367812d71e974530f5bedd01219480965f4a"
+    },
+    {
+      "file": "brands/github.svg",
+      "source": "https://brand.github.com/GitHub_Logos.zip",
+      "upstream_member": "GitHub Logos/SVG/GitHub_Invertocat_Black.svg",
+      "license": "GitHub brand usage rules; trademark retained",
+      "guidelines": "https://brand.github.com/foundations/logo",
+      "bytes": 1559,
+      "sha256": "693d7abe6f899646cc2e96856723b45e95f71885a54910b2749f6decdf7e1ee1"
+    },
+    {
+      "file": "brands/github-white.svg",
+      "source": "https://brand.github.com/GitHub_Logos.zip",
+      "upstream_member": "GitHub Logos/SVG/GitHub_Invertocat_White.svg",
+      "license": "GitHub brand usage rules; trademark retained",
+      "guidelines": "https://brand.github.com/foundations/logo",
+      "bytes": 1559,
+      "sha256": "ccd84c89b1056345608fc3489357f8acc7397e49a3cdc2d418b6c8016911d47b"
+    },
+    {
+      "file": "brands/huggingface.svg",
+      "source": "https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg?download=true",
+      "guidelines": "https://huggingface.co/brand",
+      "license": "Official brand assets for project use; trademark retained",
+      "bytes": 35286,
+      "sha256": "942cad1ccda905ac5a659dfd2d78b344fccfb84a8a3ac3721e08f488205638a0"
+    },
+    {
+      "file": "brands/huggingface-monochrome.svg",
+      "source": "https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo-monochrome.svg?download=true",
+      "license": "Official brand assets for project use; trademark retained",
+      "guidelines": "https://huggingface.co/brand",
+      "bytes": 7890,
+      "sha256": "87ac947dc4f0a9146fcd42aad52b657909bef9860eb284c651a6690e935e0595"
+    },
+    {
+      "file": "brands/arxiv.svg",
+      "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/d4e6ba93e48f178898707f0145ec285f28b64b38/icons/arxiv.svg",
+      "license": "see brand metadata; library CC0-1.0",
+      "bytes": 1087,
+      "sha256": "79427b6fc11e06b5a3a2c70f31dbf536cf442fb1175d7f2573ff765f76f27930"
+    }
+  ]
+}
