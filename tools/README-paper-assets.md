@@ -19,4 +19,20 @@ All 15 supplied figure PDFs are included. The two files that are not currently r
 
 For the public PDF, compile the paper's `public_preprint.tex` entry point using Tectonic or an existing TeX installation, and copy its resulting PDF to `docs/assets/paper/PanoVLN.pdf`. This entry point displays the authors with a `Preprint` page header. The original `main.tex` retains its existing review-mode setting.
 
-`build_project_content.py` updates the static benchmark tables and complete figure gallery in `docs/index.html`, and writes browser-safe provenance to `docs/assets/research-data.json`. PNG exports are optional working assets and are ignored by Git; the published page uses WebP and the original PDFs.
+## Curated project-page results
+
+`build_project_content.py` renders only the two main-result tables in `docs/index.html`: the selected simulation benchmark and real-world execution efficiency. Each table shows five methods. [`project-page-curation.json`](project-page-curation.json) selects source tables, methods and columns by name; all displayed values come from the extracted JSON. The page must contain the `benchmark-table` and `efficiency-table` slots with their matching end comments. The builder refuses to overwrite a page with missing or duplicate slots. Use `--site` for another template directory or `--curation` for another selection file.
+
+The builder also preserves all eight source tables, 15 figure records and source notes in `docs/assets/research-data.json` for provenance. It does not generate a complete figure gallery or ablation tables. The landing page uses the architecture figure and three compact real-world success-rate panels.
+
+Rebuild those panels after updating the source JSON:
+
+```bash
+uv run --with matplotlib --with fonttools --with brotli tools/render_realworld_sr.py
+```
+
+Alternatively, install those three Python packages in your existing environment and run `python tools/render_realworld_sr.py`. The default input is `docs/assets/research-data.json`; pass a content JSON file as a positional argument to use another export. Options: `--output-dir`, `--font-dir`, and `--preview-dir` for optional PNG review images.
+
+`render_realworld_sr.py` uses Matplotlib to write `realworld-sr-hallway.svg`, `realworld-sr-office.svg`, and `realworld-sr-campus.svg`. All five methods remain visible on a common 0–100% axis, with direct method and value labels. PanoVLN is dark teal and the other methods are muted gray-blue. The script uses the local DM Sans or Manrope font when readable and otherwise DejaVu Sans. The original SR values come from the verified `realworld_navigation` table; no extra averaging or uncertainty is introduced. Each SVG includes a title and description, and `realworld-sr-provenance.json` records the source, exact values and rendering metadata.
+
+PNG exports are optional working assets and are ignored by Git. The page uses WebP for the architecture and SVG for the three SR panels; original figure PDFs remain available for full-resolution inspection.

@@ -4,9 +4,9 @@
   <p>See in 360°. Navigate with language.</p>
 
   <p>
-    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-2955E8?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
-    <a href="docs/reproduction.md"><img src="https://img.shields.io/badge/Documentation-Get_started-102C43?style=flat-square&logo=readthedocs&logoColor=white" alt="Documentation" /></a>
-    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-2955E8?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
+    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-086B63?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
+    <a href="docs/reproduction.md"><img src="https://img.shields.io/badge/Documentation-Get_started-12312E?style=flat-square&logo=readthedocs&logoColor=white" alt="Documentation" /></a>
+    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-086B63?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
     <img src="https://img.shields.io/badge/arXiv-Coming_soon-6B7280?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv — coming soon" />
     <a href="https://github.com/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/GitHub-Code-24292F?style=flat-square&logo=github&logoColor=white" alt="GitHub source code" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/stargazers"><img src="https://img.shields.io/github/stars/wangzhen-w/PanoVLN?style=flat-square&color=2955E8" alt="GitHub stars" /></a>

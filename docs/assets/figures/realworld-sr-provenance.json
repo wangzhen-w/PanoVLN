@@ -1,0 +1,59 @@
+{
+  "source": {
+    "path": "Figures/real_world_exp/realworld_exp.pdf",
+    "page": 1,
+    "tex_path": "Sections/4.exp.tex",
+    "label": "fig:realworld_navigation",
+    "verification": "Extracted PDF labels and visually checked each bar against its method/setting legend."
+  },
+  "source_json_sha256": "933d9cf57439eb10318450a22e87c5fb27bcd88af4d3a0d65eb8521a327abb08",
+  "generator": "Matplotlib",
+  "matplotlib_version": "3.11.2",
+  "encoding": "Horizontal bars, common 0–100% axis; five methods retained; no added uncertainty or aggregation.",
+  "evaluation": "20 shared instruction-route pairs per setting; no scene-specific fine-tuning.",
+  "panels": [
+    {
+      "environment": "Hallway",
+      "file": "realworld-sr-hallway.svg",
+      "values": {
+        "NaVid": 60.0,
+        "NaVILA": 75.0,
+        "StreamVLN": 80.0,
+        "JanusVLN": 85.0,
+        "PanoVLN": 100.0
+      },
+      "css_width": 480,
+      "css_height": 270,
+      "alt": "NaVid 60%; NaVILA 75%; StreamVLN 80%; JanusVLN 85%; PanoVLN 100%. Common 0–100% axis. 20 shared instruction-route pairs in this setting, without scene-specific fine-tuning. Source: Figures/real_world_exp/realworld_exp.pdf, page 1; Sections/4.exp.tex, fig:realworld_navigation."
+    },
+    {
+      "environment": "Office",
+      "file": "realworld-sr-office.svg",
+      "values": {
+        "NaVid": 40.0,
+        "NaVILA": 30.0,
+        "StreamVLN": 55.0,
+        "JanusVLN": 65.0,
+        "PanoVLN": 95.0
+      },
+      "css_width": 480,
+      "css_height": 270,
+      "alt": "NaVid 40%; NaVILA 30%; StreamVLN 55%; JanusVLN 65%; PanoVLN 95%. Common 0–100% axis. 20 shared instruction-route pairs in this setting, without scene-specific fine-tuning. Source: Figures/real_world_exp/realworld_exp.pdf, page 1; Sections/4.exp.tex, fig:realworld_navigation."
+    },
+    {
+      "environment": "Campus",
+      "file": "realworld-sr-campus.svg",
+      "values": {
+        "NaVid": 0.0,
+        "NaVILA": 0.0,
+        "StreamVLN": 15.0,
+        "JanusVLN": 30.0,
+        "PanoVLN": 80.0
+      },
+      "css_width": 480,
+      "css_height": 270,
+      "alt": "NaVid 0%; NaVILA 0%; StreamVLN 15%; JanusVLN 30%; PanoVLN 80%. Common 0–100% axis. 20 shared instruction-route pairs in this setting, without scene-specific fine-tuning. Source: Figures/real_world_exp/realworld_exp.pdf, page 1; Sections/4.exp.tex, fig:realworld_navigation."
+    }
+  ],
+  "font_family": "DM Sans 9pt"
+}
