@@ -25,7 +25,7 @@ copy?.addEventListener('click',async()=>{
 });
 if(matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches){
  document.querySelectorAll('.glass,.glass-control:not(.unavailable)').forEach(control=>{
-  control.addEventListener('pointermove',event=>{const r=control.getBoundingClientRect();control.style.setProperty('--pointer-x',`${(event.clientX-r.left)/r.width*100}%`);control.style.setProperty('--pointer-y',`${(event.clientY-r.top)/r.height*100}%`);});
-  control.addEventListener('pointerleave',()=>{control.style.removeProperty('--pointer-x');control.style.removeProperty('--pointer-y');});
+  control.addEventListener('pointermove',event=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const r=control.getBoundingClientRect();control.style.setProperty('--pointer-x',`${(event.clientX-r.left)/r.width*100}%`);control.style.setProperty('--pointer-y',`${(event.clientY-r.top)/r.height*100}%`);control.style.setProperty('--light-angle',`${Math.atan2(event.clientY-r.top-r.height/2,event.clientX-r.left-r.width/2)*180/Math.PI+90}deg`);});
+  control.addEventListener('pointerleave',()=>{control.style.removeProperty('--pointer-x');control.style.removeProperty('--pointer-y');control.style.removeProperty('--light-angle');});
  });
 }

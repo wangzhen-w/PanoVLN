@@ -23,3 +23,9 @@ The earlier JSON extraction and HTML-table tools remain available for paper prov
 ## Deployment
 
 Make changes directly on `main`. No release or feature branch is required. The Pages workflow checks local assets and rejects unresolved media references before deploying. Verify all seventeen players, public unauthenticated media access, seek/controls, desktop/mobile grids, citation copying and full-resolution figure links before pushing. See [DESIGN.md](DESIGN.md) for the visual direction.
+
+## Clear liquid controls
+
+`liquid-glass.js` generates a rounded displacement map for each control size. Chromium uses an SVG backdrop filter for the navigation and resource controls. A narrow optical rim bends the background; label and icon pixels remain unfiltered. The play button uses an SVG-filtered copy of its own poster, aligned to the underlying frame, so media refraction also works without SVG backdrop-filter support. It disappears as soon as the movie begins. Other controls fall back to a clear reflective CSS surface where SVG backdrop filters are unavailable.
+
+ResizeObserver updates the maps only when dimensions change. Reduced transparency removes optical layers and uses solid controls; reduced motion disables moving reflections. No remote rendering service, live DOM clone, additional video stream, or graphics package is needed.
