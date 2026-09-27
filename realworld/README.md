@@ -1,22 +1,33 @@
 # PanoVLN real-world deployment
 
-[Back to PanoVLN](../README.md) · [Model Zoo](../README.md#model-zoo)
+[Back to PanoVLN](../README.md) · [Model Zoo](../README.md#model-zoo) · [Configuration and API reference](panovln/README.md)
 
-This guide runs PanoVLN on a Unitree Go2 with a panoramic camera. The GPU server performs model inference; the robot client captures observations, selects history, executes actions, and records each trial. Run the commands below from the repository root on the corresponding machine.
+Run PanoVLN on a Unitree Go2 with a panoramic RGB camera and a remote GPU server. **[PanoVLN_realworld](https://huggingface.co/wangzhen-w/PanoVLN_realworld)** is the dedicated deployment checkpoint, with enhanced trajectory recovery and collision avoidance: it helps the robot regain the instructed route after deviations and navigate around obstacles during physical execution.
 
-After the one-time setup, start `realworld/panovln/run_server.sh` on the GPU server and `realworld/panovln/run_go2_client.sh` on the robot. Wait for the server to be ready before launching the client.
+The GPU server predicts actions from the instruction and current/history panoramas. The robot client selects observations, applies confidence-guided execution, sends motion commands, and records the trial. The learned policy supplies recovery and avoidance behavior; the controller handles motion execution and stopping. See [how these components work together](panovln/README.md#recovery-avoidance-and-control).
 
-## 1. Prepare the GPU server
+## 1. Hardware and network
 
-Install the [PanoVLN model environment](../README.md#getting-started) and obtain the deployment checkpoint listed in the [Model Zoo](../README.md#model-zoo). In that environment, install the additional HTTP dependencies:
+The paper setup uses a **Unitree Go2**, an **Insta360 X5 mounted 1.5 m above ground**, and a remote **RTX 3090**. PanoVLN uses approximately **12 GB of GPU memory** in that setup. Treat this as a measured reference configuration when choosing hardware. The robot-side client does not need model weights or PyTorch.
+
+| Component | Required connection |
+| --- | --- |
+| GPU server | Model environment, checkpoint files, and a TCP port reachable by the robot; default port `8000` |
+| Robot computer | ROS2 Foxy, Unitree sport API bridge, FFmpeg, and client Python dependencies |
+| Panoramic camera | A stitched equirectangular RGB stream close to 2:1; USB device/index or an OpenCV-readable stream URL |
+| Robot ROS network | `/api/sport/request`, `/api/sport/response`, and `/sportmodestate` visible to the client |
+
+Use the GPU server's reachable LAN address in the client configuration. `127.0.0.1` works only when both processes run on the same computer. The ROS bridge and client must use the same robot ROS network/domain; the inference server communicates over HTTP and does not join ROS. The included ROS workspace provides message definitions, so the robot's sport API bridge must already be running.
+
+## 2. Prepare and start the GPU server
+
+Install the [PanoVLN model environment](../README.md#getting-started), download the complete [real-world checkpoint](https://huggingface.co/wangzhen-w/PanoVLN_realworld), and place it in `checkpoints/PanoVLN_realworld/`. Run all commands from the repository root on the indicated machine.
 
 ```bash
 python -m pip install -r realworld/panovln/requirements.txt
 ```
 
-Use **`PanoVLN_realworld`**, our dedicated deployment checkpoint with enhanced trajectory recovery and collision avoidance. These capabilities help the robot recover from route deviations and avoid obstacles during physical execution. See the [Model Zoo](../README.md#model-zoo) for checkpoint selection.
-
-Edit the settings at the top of [`panovln/run_server.sh`](panovln/run_server.sh) before launching. The default checkpoint directory is `./checkpoints/PanoVLN_realworld`; weights are not included or downloaded by the launcher. For example, set these variables directly in the script:
+Edit the variables at the top of [`panovln/run_server.sh`](panovln/run_server.sh):
 
 ```bash
 MODEL_PATH="./checkpoints/PanoVLN_realworld"
@@ -27,27 +38,26 @@ PYTHON_BIN="python3"
 LOG_ROOT="./outputs/realworld_server/panovln"
 ```
 
-Then start the server:
+Start the server in the model environment:
 
 ```bash
 bash realworld/panovln/run_server.sh
 ```
 
-PanoVGGT weights saved inside the navigation checkpoint take priority over external paths, including paths retained in `config.json`. Leave `PANOVGGT_CHECKPOINT` empty for a complete checkpoint. Only if the navigation checkpoint has no PanoVGGT encoder weights, set `PANOVGGT_CHECKPOINT="./checkpoints/PanoVGGT/model.pt"` in the same script. Incompatible saved encoder weights raise an error instead of silently falling back to external initialization weights.
+The launcher uses the active environment's `python3`; change `PYTHON_BIN` to select another interpreter. It loads the model before opening the HTTP service. Checkpoint files are not downloaded by the launcher. Relative paths resolve from the repository root, and extra CLI arguments are forwarded to the server.
 
-The server uses the active environment's `python3` by default. Change `PYTHON_BIN` in the script to select a specific interpreter. Extra command-line arguments are forwarded to the server. Relative paths resolve from the repository root.
+PanoVGGT weights saved inside the navigation checkpoint take priority over external paths, including paths retained in `config.json`. Leave `PANOVGGT_CHECKPOINT` empty for a complete checkpoint. If the navigation checkpoint has no encoder weights, set `PANOVGGT_CHECKPOINT="./checkpoints/PanoVGGT/model.pt"`. Incompatible saved encoder weights raise an error. `ATTN_IMPLEMENTATION` defaults to `flash_attention_2`; select `sdpa` if that is the attention backend installed in your model environment.
 
-## 2. Prepare the robot
+## 3. Prepare the robot computer
 
-The client uses **ROS2 Foxy** and `/usr/bin/python3` by default. Install FFmpeg and the client dependencies on the robot. The robot does not need model weights or PyTorch.
+Install FFmpeg and the client dependencies into the interpreter used by the launcher, `/usr/bin/python3` by default:
 
 ```bash
+sudo apt-get install ffmpeg
 /usr/bin/python3 -m pip install -r realworld/panovln/requirements-client.txt
 ```
 
-If using a different ROS-compatible Python, install the dependencies into that interpreter and set `PYTHON_BIN` directly in [`panovln/run_go2_client.sh`](panovln/run_go2_client.sh).
-
-Ensure the Unitree sport API and odometry topics are available, then build the included ROS messages once on the robot:
+For a different ROS-compatible Python, set `PYTHON_BIN` in [`panovln/run_go2_client.sh`](panovln/run_go2_client.sh). Build the included ROS message workspace once:
 
 ```bash
 source /opt/ros/foxy/setup.bash
@@ -56,11 +66,25 @@ colcon build --base-paths src --packages-select unitree_api unitree_go
 cd ../../..
 ```
 
-The repository keeps `src/`, which contains the message definitions and build files. Compilation generates `build/` (intermediate files) and `install/` (runtime packages and environment scripts). Keep `install/` on the robot: the client launcher sources it automatically. If it is removed, rebuild before launching.
+Keep the generated `install/` directory on the robot: the launcher sources it automatically. Rebuild after removing it. Check the existing robot bridge without sending any motion commands:
 
-## 3. Configure a trial
+```bash
+source /opt/ros/foxy/setup.bash
+source realworld/panovln/ros2_unitree_api_ws/install/setup.bash
+ros2 topic info /api/sport/request
+ros2 topic info /api/sport/response
+ros2 topic info /sportmodestate
+```
 
-Edit [`panovln/go2_client.yaml`](panovln/go2_client.yaml). Set the server address, camera device, navigation instruction, and experiment identifiers. The following is an excerpt; retain the other settings in the supplied file:
+## 4. Configure and inspect a trial
+
+Copy the supplied YAML and edit the copy:
+
+```bash
+cp realworld/panovln/go2_client.yaml realworld/panovln/go2_client.local.yaml
+```
+
+Set the server address, camera, instruction, and experiment identifiers. Retain the remaining settings in the supplied file:
 
 ```yaml
 server:
@@ -90,54 +114,66 @@ recording:
   save_output_dir: "./outputs/realworld"
 ```
 
-Use the GPU server's reachable address. `127.0.0.1` only works when the client and server run on the same machine. Match the camera settings to your panoramic camera and review the `motion` and `odometry` settings for your robot.
+The camera can also be an index such as `"0"`, or an RTSP URL such as `"rtsp://CAMERA_IP/stream"` when the camera and OpenCV backend provide that stream. Configure stitching on the camera side; the client expects an already stitched panorama. Resolution and FPS settings are requests to the capture backend; check the actual values printed at startup. See the [camera and recording reference](panovln/README.md#camera-upload-and-recording) for the separate capture, upload, and video resolutions.
 
-The supplied PanoVLN configuration uploads up to 10 historical panoramas plus the current observation, resized to 1280×640. The client selects history and uses the returned uncertainty to determine how many actions to execute before replanning. In `continuous` mode, adjacent identical actions are merged while observations are captured after each 25 cm / 15° action unit.
-
-Inspect the resolved configuration without opening the camera or controlling the robot:
+Inspect the resolved configuration as JSON without opening the camera, contacting the server, or controlling the robot:
 
 ```bash
-bash realworld/panovln/run_go2_client.sh --print-config
+bash realworld/panovln/run_go2_client.sh \
+  --config realworld/panovln/go2_client.local.yaml --print-config
 ```
 
-## 4. Run navigation
+Explicit CLI options override YAML values. The supplied YAML selects `ros2` and acknowledges physical execution. A `dry-run` override prints motion commands while still using the camera and model server; `--print-config` is the hardware-free inspection command.
 
-With the model server running, check its readiness from the robot:
+## 5. Run and stop navigation
+
+From the robot computer, confirm that the model server has finished loading:
 
 ```bash
 curl --fail http://YOUR_SERVER_IP:8000/ready
 ```
 
-After this succeeds, start the client on the robot:
+The response should report `model_loaded: true`, `view_mode: "panorama"`, `action_sequence_length: 18`, and `supports_action_uncertainty: true`. With the camera, sport API, and odometry available, start the client:
 
 ```bash
-bash realworld/panovln/run_go2_client.sh
+bash realworld/panovln/run_go2_client.sh \
+  --config realworld/panovln/go2_client.local.yaml
 ```
 
-The client handles `Ctrl+C` by sending a stop command and closing its recording outputs. For another trial, update the instruction and experiment identifiers as needed, then restart the client. Existing trial directories are not overwritten; use a new `trial_id` for each repetition. The server can remain running between trials.
+The default trial uploads at most 10 historical panoramas plus the current observation at 1280×640. It executes a confidence-selected prefix of each prediction before requesting the next plan. In `continuous` mode, adjacent identical actions are merged, with observations at each 25 cm / 15° action boundary. Prefetch is disabled in the supplied configuration, matching synchronous execution in the paper.
 
-The other method directories use the same `run_server.sh` / `run_go2_client.sh` workflow with their own dependencies, weight settings, and client YAML. Select the matching directory for both processes and install its `requirements.txt`. JanusVLN, NaVid, NaVILA, and StreamVLN support the same Python 3.12 / PyTorch 2.10.0 / Transformers 5.5.0 environment as PanoVLN. Run each method in its own server process. Refer to the methods' upstream repositories for checkpoint details.
+The model's `stop` ends the trial. Press **Ctrl+C in the robot client terminal** to interrupt: cleanup sends zero velocity three times before closing ROS and saving outputs. Exceptions also enter this cleanup path. Keep the robot's own stop control available during physical trials; learned avoidance and client cleanup do not guarantee collision-free execution. The client does not enable or configure a vendor obstacle-avoidance mode.
 
-For these four perspective baselines, the client projects each panoramic camera frame using `camera.perspective_*` in its YAML. Uploads, saved images, and `navigation.mp4` all use that perspective view; the server receives perspective images and applies the model's own preprocessing. Keep `upload_image_mode: raw` and use the supplied perspective video dimensions. Update both client and server together and restart them when switching from the older server-side projection workflow. PanoVLN continues to use panoramic observations and video.
+The controller uses `/sportmodestate` for closed-loop distance and angle control. If odometry is unavailable at action start, it logs a warning and falls back to timed open-loop execution. Review this behavior and motion speeds for your platform; [control parameters and fallback details](panovln/README.md#motion-control-and-stopping) describe the implementation.
 
-## 5. Inspect the results
+For another trial, change the instruction and experiment identifiers, then restart the client. Existing trial directories are not overwritten, so use a new `trial_id` for each repetition. The inference server can remain running; stop the client first, then press Ctrl+C in the server terminal when finished.
 
-With the example configuration above, the client writes:
+## 6. Inspect and reproduce results
+
+The example configuration writes:
 
 ```text
 outputs/realworld/PanoVLN_office_1_1/
 ├── navigation.mp4
 ├── navigation.json
-└── summary.json
+├── summary.json
+└── images/            # only with save_contents: all or images
 ```
 
-`navigation.json` records the instruction, executed actions, and request timings. `summary.json` contains navigation efficiency metrics and fields for manually annotated success (`sr`) and final distance to the goal (`ne`). Set `recording.save_contents: all` to also save observation images.
+`navigation.json` records the instruction, model path, executed actions, request timings, and termination reason. `summary.json` contains trial time, odometry-derived speed, waiting percentage, policy calls, and latency. Success (`sr`), final goal distance (`ne`), and pause counts require annotation/aggregation; these fields are initially `null`. Annotate SR and NE from the actual trial, and use the paper's stationary interval threshold of more than one second when producing pause statistics. See the [logging reference](panovln/README.md#outputs-and-metric-definitions) before comparing methods.
 
-Each server launch creates `outputs/realworld_server/panovln/<timestamp>_<suffix>/`, containing `server.log` and `inference.jsonl`. Request IDs connect server timings to the client records. Edit `LOG_ROOT` in `panovln/run_server.sh` to change the server log location.
+Set `recording.save_contents: all` to preserve sampled observation JPEGs. Save the resolved configuration for each experiment using `--print-config`; the compact navigation log stores the main execution settings, while the YAML records the full camera/network/controller setup.
 
-For available server and client options:
+Each server launch creates `outputs/realworld_server/panovln/<timestamp>_<suffix>/` with `server.log` and `inference.jsonl`. UUID request IDs connect server timings to `navigation.json` entries. See the [HTTP interface](panovln/README.md#http-interface) to call the model with saved images before integrating another robot.
 
-```bash
-bash realworld/panovln/run_server.sh --help
-bash realworld/panovln/run_go2_client.sh --help
-```
+## Baseline deployments
+
+JanusVLN, NaVid, NaVILA, and StreamVLN use the same `run_server.sh` / `run_go2_client.sh` layout in their own directories. Select matching client/server directories, install that method's dependencies, and obtain its upstream checkpoint. Run each method in its own server process.
+
+For these perspective baselines, the client projects the camera panorama using `camera.perspective_*` in its YAML. Uploads, saved observations, and `navigation.mp4` use that perspective view. Keep `upload_image_mode: raw` and the supplied perspective video dimensions. PanoVLN uses panoramic observations and video. When comparing methods, use the same instruction/route identifiers, repeated trials, and annotation rules.
+
+## Further reference
+
+- [PanoVLN settings, HTTP payloads, recovery/avoidance, and troubleshooting](panovln/README.md)
+- [Model and training reproduction](../docs/reproduction.md)
+- CLI reference: `bash realworld/panovln/run_server.sh --help` and `bash realworld/panovln/run_go2_client.sh --help`

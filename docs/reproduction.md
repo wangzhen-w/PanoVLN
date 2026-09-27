@@ -2,13 +2,23 @@
 
 [Back to the repository](../README.md) · [Training configuration](../src/train/README.md) · [Robot deployment](../realworld/README.md)
 
-This guide covers environment setup, simulation evaluation, training data, and DAgger refinement. Run commands from the repository root unless a step says otherwise. Edit settings directly in the supplied launchers before running them; most launchers define their paths and GPU choices inside the script.
+This guide covers the path from installation to simulation, training, and a recorded Go2 trial. Run commands from the repository root unless stated otherwise. The shell launchers define their paths and GPU choices inside the files; edit those settings before running them.
+
+| Workflow | Required assets | Start here |
+| --- | --- | --- |
+| Simulation evaluation | Complete PanoVLN checkpoint, MP3D scenes, R2R/RxR evaluation episodes | [Install](#install-the-environment) → [scenes](#scenes-and-navigation-annotations) → [evaluate](#evaluate-a-checkpoint) |
+| Training | Qwen/PanoVGGT initialization or a navigation checkpoint, training JSONL, rendered images | [Prepare data](#prepare-training-data) → [train](#train-a-model) |
+| Robot deployment | PanoVLN Real World checkpoint on a GPU server; ROS2 Go2 client and panorama camera | [Deploy](#deploy-on-a-physical-robot) |
+
+Keep the robot client in its ROS-compatible Python environment. It needs neither Habitat nor the model weights. The GPU server needs the model environment and HTTP dependencies; Habitat is used only for simulation and data rendering.
 
 ## Install the environment
 
-Use Linux and an NVIDIA GPU. Create the Python environment and install the core versions recorded for this repository:
+Use Linux with an NVIDIA GPU for the model process. Create the Python environment and install the core versions recorded for this repository:
 
 ```bash
+git clone https://github.com/wangzhen-w/PanoVLN.git
+cd PanoVLN
 conda create -n panovln python=3.12 -y
 conda activate panovln
 
@@ -22,9 +32,32 @@ python -m pip install \
 
 Select [PyTorch CUDA wheels](https://pytorch.org/get-started/locally/) compatible with your driver. For FlashAttention, follow the [FlashAttention 2 installation instructions](https://github.com/Dao-AILab/flash-attention#installation-and-features). To use PyTorch attention instead, set `attn_implementation: sdpa` in the training configuration or `ATTN_IMPLEMENTATION="sdpa"` in the evaluation launcher.
 
+PanoVLN is imported from the checkout by the launchers. The bundled `src/panovggt/requirements.txt` belongs to the upstream standalone PanoVGGT project and pins an older PyTorch stack; use the environment above for this navigation code.
+
+Before downloading large assets, check the model imports:
+
+```bash
+python - <<'PYMODEL'
+import torch, transformers
+from src.qwen_vl import Qwen3_5ForConditionalGenerationForPanoVLN
+print("PyTorch:", torch.__version__, "CUDA:", torch.cuda.is_available())
+print("Transformers:", transformers.__version__)
+PYMODEL
+```
+
 ### Habitat setup
 
-Rendering, DAgger collection, and simulation evaluation require **Habitat-Sim 0.3.3** with rendering support. Follow its [versioned installation instructions](https://github.com/facebookresearch/habitat-sim/tree/v0.3.3); select the headless build on a server without a display.
+Rendering, DAgger collection, and simulation evaluation use **Habitat-Sim 0.3.3** with rendering support. Follow its [versioned installation instructions](https://github.com/facebookresearch/habitat-sim/tree/v0.3.3); select headless rendering on a server without a display. Install a build matching the active Python version. If a matching binary package is unavailable, the upstream [source-build route](https://github.com/facebookresearch/habitat-sim/blob/v0.3.3/BUILD_FROM_SOURCE.md) is:
+
+```bash
+git clone --branch v0.3.3 --recursive https://github.com/facebookresearch/habitat-sim.git ../habitat-sim
+cd ../habitat-sim
+python -m pip install -r requirements.txt
+python setup.py install --headless
+cd ../PanoVLN
+```
+
+Install the compiler/CMake and EGL/OpenGL system dependencies listed in that build guide before compiling. Keep this build in the same `panovln` environment.
 
 Install the matching Habitat-Lab and Habitat-Baselines packages in the same environment:
 
@@ -55,7 +88,7 @@ hf download wangzhen-w/PanoVLN_base --local-dir checkpoints/PanoVLN_base
 hf download wangzhen-w/PanoVLN_realworld --local-dir checkpoints/PanoVLN_realworld
 ```
 
-Download each model directory in full, including configuration, tokenizer, and processor files. A complete PanoVLN checkpoint includes the geometry encoder; separate initialization weights are used when starting training from Qwen.
+Download each model directory in full, including configuration, tokenizer, and processor files. A complete PanoVLN checkpoint includes the geometry encoder; separate initialization weights are used when starting training from Qwen. For physical deployment, use `PanoVLN_realworld`, which adds trajectory recovery and collision avoidance. Keep this checkpoint choice in the experiment record; it is distinct from the simulation models.
 
 ## Scenes and navigation annotations
 
@@ -93,7 +126,15 @@ data/
 └── train.jsonl
 ```
 
-Only prepare the datasets needed by your run. Simulation evaluation needs the relevant evaluation split and scene assets; it renders observations online and does not need the training image folders. The scene and annotation paths are defined in [`config/`](../config/).
+Only prepare the datasets needed by your run. Simulation evaluation needs the relevant evaluation split and scene assets; it renders observations online and does not need the training image folders.
+
+| Configuration | Episode path | Scene root |
+| --- | --- | --- |
+| [`config/vln_r2r.yaml`](../config/vln_r2r.yaml) | `data/general_vln_dataset/r2r/{split}/{split}.json.gz` | `data/scene/` |
+| [`config/vln_rxr.yaml`](../config/vln_rxr.yaml) | `data/general_vln_dataset/rxr/{split}/{split}_{role}.json.gz` | `data/scene/` |
+| [`config/vln_panovln.yaml`](../config/vln_panovln.yaml) | `data/general_vln_dataset/panovln/train.json.gz` | `data/scene/hm3d/` |
+
+R2R/RxR evaluation defaults to `val_unseen`; RxR selects the `guide` role and English (`en-US`, `en-IN`) instructions. Both use 1280×640 RGB panoramas, 0.25 m forward steps, 15° turns, and a 3 m success distance. The PanoVLN generation configuration uses a 0.3 m goal tolerance. Preserve these task settings when comparing results.
 
 ## Evaluate a checkpoint
 
@@ -126,6 +167,36 @@ The launchers evaluate `val_unseen` by default and write:
 
 Existing episode results are reused. Use a new `SAVE_PATH` when changing checkpoints, execution policies, seeds, or episode budgets. Save the launcher and configuration alongside the results to record the full setup.
 
+### Run one worker directly
+
+The Python entry point also accepts explicit arguments. This command runs a five-episode R2R check with one GPU and PyTorch SDPA, without editing the multi-worker launcher:
+
+```bash
+PYTHONPATH="$PWD${PYTHONPATH:+:$PYTHONPATH}" CUDA_VISIBLE_DEVICES=0 \
+python src/eval/eval.py \
+  --exp-config config/vln_r2r.yaml \
+  --split-num 1 --split-id 0 \
+  --model-path checkpoints/PanoVLN \
+  --result-path outputs/eval/r2r_single_worker \
+  --total-max-episodes 5 --max-episodes 0 \
+  --attn-implementation sdpa \
+  --forward-distance 25 --turn-angle 15 \
+  --max-memory-images 10 --memory-pool-window-frames 100 \
+  --actions-per-replan uncertainty --replan-action-range 4 8 \
+  --uncertainty-budget 1.2 --stop-commit-max-actions 9 \
+  --collision-recovery-steps 2 --seed 42
+
+python src/eval/analyze_results.py --path outputs/eval/r2r_single_worker
+```
+
+For RxR, change the config to `config/vln_rxr.yaml`, the stop window to `10`, and the output directory. `--forward-distance` is measured in centimeters in this evaluation CLI; the robot client's `--forward-distance` is measured in meters.
+
+### Outputs and resuming
+
+Workers append `result_rank<N>.jsonl` while running. The analysis step merges them into `result.jsonl`, writes `result_summary.json`, and removes the merged shards. Rows include episode/scene IDs, task metrics, executed actions, and model-predicted sequences. Summary keys are `num_episodes`, `success`, `spl`, `oracle_success`, `distance_to_goal`, `path_length`, and `ndtw`; rate metrics use fractions (multiply by 100 for percentages). `SAVE_TOPDOWN=true` adds per-episode videos under `top_down/`.
+
+An interrupted run can reuse the same output directory to skip completed episode/scene pairs. Use a fresh directory for a different checkpoint, execution policy, or evaluation budget. The saved summary reflects the rows present in that directory.
+
 ### Execution settings
 
 The model predicts 18 actions. The launchers independently control how many to execute before requesting a new panorama:
@@ -136,8 +207,8 @@ The model predicts 18 actions. The launchers independently control how many to e
 | `ACTIONS_PER_REPLAN=6` | Use a fixed six-action execution prefix |
 | `REPLAN_ACTION_RANGE=(4 8)` | Inclusive bounds in uncertainty mode |
 | `UNCERTAINTY_BUDGET=1.2` | Confidence budget for prefix selection |
-| `STOP_COMMIT_MAX_ACTIONS` | Commit to an early predicted stop within this window |
-| `COLLISION_RECOVERY_STEPS` | Consecutive collision threshold for recovery |
+| `STOP_COMMIT_MAX_ACTIONS=9` (R2R), `10` (RxR) | Commit through a predicted stop in this window, overriding the uncertainty range/budget |
+| `COLLISION_RECOVERY_STEPS=2` | Consecutive forward collisions with static RGB before simulator recovery; `0` disables it |
 
 Retain the supplied benchmark-specific settings when reproducing the reported results. R2R and RxR use different stop-commit windows.
 
@@ -151,7 +222,21 @@ The [Hugging Face dataset](https://huggingface.co/datasets/wangzhen-w/PanoVLN) c
 hf download wangzhen-w/PanoVLN --repo-type dataset --local-dir data
 ```
 
-The release contains annotation files. Obtain scenes separately and render the corresponding images before training.
+The release contains annotation files. Obtain scenes separately and render the corresponding images before training. To download only the base-training files, use:
+
+```bash
+hf download wangzhen-w/PanoVLN --repo-type dataset \
+  --include "sub_dataset/r2r.jsonl" "sub_dataset/rxr.jsonl" "train_r2r_rxr.jsonl" \
+  --local-dir data
+```
+
+| Released file | Mixture |
+| --- | --- |
+| `train_r2r_rxr.jsonl` | R2R + RxR |
+| `r2r_rxr_dagger.jsonl` | R2R + RxR + DAgger |
+| `r2r_rxr_dagger_panovln.jsonl` | R2R + RxR + DAgger + PanoVLN |
+| `sub_dataset/{dataset}.jsonl` | Trajectory-level actions used by rendering and sample preparation |
+| `general_vln_dataset/panovln/train.json.gz` | PanoVLN navigation episodes |
 
 ### 2. Prepare per-dataset actions and images
 
@@ -161,7 +246,7 @@ If the required `data/sub_dataset/*.jsonl` files are already downloaded, keep th
 bash scripts/preprocess.sh
 ```
 
-Select the datasets whose images are needed in [`scripts/extract_frame.sh`](../scripts/extract_frame.sh). Its default is `DATASET_NAMES=(r2r rxr)`; add `panovln` and/or `dagger` for those annotations. Set `GPU_IDS` and `PROCESSES_PER_GPU` for your machine, then run:
+Select the datasets whose images are needed in [`scripts/extract_frame.sh`](../scripts/extract_frame.sh). Its default is `DATASET_NAMES=(r2r rxr)`; add `panovln` and/or `dagger` for those annotations. Set `GPU_IDS` and `PROCESSES_PER_GPU` for your machine; the supplied renderer requests eight GPUs with six processes each. For an initial rendering check, set `GPU_IDS="0"`, `PROCESSES_PER_GPU="1"`, and `MAX_EPISODES="5"`. Clear `MAX_EPISODES` to render all required images before a full training run, then run:
 
 ```bash
 bash scripts/extract_frame.sh
@@ -191,7 +276,26 @@ bash scripts/prepare_dataset.sh
 
 The default output is `data/train.jsonl`. Targets contain exactly 18 actions; terminal targets are padded with `stop`. When rebuilding an existing training file, use `bash scripts/prepare_dataset.sh --overwrite`.
 
-To generate additional trajectories and instructions, follow the [dataset-generation guide](../dataset_create/README.md).
+Prepared samples contain `instruction`, `action_sequence`, `images`, `episode_id`, `dataset`, `step_index`, `end_step`, `real_action_count`, and `history_actions`. `images` is ordered from the episode start through the current observation; `action_sequence` has exactly 18 target words. The loader selects a bounded history from these paths.
+
+Check the first selected training sample before launching a long run:
+
+```bash
+python - <<'PYDATA'
+import json
+from pathlib import Path
+root = Path("data")
+with (root / "train.jsonl").open() as stream:
+    row = json.loads(next(stream))
+assert len(row["action_sequence"]) == 18
+assert set(row["action_sequence"]) <= {"stop", "forward", "left", "right"}
+missing = [name for name in row["images"] if not (root / name).is_file()]
+assert not missing, f"Missing images: {missing[:5]}"
+print(row["dataset"], row["episode_id"], "images:", len(row["images"]))
+PYDATA
+```
+
+This checks one sample's format and paths. To generate additional trajectories and instructions, follow the [dataset-generation guide](../dataset_create/README.md).
 
 ## Train a model
 
@@ -217,7 +321,21 @@ Set `GPU_DEVICES` and a fresh `OUTPUT_DIR` in [`src/train/train.sh`](../src/trai
 bash src/train/train.sh
 ```
 
-The launcher defines its settings in the file and does not accept command-line overrides. It saves the trained model and `train.log` to `OUTPUT_DIR`. Validation is disabled by default; enabling it requires your own validation JSONL and matching images. The [training guide](../src/train/README.md) describes architecture constraints and supported parameters.
+The launcher defines its settings in the file and does not accept command-line overrides. Its `OUTPUT_DIR` overrides `training.output_dir` in the YAML. Defaults are eight GPUs, per-device batch size 4, gradient accumulation 4, one epoch, BF16, gradient checkpointing, DeepSpeed ZeRO-2, and offline W&B logging. The nominal effective batch size is `number_of_GPUs × per_device_train_batch_size × gradient_accumulation_steps` (128 with the default eight GPUs).
+
+| Configuration | Effect |
+| --- | --- |
+| `model.name_or_path` | Initialize from Qwen3.5-4B or fine-tune a compatible PanoVLN checkpoint |
+| `model.trainable_modules` | Select visual tower, visual merger, language model, and PanoVGGT projection MLP |
+| `model.panovggt_checkpoint_path` | External encoder initialization when the navigation checkpoint does not already contain it |
+| `training.*_lr` | Separate learning rates for the language, visual, merger, and fusion modules |
+| `training.deepspeed` | Defaults to `scripts/zero2.json` |
+| `run.resume_from_checkpoint` | Resume from the latest `checkpoint-*` in the same output directory when `true` |
+| `run.do_eval`, `training.eval_strategy` | Enable evaluation only after providing `data.eval_jsonl` and its images |
+
+The PanoVGGT encoder remains frozen. Training saves `train.log`, periodic `checkpoint-*` directories (every 1,000 steps by default, retaining two), and the final model/processor/tokenizer in `OUTPUT_DIR`. Save a copy of the YAML and launcher with the run. Fine-tuning a model in a **new** directory uses `model.name_or_path`; resuming an interrupted run in the **same** directory uses `run.resume_from_checkpoint: true`.
+
+Validation is disabled by default; `data/val.jsonl` is a user-provided file. To enable it, set `run.do_eval: true`, select an evaluation strategy such as `steps`, and provide the matching JSONL/image root. The [training guide](../src/train/README.md) describes fixed architecture metadata and the supported configuration options.
 
 ## Refine with DAgger
 
@@ -229,6 +347,8 @@ The launcher defines its settings in the file and does not accept command-line o
 bash scripts/generate_dagger_data.sh
 ```
 
+The collector writes trajectory annotations under `data/sub_dataset/dagger.jsonl` and the executed observations under `data/images/dagger/`. It uses 18-action oracle targets, an uncertainty range of 4–8 actions, and a 0.3 m final-goal tolerance. Collection defaults to eight GPUs with five processes per GPU; reduce concurrency and set a small `MAX_EPISODES` for an initial check. Completed episodes are skipped on subsequent runs.
+
 Include `dagger` in `DATASET_NAMES` in `scripts/prepare_dataset.sh`. Configure training to start from the initial policy and write to a new output directory, then rebuild and fine-tune:
 
 ```bash
@@ -238,7 +358,154 @@ bash src/train/train.sh
 
 ## Deploy on a physical robot
 
-Use `PanoVLN_realworld` and follow the [real-world deployment guide](../realworld/README.md). It covers the GPU server, ROS2 robot client, Unitree message build, camera settings, readiness check, navigation, and trial recording.
+Use **`PanoVLN_realworld`**, the checkpoint with enhanced trajectory recovery and collision avoidance. These capabilities support recovery from route deviations and responses to obstacles during physical navigation. The GPU server returns actions and action uncertainty; the Go2 client captures panoramas, selects history, executes the chosen action prefix, and records the trial.
+
+### 1. Start the GPU server
+
+On the Linux GPU machine, activate the model environment and run from the repository root:
+
+```bash
+conda activate panovln
+hf download wangzhen-w/PanoVLN_realworld --local-dir checkpoints/PanoVLN_realworld
+python -m pip install -r realworld/panovln/requirements.txt
+bash realworld/panovln/run_server.sh
+```
+
+The settings at the top of [`run_server.sh`](../realworld/panovln/run_server.sh) are:
+
+| Setting | Default / purpose |
+| --- | --- |
+| `MODEL_PATH` | `./checkpoints/PanoVLN_realworld` |
+| `GPU_IDS` | `0`; GPU visible to the server |
+| `HOST`, `PORT` | `0.0.0.0`, `8000`; listen address and port |
+| `PYTHON_BIN` | `python3` from the active model environment |
+| `ATTN_IMPLEMENTATION` | `flash_attention_2`; use `sdpa` if needed |
+| `LOG_ROOT` | `./outputs/realworld_server/panovln` |
+| `PANOVGGT_CHECKPOINT` | Empty for a complete navigation checkpoint; set an external path only when encoder weights are absent |
+
+The server loads the model **before** starting HTTP. `/ready` and `/health` report the loaded model path, panoramic view mode, action-sequence length, and uncertainty support. Extra server flags are forwarded by the launcher; for example, `bash realworld/panovln/run_server.sh --attn-implementation sdpa` selects SDPA for that run.
+
+### 2. Prepare the robot-side environment
+
+On the Go2 client machine, use **ROS2 Foxy** and its compatible `/usr/bin/python3`. Install FFmpeg for the configured recorder, plus the Python dependencies:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y ffmpeg python3-pip python3-colcon-common-extensions
+/usr/bin/python3 -m pip install -r realworld/panovln/requirements-client.txt
+
+source /opt/ros/foxy/setup.bash
+cd realworld/panovln/ros2_unitree_api_ws
+colcon build --base-paths src --packages-select unitree_api unitree_go
+cd ../../..
+```
+
+The launcher automatically sources the generated `install/setup.bash`. Keep it on the client or rebuild if it is removed. The included workspace provides message definitions; the Go2 sport API connection must already be available. Confirm the client can see `/api/sport/request`, `/api/sport/response`, and `/sportmodestate` in the ROS2 network. The last topic supplies odometry for the default closed-loop execution. If odometry is unavailable, the client can fall back to timed open-loop motion; check the client log when validating motion accuracy.
+
+### 3. Configure one trial
+
+Edit [`realworld/panovln/go2_client.yaml`](../realworld/panovln/go2_client.yaml). CLI arguments override YAML values.
+
+| YAML field | What to set |
+| --- | --- |
+| `server.server_base_url` | Reachable GPU-server URL on port 8000. The supplied `127.0.0.1` is valid only when both processes share a host. |
+| `experiment.scene_name`, `route_id`, `trial_id` | Environment, route, and repetition identifiers used in the output directory |
+| `navigation.instruction` / `instruction_file` | Instruction text; a configured file takes precedence |
+| `camera.camera` | Panorama camera device, default `/dev/video0` |
+| `camera.frame_width`, `frame_height`, `camera_fps` | Camera capture format, defaults 2880×1440 at 30 FPS |
+| `motion.forward_distance`, `turn_degrees` | Action units, 0.25 m / 15° |
+| `motion.forward_speed`, `yaw_speed` | Execution speeds, defaults 0.35 m/s and 0.8 rad/s |
+| `odometry.disable_odom_control` | `false` requests odometry-based control; calibrate tolerances and gains for the robot |
+| `recording.save_output_dir`, `save_contents` | Output root and recording types; `all` additionally saves individual images |
+
+Keep these policy defaults for the released deployment configuration:
+
+```yaml
+navigation:
+  actions_per_replan: uncertainty
+  uncertainty_budget: 1.2
+  replan_action_range: [4, 8]
+  stop_commit_max_actions: 12
+  execution_mode: continuous
+  prefetch_after_actions: 0
+  history_limit: 120
+
+upload:
+  upload_max_memory_images: 10
+  upload_memory_pool_window_frames: 100
+  upload_image_mode: resize
+  upload_width: 1280
+  upload_height: 640
+```
+
+This is an excerpt; keep the other sections in the supplied YAML. The client sends up to 10 historical frames selected from the recent 100-frame window, plus the current panorama. In continuous mode, adjacent identical actions are merged while observations are captured after each original action unit. `stop_commit_max_actions` can commit through a predicted stop before the ordinary uncertainty limit.
+
+Print the final configuration without opening the camera, contacting the server, or controlling the robot:
+
+```bash
+bash realworld/panovln/run_go2_client.sh --print-config
+```
+
+### 4. Check readiness and the camera/server path
+
+From the robot-side machine, this reads the configured server URL and verifies that the model is ready:
+
+```bash
+/usr/bin/python3 - <<'PYREADY'
+from pathlib import Path
+import requests, yaml
+config = yaml.safe_load(Path("realworld/panovln/go2_client.yaml").read_text())
+url = config["server"]["server_base_url"].rstrip("/") + "/ready"
+response = requests.get(url, timeout=10)
+response.raise_for_status()
+print(response.json())
+PYREADY
+```
+
+Then run one inference cycle with **motion disabled**:
+
+```bash
+bash realworld/panovln/run_go2_client.sh \
+  --control-backend dry-run --max-replans 1 \
+  --scene-name office --route-id 1 --trial-id dry-run-01
+```
+
+This opens the camera, sends observations to the model server, records the trial, and prints the proposed control commands. It does not send ROS2 motion commands. Use a new trial ID if this output directory already exists.
+
+### 5. Execute a robot trial
+
+The supplied YAML selects `control_backend: ros2` and `real_robot_ack: "yes"`. After checking the instruction, camera, server, and motion settings, run the following only for an intended physical trial:
+
+```bash
+bash realworld/panovln/run_go2_client.sh \
+  --control-backend ros2 --real-robot-ack yes \
+  --scene-name office --route-id 1 --trial-id 1
+```
+
+This command can move the Go2. `Ctrl+C` triggers the client's stop and cleanup handler. The server can remain running between trials; change the instruction and increment `trial_id` when starting another run. The [shared deployment guide](../realworld/README.md) covers the included baseline server/client pairs. The [PanoVLN configuration/API reference](../realworld/panovln/README.md) documents precedence, control behavior, HTTP request/response fields, and troubleshooting.
+
+### 6. Inspect trial outputs
+
+```text
+outputs/realworld/PanoVLN_office_1_1/
+├── navigation.mp4
+├── navigation.json
+├── summary.json
+└── images/                 # With save_contents: all
+
+outputs/realworld_server/panovln/{timestamp}_{suffix}/
+├── server.log
+└── inference.jsonl
+```
+
+`navigation.json` records the instruction, execution configuration, predicted/executed actions, and request timings. `summary.json` includes `time_s`, `speed_mps`, call counts, latency, and waiting-time statistics. Speed is in m/s; multiply by 100 when reporting cm/s. Success (`sr`), final goal distance (`ne`), and pause count initially remain `null`: annotate success/distance after the trial and derive pauses from an explicit stationary-interval criterion using odometry or video. Insufficient odometry leaves distance-based speed unavailable. `inference.jsonl` records each server request and its timing; matching request IDs connect the client and server logs. Existing trial directories are not overwritten.
+
+For every supported argument:
+
+```bash
+bash realworld/panovln/run_server.sh --help
+bash realworld/panovln/run_go2_client.sh --help
+```
 
 ## Troubleshooting
 
