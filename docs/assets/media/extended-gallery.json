@@ -1,0 +1,254 @@
+[
+  {
+    "id": "real-carpet",
+    "title": "Hallway · Red carpet",
+    "kind": "realworld",
+    "source": "realworld/PanoVLN_hallway_carpet_1/video_20260920_155459.mp4",
+    "instruction": "Turn left and go straight. Walk until you reach the red carpet and stop.",
+    "source_duration_seconds": 116.8892,
+    "duration_seconds": 41.06306666666667,
+    "source_dimensions": [
+      1920,
+      1080
+    ],
+    "source_fps": "60/1",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "real-carpet.mp4",
+    "poster": "real-carpet-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/5be4d38e-fe35-4315-a4b5-6f185e2b3858"
+  },
+  {
+    "id": "real-chair",
+    "title": "Campus · Recliner",
+    "kind": "realworld",
+    "source": "realworld/PanoVLN_campus_chair_1/video_20260920_164421.mp4",
+    "instruction": "Go straight. On the left, there is a brown recliner. Walk over there and stop.",
+    "source_duration_seconds": 145.770167,
+    "duration_seconds": 50.690055666666666,
+    "source_dimensions": [
+      1920,
+      1080
+    ],
+    "source_fps": "60/1",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "real-chair.mp4",
+    "poster": "real-chair-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/de934462-9e20-40f5-899e-6e447ddff21d"
+  },
+  {
+    "id": "real-elevator",
+    "title": "Hallway · Elevator",
+    "kind": "realworld",
+    "source": "realworld/PanoVLN_hallway_elevator_1/video_20260920_160510.mp4",
+    "instruction": "Walk straight to the second elevator door and stop there.",
+    "source_duration_seconds": 96.357611,
+    "duration_seconds": 34.21920366666667,
+    "source_dimensions": [
+      1920,
+      1080
+    ],
+    "source_fps": "60/1",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "real-elevator.mp4",
+    "poster": "real-elevator-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/a7d49da7-d60a-437d-90a8-15d8c38bdbd1"
+  },
+  {
+    "id": "real-sofa",
+    "title": "Office · Sofa",
+    "kind": "realworld",
+    "source": "realworld/PanoVLN_office_sofa_1_perfect/video_20260920_155026.mp4",
+    "instruction": "Walk the straight forward into the small room on the left side of the current camera view, the one with a sofa inside, and stop nearby the sofa",
+    "source_duration_seconds": 56.027422,
+    "duration_seconds": 20.775807333333336,
+    "source_dimensions": [
+      1920,
+      1080
+    ],
+    "source_fps": "60/1",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "real-sofa.mp4",
+    "poster": "real-sofa-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/e69fb4c1-28b7-4ae8-890a-1c24cbd1b790"
+  },
+  {
+    "id": "real-water",
+    "title": "Office · Water dispenser",
+    "kind": "realworld",
+    "source": "realworld/PanoVLN_office_water_dispenser_1/video_20260920_132240.mp4",
+    "instruction": "Turn right and go straight. There is a black storage rack against the wall. Walk up to the water dispenser beside the rack and stop.",
+    "source_duration_seconds": 46.652867,
+    "duration_seconds": 17.65095566666667,
+    "source_dimensions": [
+      1920,
+      1080
+    ],
+    "source_fps": "60/1",
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "real-water.mp4",
+    "poster": "real-water-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/0dbfd923-591c-4154-8b25-f33c6f073d2a"
+  },
+  {
+    "id": "simulation-03",
+    "title": "Bedroom to staircase",
+    "kind": "simulation",
+    "source": "r2r/episode_1065/navigation.mp4",
+    "instruction": "Leave the bedroom and walk straight.  When you get to the glass wine room, turn left and walk through the doorway past it.  Go down the hallway to the right and turn left at the stairs.  Go up the first step and then stop.",
+    "source_duration_seconds": 23.666667,
+    "duration_seconds": 9.988889,
+    "source_dimensions": [
+      1924,
+      640
+    ],
+    "source_fps": "3/1",
+    "dimensions": [
+      2560,
+      1440
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": null,
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "simulation-03.mp4",
+    "poster": "simulation-03-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/05bc4320-44c6-4c9c-a643-9194f6b2b670"
+  },
+  {
+    "id": "simulation-04",
+    "title": "Across the bedroom",
+    "kind": "simulation",
+    "source": "r2r/episode_358/navigation.mp4",
+    "instruction": "Walk forward and turn right, exiting the room. Continue forward and turn right, walking past the mirror and side table. Enter the bedroom and turn left. Turn left again and wait inside the doorway.",
+    "source_duration_seconds": 23.333333,
+    "duration_seconds": 9.877777666666667,
+    "source_dimensions": [
+      1924,
+      640
+    ],
+    "source_fps": "3/1",
+    "dimensions": [
+      2560,
+      1440
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": null,
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "simulation-04.mp4",
+    "poster": "simulation-04-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/d0171c82-7e64-48d9-bcdf-82befceb0992"
+  },
+  {
+    "id": "simulation-05",
+    "title": "Living room to laundry",
+    "kind": "simulation",
+    "source": "rxr/episode_8206/navigation.mp4",
+    "instruction": "From where you're standing in front of a flower, you're gonna turn around and walk towards the table in the middle of the living room. You'll pass a fireplace to the right and turn right into the glass double doors. You should end up in another living room that's gonna have a red carpet. At the end of that carpet, you're gonna turn left. The hallway you're facing right now is gonna have a brown door that's closed. Take a few steps forward and turn right into an open door. Walk through this empty room I guess. It has brown cabinets and make a left. Continue down the hallway. You'll pass a set of windows to your right and a closed door to the left. Once you see an opening to the left after that, you're gonna turn left and your destination is gonna be on top of the carpet in front of the washer.",
+    "source_duration_seconds": 46.666667,
+    "duration_seconds": 17.655555666666665,
+    "source_dimensions": [
+      2366,
+      640
+    ],
+    "source_fps": "3/1",
+    "dimensions": [
+      2560,
+      1440
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": null,
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "simulation-05.mp4",
+    "poster": "simulation-05-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/8af610f8-dff5-4a23-a833-551027867446"
+  },
+  {
+    "id": "simulation-06",
+    "title": "Bedroom to shower",
+    "kind": "simulation",
+    "source": "rxr/episode_2210/navigation.mp4",
+    "instruction": "You are at the door, facing to the table. Turn towards your slight left and keep moving forward. In front, you find an other door. Go pass through the door and you enter into a bedroom. Move towards the bed in front of you and turn towards your left. In front, you find an other white door, go pass through the door and you enter into a corridor. Turn towards your slight right and move forward in the corridor. On your left you find a black color table, walk beside that black color table and keep moving forward. In front, you find a white color door. Go pass through the door and turn towards your left. There is a brown cupboard in front of you, walk towards that cupboards beside the bed and turn towards your left. You find an other room. Go pass through the door of a room and keep moving forward. In front, you find two rooms. Enter into the room, which is on your right side, in front of you and you reached your bathroom. Turn towards your slight right and enter into a shower room, by crossing the glass door of it. You reached your destination.",
+    "source_duration_seconds": 36.0,
+    "duration_seconds": 14.1,
+    "source_dimensions": [
+      1924,
+      640
+    ],
+    "source_fps": "3/1",
+    "dimensions": [
+      2560,
+      1440
+    ],
+    "fps": 30,
+    "speed": 3,
+    "intro_seconds": 2.5,
+    "transition_seconds": 0.4,
+    "tone_mapping": null,
+    "music": "Lonely Dance — Vexento",
+    "target_loudness_lufs": -25,
+    "file": "simulation-06.mp4",
+    "poster": "simulation-06-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/3907c133-c470-484e-97c3-e9c23f92203c"
+  }
+]

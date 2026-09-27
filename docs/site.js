@@ -1,7 +1,19 @@
 'use strict';
 // Keep the independent players usable without overlapping sound.
 document.querySelectorAll('video').forEach(video=>{
+  const start=document.createElement('button');
+  start.className='video-start glass-control';
+  start.setAttribute('aria-label','Play '+(video.getAttribute('aria-label')||'video'));
+  start.innerHTML='<img src="assets/icons/phosphor/regular/play.svg" alt="" width="28" height="28">';
+  video.parentElement.append(start);
+  video.controls=false;
+  start.addEventListener('click',async()=>{
+    video.controls=true;start.hidden=true;
+    try{await video.play();video.focus();}
+    catch{video.controls=false;start.hidden=false;start.focus();}
+  });
   video.addEventListener('play',()=>{
+    start.hidden=true;video.controls=true;
     document.querySelectorAll('video').forEach(other=>{if(other!==video) other.pause();});
   });
 });

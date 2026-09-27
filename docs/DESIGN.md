@@ -1,26 +1,33 @@
-# Light research page
+# PanoVLN: illuminated research gallery
 
-The page follows a centered academic hierarchy informed by [JanusVLN](https://miv-xjtu.github.io/JanusVLN.github.io/), with full-width research figures and two-column video galleries. [Apple's Liquid Glass presentation](https://developer.apple.com/videos/play/wwdc2025/219/) informs the translucent navigation and resource controls. All project media and figures are PanoVLN assets.
+## Direction and references
 
-## Visual system
+The [JanusVLN project page](https://miv-xjtu.github.io/JanusVLN.github.io/) informs the centered research hierarchy and independent two-column video galleries. [Apple MacBook Pro](https://www.apple.com/sg/macbook-pro/) and [iPad Pro](https://www.apple.com/sg/ipad-pro/) inform the relationship between a dark stage, localized colored light, strong white typography, and restrained controls. Assets and layout are independently implemented for PanoVLN.
 
-- Pale mineral `#f3f6f7`: page canvas.
-- White `#ffffff`: paper figures.
-- Ink `#17283e`: primary text.
-- Slate `#526375`: secondary text.
-- Blue `#245a8c`: links.
-- Soft gray `#d8e0e5`: separators.
+## Visual plan
 
-Geist carries the title, body and controls. Section titles are centered at 32–46px; body text is 18–19px. Research sections are 1060px wide; media galleries are 1200px wide. Five independent method films appear two per row; mobile uses one per row. Film frames are never tilted or cropped. Native controls make playback explicit.
+- Midnight blue `#0c1225`: page background, visibly chromatic instead of pure black.
+- Cobalt `#426dcc` and iris `#7661ba`: soft, broad illumination around the title and media galleries.
+- Ice `#f1f4fc`: primary text.
+- Mist `#bac6dc`: secondary text.
+- White `#ffffff`: original paper figures and tables, preserving their printed colors.
 
-Glass is reserved for navigation and resource controls: a translucent fill, fine reflective edge and diffused backdrop. Figures remain white, with their original colors and typesetting. Reduced transparency uses solid control backgrounds; reduced motion removes transitions and smooth scrolling. Descriptive subtitles are omitted when a heading already identifies the content.
+Geist remains the sole type family. The centered project title is the primary visual event; full-title reflected light and a broad blue-violet halo sit behind it. Section headings and controls remain quiet. Body text has a narrower reading measure. Videos stay level, full-field, two per row on desktop and one per row on phones. Glass is limited to navigation and resource controls. There are no decorative slogans or repeating explanatory subtitles.
 
-## Layout
+```
+       glass navigation
+    title / authors / links        ← localized blue-violet light
+           teaser
+      abstract / main film
+ architecture / data / results     ← original white paper plates
+     6 real-world recordings       ← broad muted gallery light
+       4 baseline methods
+       6 simulation routes
+     models / data / citation
+```
 
-Centered title, authors and links → teaser → abstract → main film → model architecture → dataset construction → original simulation table, real-world results and execution efficiency → independent real-world films → VLN-CE films → models/data → citation.
+Review against the brief: the previous uniform pale background and the earlier pure-black treatment are both replaced by a chromatic illuminated canvas. Color remains behind content, never as a filter on experimental footage. The paper figures stay white for legibility. The galleries gain different scenes and routes, not repeated cuts from the same film; these are qualitative examples, not new aggregate experimental claims.
 
-## Adapted prompt
+## Adapted design prompt
 
-> Create a light academic project page using pale mineral colors, large neutral type, clear research figures and compact two-column film galleries. Keep each method's video independent. Give navigation and resource controls a subtle liquid-glass surface while preserving clean, stable paper content. Use original LaTeX table images. Avoid extra slogans, decorative subtitles, rotated videos and repeated links.
-
-This is an original synthesis, with additional material references from [Design for AI](https://designforai.dev/style/liquid-glass) and [Liquid Glass prompts](https://liquidglassdesign.com/prompts); it does not reuse a template's assets.
+> Design an academic panoramic-navigation page as a deep midnight-blue gallery illuminated by broad cobalt and iris light. Use the restrained product staging of Apple Pro pages and the clear academic order of JanusVLN, without copying their graphics or wording. Center the title and authors, keep compact two-column video galleries, retain original white LaTeX figure plates, and use reflective glass only for navigation and controls. Show actual project material, readable type, and no empty marketing subtitles. Respect reduced motion and transparency; videos load only when requested.
