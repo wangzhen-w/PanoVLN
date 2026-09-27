@@ -1,0 +1,36 @@
+{
+  "source": "../paper/PanoVLN.pdf",
+  "sha256": "0fe85d572aa117779f7e058adcd44252b87218e73cd96dc3392e45004d5d0b63",
+  "tables": [
+    {
+      "id": "simulation-main",
+      "page": 6,
+      "crop_points": [
+        105,
+        78,
+        508,
+        407
+      ],
+      "pixels": [
+        2418,
+        1974
+      ],
+      "render_dpi": 432
+    },
+    {
+      "id": "execution-efficiency",
+      "page": 8,
+      "crop_points": [
+        105,
+        78,
+        508,
+        198
+      ],
+      "pixels": [
+        2418,
+        720
+      ],
+      "render_dpi": 432
+    }
+  ]
+}

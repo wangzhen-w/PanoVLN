@@ -23,13 +23,13 @@
     <a href="https://huggingface.co/datasets/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/🤗_Dataset-PanoVLN-E6B94B?style=flat-square" alt="PanoVLN training data" /></a>
   </p>
 
-  <a href="https://www.youtube.com/watch?v=_QsBD9Mlrw4"><img src="docs/assets/media/release-poster.jpg" alt="Watch PanoVLN real-world navigation on YouTube: office TV, hallway red carpet, and campus chair, at 3× speed" width="100%" /></a>
-  <p><a href="https://www.youtube.com/watch?v=_QsBD9Mlrw4">▶ Watch the real-world navigation video</a></p>
 </div>
+
+https://github.com/user-attachments/assets/2ca7c19a-fc3a-4a7e-b298-9d9e195b6a5f
 
 ## Contents
 
-[Getting Started](#getting-started) · [Data](#data-preparation) · [Models](#model-zoo) · [Training](#training) · [Evaluation](#evaluation) · [Robot Deployment](#real-world-deployment) · [Configuration](#customization) · [Citation](#citation)
+[Getting Started](#getting-started) · [Training Data](#data-preparation) · [Dataset Construction](#dataset-construction) · [Models](#model-zoo) · [Training](#training) · [Evaluation](#evaluation) · [Robot Deployment](#real-world-deployment) · [Configuration](#customization) · [Citation](#citation)
 
 <a id="introduction"></a>
 ## 🏠 Introduction
@@ -84,72 +84,145 @@ Keep the checkpoint directory, including tokenizer, processor, and configuration
 <a id="data-preparation"></a>
 ## 🗂️ Data Preparation
 
-**Evaluation:** obtain [Matterport3D scenes](https://niessner.github.io/Matterport/) and [R2R-CE / RxR-CE episode annotations](https://github.com/jacobkrantz/VLN-CE#data). Evaluation renders panoramas online; training images are unnecessary for an evaluation-only setup.
+### 1. Obtain scenes and navigation annotations
 
-**Training:** download the released annotations and prepared JSONL mixtures below, obtain the corresponding scenes, and render their panoramic observations. The PanoVLN trajectories use [HM3D](https://aihabitat.org/datasets/hm3d/) scenes.
+Download the **[PanoVLN training dataset](https://huggingface.co/datasets/wangzhen-w/PanoVLN)** from Hugging Face and follow the dataset repository instructions to prepare the released files.
 
 ```bash
 hf download wangzhen-w/PanoVLN --repo-type dataset --local-dir data
 ```
 
-The [dataset repository](https://huggingface.co/datasets/wangzhen-w/PanoVLN) contains annotations and training JSONL files; scene assets and rendered images are prepared separately. The model and dataset have the same name, so retain `--repo-type dataset` in this command.
+The download contains navigation annotations and training JSONL files. Obtain scene assets separately and render the required panoramic images.
+
+For **R2R-CE** and **RxR-CE**, follow the [VLN-CE dataset instructions](https://github.com/jacobkrantz/VLN-CE#data). Obtain the corresponding Matterport3D scene assets separately. Creating additional PanoVLN trajectories requires [HM3D scenes](https://aihabitat.org/datasets/hm3d/).
+
+All dataset paths are relative to the repository root, with `data/` as the default data root. Place your dataset there, or create a symlink at that location to an existing dataset directory. Arrange the downloaded files as follows; keep the split subdirectories in R2R, RxR, and HM3D:
 
 ```text
 data/
 ├── general_vln_dataset/
-│   ├── r2r/{split}/{split}.json.gz
-│   ├── rxr/{split}/{split}_guide.json.gz
-│   └── panovln/train.json.gz
+│   ├── r2r/
+│   │   ├── train/
+│   │   │   └── train.json.gz
+│   │   ├── val_seen/
+│   │   │   └── val_seen.json.gz
+│   │   └── val_unseen/
+│   │       └── val_unseen.json.gz
+│   ├── rxr/
+│   │   ├── train/
+│   │   │   └── train_guide.json.gz
+│   │   ├── val_seen/
+│   │   │   └── val_seen_guide.json.gz
+│   │   └── val_unseen/
+│   │       └── val_unseen_guide.json.gz
+│   └── panovln/
+│       └── train.json.gz
 ├── scene/
-│   ├── mp3d/{scene_id}/
-│   └── hm3d/{train,val}/{scene_id}/
-├── sub_dataset/                 # r2r, rxr, panovln, dagger JSONL
-├── images/{dataset}/{episode_or_trajectory_id}/frame_0.jpg
-├── train_r2r_rxr.jsonl
-├── r2r_rxr_dagger.jsonl
-├── r2r_rxr_dagger_panovln.jsonl
-└── train.jsonl                  # Selected or rebuilt training mixture
+│   ├── hm3d/
+│   │   ├── train/
+│   │   │   ├── 00000-kfPV7w3FaU5/
+│   │   │   ├── 00001-UVdNNRcVyV1/
+│   │   │   └── ...
+│   │   └── val/
+│   │       └── ...
+│   └── mp3d/
+│       ├── 17DRP5sb8fy/
+│       ├── 1LXtFkjw3qL/
+│       └── ...
+├── images/
+│   ├── r2r/
+│   │   └── <episode_id>/
+│   │       └── frame_0.jpg
+│   ├── rxr/
+│   │   └── <episode_id>/
+│   │       └── frame_0.jpg
+│   ├── panovln/
+│   │   └── <episode_id>/
+│   │       └── frame_0.jpg
+│   └── dagger/
+│       └── <trajectory_id>/
+│           └── frame_0.jpg
+├── sub_dataset/
+│   ├── r2r.jsonl
+│   ├── rxr.jsonl
+│   ├── panovln.jsonl
+│   └── dagger.jsonl
+├── train_r2r_rxr.jsonl                   # R2R + RxR mixture
+├── r2r_rxr_dagger.jsonl                  # R2R + RxR + DAgger mixture
+├── r2r_rxr_dagger_panovln.jsonl          # Full mixture
+└── train.jsonl                          # Mixture selected in the training config
 ```
 
-For base training, set `DATASET_NAMES=(r2r rxr)`, `GPU_IDS`, and `PROCESSES_PER_GPU` in [`scripts/extract_frame.sh`](scripts/extract_frame.sh), then:
+Only the datasets used in your run are required. Keep the original scene assets and their navigation meshes. The paths in [`config/`](config/) follow this layout.
+
+`general_vln_dataset/` holds navigation episodes; `scene/` holds simulator scene assets. `sub_dataset/` holds action-aligned annotations, and `images/` holds their panoramic observations. The JSONL files at the data root are prepared training mixtures. Only evaluation episodes and scenes are needed to evaluate a checkpoint.
+
+### 2. Generate action annotations and panoramic frames
+
+Data scripts process **R2R and RxR by default**. Change `DATASET_NAMES` at the top of each script to select other datasets (`SOURCE_DATASET_NAMES` for DAgger collection).
+
+Run preprocessing and frame extraction in order:
 
 ```bash
+bash scripts/preprocess.sh
 bash scripts/extract_frame.sh
-cp data/train_r2r_rxr.jsonl data/train.jsonl
 ```
 
-For full-data training, render all datasets included in `r2r_rxr_dagger_panovln.jsonl` and select that file. The [data-preparation guide](docs/reproduction.md#prepare-training-data) covers annotation regeneration, custom mixtures, and DAgger. Image roots must point to `data/`, since JSONL paths already begin with `images/`.
+Annotations are saved to `data/sub_dataset/`, and images to `data/images/`. Skip the corresponding step if these files are already prepared.
+
+### 3. Prepare the training file
+
+Build the training JSONL with [`scripts/prepare_dataset.sh`](scripts/prepare_dataset.sh):
+
+```bash
+bash scripts/prepare_dataset.sh
+```
+
+The default output is `data/train.jsonl`, containing 18-action training samples. If you use a released mixture, select it directly in `data.train_jsonl` in [`src/train/config/config.yaml`](src/train/config/config.yaml):
+
+| Training stage | JSONL file | Sources |
+| --- | --- | --- |
+| Initial policy | `data/train_r2r_rxr.jsonl` | R2R-CE + RxR-CE |
+| PanoVLN Base (†), including DAgger refinement | `data/r2r_rxr_dagger.jsonl` | R2R-CE + RxR-CE + corrective trajectories |
+| Full PanoVLN | `data/r2r_rxr_dagger_panovln.jsonl` | The above + the constructed PanoVLN dataset |
+| Custom mixture | `data/train.jsonl` | Generated from `DATASET_NAMES` in `scripts/prepare_dataset.sh` |
+
+Set `data.train_image_root` to `data/`: sample image paths already start with `images/`. Render all image sources selected by the mixture. See the [training-data preparation guide](docs/reproduction.md#prepare-training-data) for regeneration and DAgger.
+
+<a id="dataset-construction"></a>
+## Dataset Construction
+
+To **create new trajectories and language instructions from HM3D scenes**, use [`dataset_create/`](dataset_create/). Its guide covers scene inspection, trajectory collection and replay validation, instruction generation, and export of panoramic training images. This is separate from preparing or selecting the released training mixtures above.
 
 <a id="benchmark-and-model-zoo"></a>
 <a id="model-zoo"></a>
-## 📦 Models & Benchmarks
+## 🤗 Model Zoo
 
-### Released checkpoints
+| Model | Role | Repository / weights | Suggested local path |
+| :--- | :--- | :--- | :--- |
+| **PanoVLN** | Full-data checkpoint for simulation benchmarks | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN) | `checkpoints/PanoVLN/` |
+| **PanoVLN Base (†)** | R2R/RxR-only navigation-data checkpoint | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_base) | `checkpoints/PanoVLN_base/` |
+| **PanoVLN Real World** | Robot deployment with enhanced trajectory recovery and collision avoidance | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_realworld) | `checkpoints/PanoVLN_realworld/` |
+| Qwen3.5-4B | VLM initialization for training | [Hugging Face](https://huggingface.co/Qwen/Qwen3.5-4B) | `checkpoints/Qwen3.5-4B/` |
+| PanoVGGT | Frozen panoramic geometry encoder | [Upstream checkpoint](https://huggingface.co/YijingGuo/PanoVGGT) | `checkpoints/PanoVGGT/model.pt` |
 
-| Checkpoint | Intended use | Download | Local directory |
-| --- | --- | --- | --- |
-| **PanoVLN Base (†)** | R2R/RxR-only navigation-data experiments | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_base) | `checkpoints/PanoVLN_base/` |
-| **PanoVLN** | Full-data simulation evaluation | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN) | `checkpoints/PanoVLN/` |
-| **PanoVLN Real World** | Physical deployment, with enhanced trajectory recovery and collision avoidance | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_realworld) | `checkpoints/PanoVLN_realworld/` |
+Use `PanoVLN` to reproduce the full-data simulation results and `PanoVLN_base` for the PanoVLN† results.
+
+For physical robot deployment, we provide a dedicated **`PanoVLN_realworld`** checkpoint with two enhancements:
+
+- **Trajectory recovery:** Improved ability to recover from deviations and resume following the navigation instruction.
+- **Collision avoidance:** Improved ability to avoid obstacles during navigation.
+
+These enhancements address recovery and collision avoidance during physical execution, which motivates a separate deployment checkpoint. Use `PanoVLN_realworld` with the [real-world deployment guide](realworld/README.md); use the simulation checkpoints above to reproduce the reported benchmark results.
+
+Use a fully saved PanoVLN checkpoint, including its tokenizer and processor files, for evaluation or deployment.
 
 ```bash
-# Choose the checkpoint for your experiment.
-hf download wangzhen-w/PanoVLN_base --local-dir checkpoints/PanoVLN_base
-hf download wangzhen-w/PanoVLN_realworld --local-dir checkpoints/PanoVLN_realworld
+hf download wangzhen-w/PanoVLN --local-dir checkpoints/PanoVLN
+# Alternatives: PanoVLN_base or PanoVLN_realworld, with the matching local directory.
 ```
 
-The [real-world deployment section](#real-world-deployment) explains when and how to use the deployment checkpoint. To initialize a new policy, download [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) and [PanoVGGT](https://huggingface.co/YijingGuo/PanoVGGT) as described under [Training](#training).
-
-### Benchmark reference
-
-Manuscript results on **Val-Unseen**. SR and SPL are percentages. † uses R2R-CE and RxR-CE navigation data; the full model additionally uses the constructed PanoVLN dataset.
-
-| Checkpoint | R2R-CE SR ↑ | R2R-CE SPL ↑ | RxR-CE SR ↑ | RxR-CE SPL ↑ |
-| --- | ---: | ---: | ---: | ---: |
-| PanoVLN Base (†) | 73.9 | 67.9 | 74.1 | 63.9 |
-| **PanoVLN** | **77.3** | **70.6** | **78.0** | **65.9** |
-
-Full baseline comparisons and real-world results are on the [project page](https://wangzhen-w.github.io/PanoVLN/#results).
+[Main benchmark results](https://wangzhen-w.github.io/PanoVLN/#results) are shown on the project page.
 
 <a id="training"></a>
 ## 🚀 Training
@@ -227,56 +300,9 @@ Existing episodes are skipped on resume. Use a new `SAVE_PATH` for each checkpoi
 <a id="real-world-deployment"></a>
 ## 🤖 Real-world Deployment
 
-**Use `PanoVLN_realworld` for physical navigation.** This checkpoint adds trajectory recovery and collision avoidance to instruction following, supporting recovery from route deviations and responses to obstacles. The deployment separates **model inference on a GPU server** from **camera capture and motion execution on a Unitree Go2 client**.
+Use **[PanoVLN_realworld](https://huggingface.co/wangzhen-w/PanoVLN_realworld)** with a GPU inference server and a panoramic-camera Unitree Go2 client. This checkpoint adds **trajectory recovery** after route deviations and **collision avoidance** during physical execution.
 
-```text
-Panoramic camera → Go2 client → HTTP /predict → GPU server
-                       ↑                         │
-                       └── actions + confidence ─┘
-```
-
-### 1. GPU server
-
-In the model environment, download the deployment checkpoint and install the HTTP dependencies:
-
-```bash
-hf download wangzhen-w/PanoVLN_realworld --local-dir checkpoints/PanoVLN_realworld
-python -m pip install -r realworld/panovln/requirements.txt
-bash realworld/panovln/run_server.sh
-```
-
-Review `GPU_IDS`, `MODEL_PATH`, `HOST`, `PORT`, and `ATTN_IMPLEMENTATION` in [`run_server.sh`](realworld/panovln/run_server.sh). The default is GPU `0`, port `8000`, and the checkpoint above. The checkpoint supplies its PanoVGGT weights; leave `PANOVGGT_CHECKPOINT` empty.
-
-### 2. Go2 client setup and configuration
-
-On the robot-side machine, install FFmpeg and the client dependencies in the ROS2 Foxy Python environment, then build the included message packages:
-
-```bash
-/usr/bin/python3 -m pip install -r realworld/panovln/requirements-client.txt
-source /opt/ros/foxy/setup.bash
-cd realworld/panovln/ros2_unitree_api_ws
-colcon build --base-paths src --packages-select unitree_api unitree_go
-cd ../../..
-```
-
-Edit [`go2_client.yaml`](realworld/panovln/go2_client.yaml): set `server.server_base_url` to the GPU server's reachable address, `navigation.instruction`, the camera device/resolution, and `experiment.scene_name`, `route_id`, and `trial_id`. Match the `motion` and `odometry` settings to the robot. The client uploads up to 10 historical panoramas plus the current frame, using 1280×640 uploads by default.
-
-Inspect the resolved configuration without opening hardware:
-
-```bash
-bash realworld/panovln/run_go2_client.sh --print-config
-```
-
-### 3. Connect, inspect, and run
-
-The [deployment walkthrough](docs/reproduction.md#deploy-on-a-physical-robot) checks `/ready` and runs a camera/server trial with `--control-backend dry-run` before motion. The supplied YAML already selects `ros2` and sets `real_robot_ack: "yes"`; the bare launcher below **executes physical motion**:
-
-```bash
-# Start only after server readiness, camera, and robot configuration are checked.
-bash realworld/panovln/run_go2_client.sh
-```
-
-The client sends a stop command on `Ctrl+C`. Each trial saves `navigation.mp4`, `navigation.json`, and `summary.json` under `outputs/realworld/<method>_<scene>_<route>_<trial>/`. Existing trial directories are preserved; increment `trial_id` for repetitions. Server logs and per-request inference timings are saved separately. See the [configuration and outputs](docs/reproduction.md#deploy-on-a-physical-robot) and [shared deployment guide](realworld/README.md) and [PanoVLN configuration/API reference](realworld/panovln/README.md).
+Follow **[`realworld/`](realworld/)** for hardware and environment setup, checkpoint configuration, server startup, ROS2 client setup, navigation and trial recording. The [PanoVLN reference](realworld/panovln/README.md) documents configuration fields and the prediction API.
 
 <a id="customization"></a>
 ## 🔧 Configuration
@@ -311,6 +337,8 @@ Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 
 <a id="license"></a>
 ## 📄 License
+
+Video music credits are listed in [assets/README.md](assets/README.md).
 
 The repository-wide code license is pending an author decision. Bundled third-party components retain their [PanoVGGT](src/panovggt/LICENSE), [NaVid](realworld/navid/licenses/LICENSE), and [NaVILA](realworld/navila/licenses/LICENSE) license notices.
 

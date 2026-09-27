@@ -1,34 +1,26 @@
-# PanoVLN — research page and widescreen film
+# Light research page
 
-## Direction
-A centered research page: title, authors, resources, one wide demonstration, abstract, approach and selected results. JanusVLN informs the research hierarchy and full-width media. Apple iPhone, iPad and MacBook pages inform the restrained glass navigation, large type and single media focal point. This is an original layout using our own footage and research assets.
+The page follows a centered academic hierarchy informed by [JanusVLN](https://miv-xjtu.github.io/JanusVLN.github.io/), with full-width research figures and two-column video galleries. [Apple's Liquid Glass presentation](https://developer.apple.com/videos/play/wwdc2025/219/) informs the translucent navigation and resource controls. All project media and figures are PanoVLN assets.
 
-## Tokens
-- Porcelain `#f5f5f7`: canvas.
-- White `#ffffff`: article and media light.
-- Graphite `#1d1d1f`: main type.
-- Slate `#62666d`: secondary type.
-- Blue `#0066cc`: links and actions.
-- Ice `#dceafa`: a faint hero light, not a section fill.
+## Visual system
 
-Geist throughout: 76–92px project name, 34–38px paper title, 34px section titles, 19px body, 16px control labels. Text measure 76 characters maximum. 980px article / 1120px media. Desktop horizontal grid collapses to a single column. Glass is reserved for navigation, resource buttons and the media rim.
+- Pale mineral `#f3f6f7`: page canvas.
+- White `#ffffff`: paper figures.
+- Ink `#17283e`: primary text.
+- Slate `#526375`: secondary text.
+- Blue `#245a8c`: links.
+- Soft gray `#d8e0e5`: separators.
 
-```
-previous                         revised
-text  / angled photo            centered title + authors
-      / angled panorama         centered resource links
-abstract card                   ONE complete 16:9 film
-three vertical crops            abstract (reading column)
-boxed sections                  approach / main results
-```
+Geist carries the title, body and controls. Section titles are centered at 32–46px; body text is 18–19px. Research sections are 1060px wide; media galleries are 1200px wide. Five independent method films appear two per row; mobile uses one per row. Film frames are never tilted or cropped. Native controls make playback explicit.
 
-No rotated media, triptych, extra slogan or ablation gallery. The film cover is a single complete wide frame. All routes appear sequentially: Office TV → Hallway red carpet → Campus chair. A full 16:9 third-person image is the main frame, with the complete 2:1 panorama inset. Navigation is 3×; phone HDR is explicitly converted to SDR. There is no anonymization or source-footage crop. The title and closing use the same sans-serif typography. A licensed score and short dissolves are finished in iMovie.
+Glass is reserved for navigation and resource controls: a translucent fill, fine reflective edge and diffused backdrop. Figures remain white, with their original colors and typesetting. Reduced transparency uses solid control backgrounds; reduced motion removes transitions and smooth scrolling. Descriptive subtitles are omitted when a heading already identifies the content.
 
-## Sources studied
-- https://miv-xjtu.github.io/JanusVLN.github.io/
-- https://www.apple.com/sg/iphone-18-pro/
-- https://www.apple.com/sg/ipad-pro/
-- https://www.apple.com/sg/macbook-pro/
+## Layout
 
-## Verification
-Inspect desktop and mobile renders, original aspect ratios, YouTube loading and citation copy. Check film contact sheets, endpoints, color metadata, audio loudness and final duration before upload. All masters and iMovie work stay on T9.
+Centered title, authors and links → teaser → abstract → main film → model architecture → dataset construction → original simulation table, real-world results and execution efficiency → independent real-world films → VLN-CE films → models/data → citation.
+
+## Adapted prompt
+
+> Create a light academic project page using pale mineral colors, large neutral type, clear research figures and compact two-column film galleries. Keep each method's video independent. Give navigation and resource controls a subtle liquid-glass surface while preserving clean, stable paper content. Use original LaTeX table images. Avoid extra slogans, decorative subtitles, rotated videos and repeated links.
+
+This is an original synthesis, with additional material references from [Design for AI](https://designforai.dev/style/liquid-glass) and [Liquid Glass prompts](https://liquidglassdesign.com/prompts); it does not reuse a template's assets.

@@ -1,0 +1,36 @@
+{
+  "speed": 3,
+  "audio": "Lonely Dance \u2014 Vexento, excerpted, mixed to approximately -25 LUFS, faded",
+  "simulation": [
+    {
+      "id": "simulation-01",
+      "title": "Living room to porch",
+      "source": "r2r/episode_72/navigation.mp4",
+      "instruction": "leave sitting room and head towards the kitchen, turn right at living room and enter. walk through living room to dinning room and enter. Turn left and head to front door. Exit the house and stop on porch.",
+      "source_duration": 30.666666999999997,
+      "duration": 12.322222333333333,
+      "source_fps": "3/1",
+      "source_dimensions": [
+        2366,
+        640
+      ],
+      "url": "https://github.com/user-attachments/assets/9127a263-9b48-4298-916e-2ea46c7b7335"
+    },
+    {
+      "id": "simulation-02",
+      "title": "Hallway to sliding door",
+      "source": "rxr/episode_8632/navigation.mp4",
+      "instruction": "Right now you're facing towards a wall, turn right from the place where you're standing and move forward until you reach an open arch on the left side. Now, turn left and move little forward. Turn right and you can see a passage, walk in the passage till you reach an open entrance on the left side. Now, turn left here you're facing towards a portrait. Slightly turn left and walk forward. Right now you're standing at the entrance of a room, where you can see a sink on the left side. Move forward that stand near the sliding door and that is the end point.",
+      "source_duration": 34.0,
+      "duration": 13.433333333333334,
+      "source_fps": "3/1",
+      "source_dimensions": [
+        2358,
+        640
+      ],
+      "url": "https://github.com/user-attachments/assets/218f66a5-7057-4802-91a4-cfaea3b119a6"
+    }
+  ],
+  "opening_seconds": 2.5,
+  "transition_seconds": 0.4
+}

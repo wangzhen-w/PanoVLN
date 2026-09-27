@@ -3,20 +3,47 @@
     {
       "slot": "benchmark-table",
       "source_id": "simulation_main",
-      "title": "Simulation navigation: selected baselines on Val-Unseen",
+      "title": "Simulation benchmark comparison on Val-Unseen",
       "methods": [
+        "CMA*",
+        "GridMM*",
+        "ETPNav*",
+        "HNR*",
+        "ScaleVLN*",
+        "InstructNav",
+        "LAW",
+        "CM2",
+        "WS-MGMap",
+        "CMA",
+        "MapNav†",
+        "StreamVLN†",
+        "Aux-Think†",
+        "JanusVLN†",
+        "CorrectNav†",
+        "PanoVLN† (Ours)",
+        "NaVid",
+        "Uni-NaVid",
+        "NaVILA",
+        "StreamVLN",
         "JanusVLN",
         "DualVLN",
-        "CorrectNav\u2020",
         "AwareVLN",
         "PanoVLN (Ours)"
       ],
       "columns": [
         "Method",
-        "R2R SR \u2191",
-        "R2R SPL \u2191",
-        "RxR SR \u2191",
-        "RxR SPL \u2191"
+        "Pano.",
+        "Odo.",
+        "Depth",
+        "S.RGB",
+        "R2R NE ↓",
+        "R2R OS ↑",
+        "R2R SR ↑",
+        "R2R SPL ↑",
+        "RxR NE ↓",
+        "RxR SR ↑",
+        "RxR SPL ↑",
+        "RxR nDTW ↑"
       ]
     },
     {
@@ -32,9 +59,9 @@
       ],
       "columns": [
         "Method",
-        "Hallway SR \u2191",
-        "Office SR \u2191",
-        "Campus SR \u2191"
+        "Hallway SR ↑",
+        "Office SR ↑",
+        "Campus SR ↑"
       ]
     },
     {
@@ -50,10 +77,10 @@
       ],
       "columns": [
         "Method",
-        "Time (s) \u2193",
-        "Speed (cm/s) \u2191",
-        "Pauses \u2193",
-        "Calls \u2193"
+        "Time (s) ↓",
+        "Speed (cm/s) ↑",
+        "Pauses ↓",
+        "Calls ↓"
       ]
     }
   ]

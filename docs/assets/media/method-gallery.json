@@ -1,0 +1,102 @@
+[
+  {
+    "id": "panovln",
+    "method": "PanoVLN",
+    "source": "realworld/supplement/PanoVLN_office_tv_1/video_20260922_023218.mp4",
+    "source_duration_seconds": 76.2173,
+    "duration_seconds": 27.505766666666666,
+    "speed": 3,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "phone_tonemap": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance \u2014 Vexento",
+    "music_gain_db": -7.16,
+    "target_loudness_lufs": -25,
+    "file": "panovln.mp4",
+    "poster": "panovln-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/f3a8c636-5ad6-4d5c-8291-da6e7641c8be"
+  },
+  {
+    "id": "navid",
+    "method": "NaVid",
+    "source": "realworld/supplement/NaVid_office_tv_1/video_20260922_005544.mp4",
+    "source_duration_seconds": 102.124133,
+    "duration_seconds": 36.14137766666667,
+    "speed": 3,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "phone_tonemap": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance \u2014 Vexento",
+    "music_gain_db": -7.859999999999999,
+    "target_loudness_lufs": -25,
+    "file": "navid.mp4",
+    "poster": "navid-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/16b2ff15-a84b-4d64-a1a7-80d7c3ccb86d"
+  },
+  {
+    "id": "navila",
+    "method": "NaVILA",
+    "source": "realworld/supplement/NaVILA_office_tv_2/video_20260922_013052.mp4",
+    "source_duration_seconds": 46.5291,
+    "duration_seconds": 17.6097,
+    "speed": 3,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "phone_tonemap": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance \u2014 Vexento",
+    "music_gain_db": -5.620000000000001,
+    "target_loudness_lufs": -25,
+    "file": "navila.mp4",
+    "poster": "navila-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/f60b5563-864b-4beb-9338-941ab6a6f411"
+  },
+  {
+    "id": "streamvln",
+    "method": "StreamVLN",
+    "source": "realworld/supplement/StreamVLN_office_tv_1/video_20260922_025353.mp4",
+    "source_duration_seconds": 128.871611,
+    "duration_seconds": 45.057203666666666,
+    "speed": 3,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "phone_tonemap": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance \u2014 Vexento",
+    "music_gain_db": -8.129999999999999,
+    "target_loudness_lufs": -25,
+    "file": "streamvln.mp4",
+    "poster": "streamvln-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/5499f2dc-4884-4ae6-aeed-c8c189a0433d"
+  },
+  {
+    "id": "janusvln",
+    "method": "JanusVLN",
+    "source": "realworld/supplement/JanusVLN_office_tv_1/video_20260922_031337.mp4",
+    "source_duration_seconds": 164.318556,
+    "duration_seconds": 56.872852,
+    "speed": 3,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "phone_tonemap": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:peak=10:desat=0,zscale=t=bt709:m=bt709:r=tv",
+    "music": "Lonely Dance \u2014 Vexento",
+    "music_gain_db": -8.75,
+    "target_loudness_lufs": -25,
+    "file": "janusvln.mp4",
+    "poster": "janusvln-poster.jpg",
+    "url": "https://github.com/user-attachments/assets/894c9259-29b9-40a0-90aa-f6267f1a38db"
+  }
+]

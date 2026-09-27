@@ -1,7 +1,7 @@
 {
   "canvas": [
-    3840,
-    2160
+    1920,
+    1080
   ],
   "fps": 29.97002997002997,
   "speed": 3,
@@ -47,26 +47,33 @@
       "still": 130
     }
   ],
-  "master": "PanoVLN_widescreen_4K.mp4",
-  "youtube_id": "_QsBD9Mlrw4",
+  "master": "PanoVLN_main_1080p.mp4",
   "duration_seconds": 112.245467,
   "color_output": "BT.709 SDR, limited range",
-  "master_sha256": "023f459823179c78e37c6b4337b08f48b703a0e418aa52f33cddfd5459248ea5",
+  "master_sha256": "efc84eea4201e346b72a506c26f728b0f652f89e6c95a0a321fd0e89a52a2588",
   "notes": [
     "Original 1280x640 10fps panoramas and 1920x1080 HLG external recordings composed on a 3840x2160 30fps canvas.",
     "All navigation motion runs at 3x.",
     "Fixed camera start offsets; hold final phone frame if the recording ends before the panorama.",
     "No masks or source capture metadata. Original camera audio is replaced with licensed instrumental music.",
-    "Final iMovie edit at 29.97 fps, with 0.6-second cross dissolves. Source clip edges overlap at transitions."
+    "Final iMovie edit at 29.97 fps, with 0.6-second cross dissolves. Source clip edges overlap at transitions.",
+    "1080p GitHub viewing copy encoded from the archived 4K master, H.264 CRF 21, maxrate 6M; AAC audio copied unchanged."
   ],
   "music": {
-    "title": "Machinery of the Stars",
-    "artist": "Scott Buckley",
-    "source": "https://www.scottbuckley.com.au/library/machinery-of-the-stars/",
-    "license": "CC BY 4.0",
-    "license_url": "https://creativecommons.org/licenses/by/4.0/",
-    "changes": "Excerpted, leveled and faded",
-    "integrated_loudness_lufs": -16.7,
-    "true_peak_dbtp": -2.4
-  }
+    "title": "Lonely Dance",
+    "artist": "Vexento",
+    "source": "https://music.163.com/#/song?id=1301409077",
+    "permission_source": "https://www.youtube.com/watch?v=tvQvpIy9JnA",
+    "permission": "Artist permits use in videos; attribution included in prepared upload description. Not a CC license.",
+    "changes": "First 112.245467 seconds, 2.5-second fade-in, 6-second fade-out, -11.5 dB gain",
+    "integrated_loudness_lufs": -25.02,
+    "true_peak_dbtp": -11.99,
+    "source_sha256": "f0fd9117586d3139152789ac5e0c7818e1650d797cdc69c672e8bbb553beb53b"
+  },
+  "asset_url": "https://github.com/user-attachments/assets/2ca7c19a-fc3a-4a7e-b298-9d9e195b6a5f",
+  "archive_master": "PanoVLN_widescreen_4K_Lonely_Dance.mp4",
+  "archive_canvas": [
+    3840,
+    2160
+  ]
 }
