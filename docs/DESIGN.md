@@ -1,21 +1,26 @@
 # Project-page design
 
-PanoVLN’s page leads with original navigation footage, followed by demonstrations, a shared-instruction comparison, the method, main benchmark results, downloadable resources, and citation. Deep teal (`#086b63`), pale surfaces, Manrope headings, and DM Sans body text provide a consistent visual system. The header combines original robot and simulation footage with a typographic project name. Phosphor supplies interface icons; platform marks use their official sources. Asset provenance and licenses are recorded in [assets/icons/README.md](assets/icons/README.md).
+The page uses the Luxterra typographic direction: Gilda Display research headings, Geist body text, warm paper, and wine accents. A centered paper identity leads into one large YouTube film. Method, main results, downloads, and citation follow in a compact 1160 px content column. Body text is 19 px on desktop and 17 px on mobile; secondary text is 16–17 px. Navigation videos, status labels, and comparison controls are consolidated into the film.
 
-## References and access
+## Design references
 
-- [JanusVLN](https://github.com/MIV-XJTU/JanusVLN): a readable progression from installation and data preparation to training, evaluation, and deployment informs the repository documentation.
-- [InternNav](https://github.com/InternRobotics/InternNav): the motion-led repository introduction inspired a footage-based header. PanoVLN uses its own asymmetrical four-view composition, footage, colors, and typography.
+- [Jiro — Blogs Luxterra](https://jiro.build/components/blogs-articles/blogs-luxterra): its **Copy Prompt** was accessible in the signed-in account. Gilda Display / Geist, a cream-and-maroon palette, image-led content, and clear headline hierarchy informed this page. We adapted the article-grid idea to research content and reduced its large section gaps.
+- [Jiro — Footer 04 Kelo](https://jiro.build/components/footer/footer-04-kelo): its **Copy Prompt** was accessible. The photographic background and translucent footer panel informed the footer. We use our own hallway recording, larger links, and a compact layout; no newsletter or stock imagery.
+- [Jiro — Luxterra full template](https://jiro.build/templates/real-estate-construction/real-estate-listing-website-luxterra): the public preview was inspected. The full template prompt requires a paid plan and was not accessed.
+- [JanusVLN project page](https://miv-xjtu.github.io/JanusVLN.github.io/): its concise title/authors/resources and primary-video hierarchy informed the research-page structure.
 
-- [Design Prompts — Swiss Minimalist](https://www.designprompts.dev/swiss-minimalist): the public **Prompt** button opened its readable prompt without an account. The useful ideas are asymmetric grids, clear alignment, strong heading hierarchy, numbered sections, and responsive stacking. The page adapts these principles without copying its full prompt, red palette, or heavy borders.
-- [VibUI — planetary pulse](https://vibui.dev/prompts/planetary-pulse): its prompt is publicly readable and the entry appears in the [free catalog](https://vibui.dev/free), although the detail page also says “Members only.” Its large looping-media composition informed the video-first hierarchy. No source-code unlock or external media was used.
-- [Aura — Robotics Spatial Control](https://www.aura.build/s/industrial-robotics-73): a public rendered template, used only as a visual comparison for large typography and grouped technical information. Its original generation prompt was not available in the inspected preview.
-- [Jiro](https://jiro.build/): the Finsyc **Copy Prompt** action required login. Its original prompt was not obtained. Only the publicly visible pale-sky atmosphere was considered as visual inspiration.
+No external website source or stock photographs were copied. Research diagrams and photographs belong to PanoVLN. Interface icons are from Phosphor and official platform sources; see [icon provenance](assets/icons/README.md). Fonts are self-hosted under their included SIL Open Font Licenses.
 
-## PanoVLN adaptation prompt
+## Tokens and decisions
 
-This brief was written for this project; it is not a copied external prompt:
+| Token | Value |
+| --- | --- |
+| Paper | `#FFF8F0` |
+| Ink | `#321C22` |
+| Wine | `#63252F` |
+| Secondary text | `#64555B` |
+| Rule | `#DCCFCD` |
+| Main width | 1160 px |
+| Section spacing | 56 px desktop / 40 px mobile |
 
-> Build a calm academic project page around a large original navigation video. Use a pale opening section and deep teal accents. Keep the project title, authors, affiliations, and working code/model/data links easy to scan. Give the same-instruction robot comparison a distinct section with synchronized playback, native video proportions, and complete recordings. Explain the method briefly, then present readable main-result tables and charts backed by the paper. Finish with setup resources and citation. Use mature, sourced icons and actual research figures. On mobile, stack content naturally, preserve media proportions, keep controls reachable, and respect reduced-motion preferences. Every claim must correspond to released assets or reported results.
-
-Browser playback and selectors are implemented in the website. The accompanying Figma file records visual design states; the deployed site is the reference for interactive behavior.
+The page has no invented slogan or custom illustrated logo. Main simulation results and real-world success rates are readable HTML tables. Execution efficiency is available in a disclosure; ablations remain in the paper. The arXiv control is explicitly unavailable until a real identifier exists.

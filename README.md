@@ -1,8 +1,5 @@
 <a id="readme-top"></a>
 <div align="center">
-  <a href="https://wangzhen-w.github.io/PanoVLN/#demos">
-    <img src="docs/assets/media/project-banner.gif" alt="PanoVLN navigation in simulation and the real world" width="100%" />
-  </a>
   <h1>PanoVLN</h1>
   <h3>Towards Effective Panoramic Vision-and-Language Navigation</h3>
 
@@ -13,11 +10,9 @@
   </p>
 
   <p>
-    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-086B63?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
-    <a href="docs/reproduction.md"><img src="https://img.shields.io/badge/Documentation-Get_started-12312E?style=flat-square&logo=readthedocs&logoColor=white" alt="Documentation" /></a>
-    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-086B63?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
+    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-63252F?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
+    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-63252F?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
     <img src="https://img.shields.io/badge/arXiv-Coming_soon-6B7280?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv — coming soon" />
-    <a href="https://github.com/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/GitHub-Code-24292F?style=flat-square&logo=github&logoColor=white" alt="GitHub source code" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/stargazers"><img src="https://img.shields.io/github/stars/wangzhen-w/PanoVLN?style=flat-square&color=2955E8" alt="GitHub stars" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/issues"><img src="https://img.shields.io/github/issues/wangzhen-w/PanoVLN?style=flat-square&color=102C43" alt="Open issues" /></a>
   </p>
@@ -28,25 +23,13 @@
     <a href="https://huggingface.co/datasets/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/🤗_Dataset-PanoVLN-E6B94B?style=flat-square" alt="PanoVLN training data" /></a>
   </p>
 
-  <p><a href="https://wangzhen-w.github.io/PanoVLN/#demos">Navigation demos</a> · <a href="https://wangzhen-w.github.io/PanoVLN/#comparison">Compare with baselines</a> · <a href="docs/assets/paper/PanoVLN.pdf">Paper PDF</a></p>
+  <a href="https://www.youtube.com/watch?v=YOUTUBE_ID"><img src="docs/assets/media/film-poster.jpg" alt="Watch PanoVLN real-world navigation on YouTube: office TV, hallway red carpet, and campus chair, at 3× speed" width="100%" /></a>
+  <p><a href="https://www.youtube.com/watch?v=YOUTUBE_ID">▶ Watch the real-world navigation video</a></p>
 </div>
 
-## 📋 Table of Contents
+## Contents
 
-- [Introduction](#introduction)
-- [News](#news)
-- [Getting Started](#getting-started)
-- [Data Preparation](#data-preparation)
-- [Overview of Benchmark & Model Zoo](#benchmark-and-model-zoo)
-- [Training](#training)
-- [Evaluation](#evaluation)
-- [Real-world Deployment](#real-world-deployment)
-- [Customization](#customization)
-- [Contribute](#contribute)
-- [Community Deployment & Best Practices](#community)
-- [Citation](#citation)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+[Getting Started](#getting-started) · [Data](#data-preparation) · [Models](#model-zoo) · [Training](#training) · [Evaluation](#evaluation) · [Robot Deployment](#real-world-deployment) · [Configuration](#customization) · [Citation](#citation)
 
 <a id="introduction"></a>
 ## 🏠 Introduction
@@ -67,7 +50,7 @@ This repository provides **training and data-generation code, Habitat evaluation
 ## 🔥 News
 
 - **2026-09-25:** Source code released, including training, data generation, simulation evaluation, and robot deployment.
-- **Available:** [Three checkpoints](#model-zoo), [training annotations](https://huggingface.co/datasets/wangzhen-w/PanoVLN), and the [project page](https://wangzhen-w.github.io/PanoVLN/) with navigation videos and comparisons.
+- **Available:** [Three checkpoints](#model-zoo), [training annotations](https://huggingface.co/datasets/wangzhen-w/PanoVLN), and the [project page](https://wangzhen-w.github.io/PanoVLN/) with a real-world navigation video and main results.
 - **Coming soon:** arXiv preprint. The badge will link to the paper when an identifier is available.
 
 <a id="getting-started"></a>
@@ -96,7 +79,7 @@ Download the simulation model:
 hf download wangzhen-w/PanoVLN --local-dir checkpoints/PanoVLN
 ```
 
-Keep the complete checkpoint directory, including tokenizer, processor, and configuration files. See the [reproduction guide](docs/reproduction.md) for installation checks, exact configuration, outputs, and troubleshooting.
+Keep the checkpoint directory, including tokenizer, processor, and configuration files. See the [reproduction guide](docs/reproduction.md) for installation checks, exact configuration, outputs, and troubleshooting.
 
 <a id="data-preparation"></a>
 ## 🗂️ Data Preparation
@@ -139,7 +122,7 @@ For full-data training, render all datasets included in `r2r_rxr_dagger_panovln.
 
 <a id="benchmark-and-model-zoo"></a>
 <a id="model-zoo"></a>
-## 📦 Overview of Benchmark & Model Zoo
+## 📦 Models & Benchmarks
 
 ### Released checkpoints
 
@@ -262,7 +245,7 @@ python -m pip install -r realworld/panovln/requirements.txt
 bash realworld/panovln/run_server.sh
 ```
 
-Review `GPU_IDS`, `MODEL_PATH`, `HOST`, `PORT`, and `ATTN_IMPLEMENTATION` in [`run_server.sh`](realworld/panovln/run_server.sh). The default is GPU `0`, port `8000`, and the checkpoint above. A complete checkpoint supplies its PanoVGGT weights; leave `PANOVGGT_CHECKPOINT` empty.
+Review `GPU_IDS`, `MODEL_PATH`, `HOST`, `PORT`, and `ATTN_IMPLEMENTATION` in [`run_server.sh`](realworld/panovln/run_server.sh). The default is GPU `0`, port `8000`, and the checkpoint above. The checkpoint supplies its PanoVGGT weights; leave `PANOVGGT_CHECKPOINT` empty.
 
 ### 2. Go2 client setup and configuration
 
@@ -293,10 +276,10 @@ The [deployment walkthrough](docs/reproduction.md#deploy-on-a-physical-robot) ch
 bash realworld/panovln/run_go2_client.sh
 ```
 
-The client sends a stop command on `Ctrl+C`. Each trial saves `navigation.mp4`, `navigation.json`, and `summary.json` under `outputs/realworld/<method>_<scene>_<route>_<trial>/`. Existing trial directories are preserved; increment `trial_id` for repetitions. Server logs and per-request inference timings are saved separately. See the [complete configuration and outputs](docs/reproduction.md#deploy-on-a-physical-robot) and [shared deployment guide](realworld/README.md) and [PanoVLN configuration/API reference](realworld/panovln/README.md).
+The client sends a stop command on `Ctrl+C`. Each trial saves `navigation.mp4`, `navigation.json`, and `summary.json` under `outputs/realworld/<method>_<scene>_<route>_<trial>/`. Existing trial directories are preserved; increment `trial_id` for repetitions. Server logs and per-request inference timings are saved separately. See the [configuration and outputs](docs/reproduction.md#deploy-on-a-physical-robot) and [shared deployment guide](realworld/README.md) and [PanoVLN configuration/API reference](realworld/panovln/README.md).
 
 <a id="customization"></a>
-## 🔧 Customization
+## 🔧 Configuration
 
 | Change | Edit |
 | --- | --- |
@@ -308,21 +291,6 @@ The client sends a stop command on `Ctrl+C`. Each trial saves `navigation.mp4`, 
 | Robot server address, camera, instruction, motion, recording | [`realworld/panovln/go2_client.yaml`](realworld/panovln/go2_client.yaml) |
 
 Action targets contain **18 words** from `forward` (0.25 m), `left` (15°), `right` (15°), and `stop`; terminal targets are padded with `stop`. `actions_per_replan` controls the executed prefix independently. The [training configuration guide](src/train/README.md) documents the architecture constraints, ERP cropping, and fusion options.
-
-<a id="contribute"></a>
-## 👥 Contribute
-
-Contributions to installation, reproducibility, dataset tooling, and robot integrations are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md), open an [issue](https://github.com/wangzhen-w/PanoVLN/issues) for substantial changes, and include the command and evidence used to validate a pull request.
-
-<a id="community"></a>
-## 🚀 Community Deployment & Best Practices
-
-Use [GitHub Issues](https://github.com/wangzhen-w/PanoVLN/issues) to ask questions, report failures, or share a deployment. Include the commit, checkpoint, configuration, hardware, and a concise log excerpt so others can reproduce it.
-
-- **Start with a small simulation run.** Use one worker per GPU and a few episodes, then scale once the run completes.
-- **Keep experiments separate.** Evaluation resumes by skipping completed episodes; choose a new output directory when changing a checkpoint or policy.
-- **Use the deployment checkpoint on the robot.** Follow the [server/client setup](realworld/README.md), inspect the client with `--print-config`, and verify server readiness before a trial.
-- **Preserve the complete checkpoint and configuration.** Keep tokenizer/processor files, data paths, and evaluation settings with your experiment record.
 
 <a id="citation"></a>
 ## 🔗 Citation

@@ -231,3 +231,7 @@ realworld/**/*.py[codz]
 # Optional high-resolution exports; web uses WebP and vector PDF.
 /docs/assets/figures/*.png
 /build/
+
+# Release videos are hosted on YouTube.
+/docs/assets/media/**/*.mp4
+/docs/assets/media/**/*.gif
