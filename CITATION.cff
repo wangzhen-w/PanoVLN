@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use PanoVLN, please cite this project. Paper metadata will be updated when the arXiv preprint is available."
+type: software
+title: "PanoVLN: Towards Effective Panoramic Vision-and-Language Navigation"
+authors:
+  - family-names: Wang
+    given-names: Zhen
+    affiliation: Zhejiang University
+  - family-names: Wang
+    given-names: Changpeng
+    affiliation: Zhejiang University
+  - family-names: Liu
+    given-names: Zhe
+    affiliation: The University of Hong Kong
+  - family-names: Qi
+    given-names: Zhangyang
+    affiliation: The University of Hong Kong
+  - family-names: Lu
+    given-names: Yuxiang
+    affiliation: The University of Hong Kong
+  - family-names: Zeng
+    given-names: Zimo
+    affiliation: Zhejiang University
+  - family-names: Qi
+    given-names: Donglian
+    affiliation: Zhejiang University
+  - family-names: Chen
+    given-names: Xi
+    affiliation: The University of Hong Kong
+repository-code: "https://github.com/wangzhen-w/PanoVLN"
+url: "https://wangzhen-w.github.io/PanoVLN/"
+keywords:
+  - vision-and-language navigation
+  - panoramic vision
+  - embodied AI
+  - robotics

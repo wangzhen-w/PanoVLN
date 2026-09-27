@@ -1,0 +1,2288 @@
+{
+  "title": "PanoVLN: Towards Effective Panoramic Vision-and-Language Navigation",
+  "authors": [
+    {
+      "name": "Zhen Wang",
+      "affiliation": 1
+    },
+    {
+      "name": "Changpeng Wang",
+      "affiliation": 1
+    },
+    {
+      "name": "Zhe Liu",
+      "affiliation": 2
+    },
+    {
+      "name": "Zhangyang Qi",
+      "affiliation": 2
+    },
+    {
+      "name": "Yuxiang Lu",
+      "affiliation": 2
+    },
+    {
+      "name": "Zimo Zeng",
+      "affiliation": 1
+    },
+    {
+      "name": "Donglian Qi",
+      "affiliation": 1
+    },
+    {
+      "name": "Xi Chen",
+      "affiliation": 2
+    }
+  ],
+  "affiliations": {
+    "1": "Zhejiang University",
+    "2": "The University of Hong Kong"
+  },
+  "summary": "PanoVLN is an RGB-only panoramic vision-and-language navigation framework. It combines longer-horizon action prediction, confidence-guided execution, decision-centric training routes, and fused semantic and geometric features without adding visual tokens.",
+  "tables": [
+    {
+      "id": "simulation_main",
+      "title": "Simulation benchmark comparison",
+      "caption": "Simulation benchmark comparison. We evaluate performance on R2R-CE and RxR-CE Val-Unseen with the indicated observation modalities. * denotes the waypoint predictor from ; † denotes training without navigation data beyond R2R-CE and RxR-CE. NE is in meters; other scores are percentages. PanoVLN achieves the highest SR and SPL on both benchmarks.",
+      "columns": [
+        "Method",
+        "Pano.",
+        "Odo.",
+        "Depth",
+        "S.RGB",
+        "R2R NE ↓",
+        "R2R OS ↑",
+        "R2R SR ↑",
+        "R2R SPL ↑",
+        "RxR NE ↓",
+        "RxR SR ↑",
+        "RxR SPL ↑",
+        "RxR nDTW ↑"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "CMA*",
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "6.20",
+            "52.0",
+            "41.0",
+            "36.0",
+            "8.76",
+            "26.5",
+            "22.1",
+            "47.0"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 29,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "GridMM*",
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "5.11",
+            "61.0",
+            "49.0",
+            "41.0",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 34,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "ETPNav*",
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "4.71",
+            "65.0",
+            "57.0",
+            "49.0",
+            "5.64",
+            "54.7",
+            "44.8",
+            "61.9"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 39,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "HNR*",
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "4.42",
+            "67.0",
+            "61.0",
+            "51.0",
+            "5.50",
+            "56.3",
+            "46.7",
+            "63.5"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 44,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "ScaleVLN*",
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "4.80",
+            "–",
+            "55.0",
+            "51.0",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 49,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "InstructNav",
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "6.89",
+            "–",
+            "31.0",
+            "24.0",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 57,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "LAW",
+            "",
+            "✓",
+            "✓",
+            "✓",
+            "6.83",
+            "44.0",
+            "35.0",
+            "31.0",
+            "10.90",
+            "8.0",
+            "8.0",
+            "38.0"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 62,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "CM2",
+            "",
+            "✓",
+            "✓",
+            "✓",
+            "7.02",
+            "41.5",
+            "34.3",
+            "27.6",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 67,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "WS-MGMap",
+            "",
+            "✓",
+            "✓",
+            "✓",
+            "6.28",
+            "47.6",
+            "38.9",
+            "34.3",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 72,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "CMA",
+            "",
+            "",
+            "✓",
+            "✓",
+            "7.37",
+            "40.0",
+            "32.0",
+            "30.0",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 77,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "MapNav†",
+            "",
+            "✓",
+            "✓",
+            "✓",
+            "4.93",
+            "53.0",
+            "39.7",
+            "37.2",
+            "7.62",
+            "32.6",
+            "27.7",
+            "43.5"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 85,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "StreamVLN†",
+            "",
+            "",
+            "",
+            "✓",
+            "5.43",
+            "62.5",
+            "52.8",
+            "47.2",
+            "6.72",
+            "48.6",
+            "42.5",
+            "60.2"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 90,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "Aux-Think†",
+            "",
+            "",
+            "",
+            "✓",
+            "6.08",
+            "60.0",
+            "54.8",
+            "46.9",
+            "6.24",
+            "52.2",
+            "40.2",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 95,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "JanusVLN†",
+            "",
+            "",
+            "",
+            "✓",
+            "5.17",
+            "58.0",
+            "52.8",
+            "49.2",
+            "6.46",
+            "51.4",
+            "44.3",
+            "59.1"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 100,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "CorrectNav†",
+            "",
+            "",
+            "",
+            "✓",
+            "4.24",
+            "67.5",
+            "65.1",
+            "62.3",
+            "4.09",
+            "69.3",
+            "63.3",
+            "75.2"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 105,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "PanoVLN† (Ours)",
+            "✓",
+            "",
+            "",
+            "",
+            "3.10",
+            "79.7",
+            "73.9",
+            "67.9",
+            "3.14",
+            "74.1",
+            "63.9",
+            "71.4"
+          ],
+          "bold": [
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 111,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "NaVid",
+            "",
+            "",
+            "",
+            "✓",
+            "5.47",
+            "49.1",
+            "37.4",
+            "35.9",
+            "–",
+            "–",
+            "–",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 119,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "Uni-NaVid",
+            "",
+            "",
+            "",
+            "✓",
+            "5.58",
+            "53.3",
+            "47.0",
+            "42.7",
+            "6.24",
+            "48.7",
+            "40.9",
+            "–"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 124,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "NaVILA",
+            "",
+            "",
+            "",
+            "✓",
+            "5.22",
+            "62.5",
+            "54.0",
+            "49.0",
+            "6.77",
+            "49.3",
+            "44.0",
+            "58.8"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 129,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "StreamVLN",
+            "",
+            "",
+            "",
+            "✓",
+            "4.90",
+            "63.6",
+            "56.4",
+            "50.2",
+            "5.65",
+            "54.4",
+            "45.4",
+            "63.7"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 134,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "JanusVLN",
+            "",
+            "",
+            "",
+            "✓",
+            "4.78",
+            "65.2",
+            "60.5",
+            "56.8",
+            "6.06",
+            "56.2",
+            "47.5",
+            "62.1"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 139,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "DualVLN",
+            "",
+            "",
+            "",
+            "✓",
+            "4.05",
+            "70.7",
+            "64.3",
+            "58.5",
+            "4.58",
+            "61.4",
+            "51.8",
+            "70.0"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 144,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "AwareVLN",
+            "",
+            "",
+            "",
+            "✓",
+            "4.02",
+            "73.5",
+            "65.4",
+            "55.1",
+            "3.95",
+            "67.6",
+            "56.1",
+            "65.7"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 149,
+            "label": "tab:simulation_main"
+          }
+        },
+        {
+          "cells": [
+            "PanoVLN (Ours)",
+            "✓",
+            "",
+            "",
+            "",
+            "2.83",
+            "83.1",
+            "77.3",
+            "70.6",
+            "2.85",
+            "78.0",
+            "65.9",
+            "73.3"
+          ],
+          "bold": [
+            true,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 155,
+            "label": "tab:simulation_main"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/4.exp.tex",
+        "line": 1,
+        "label": "tab:simulation_main"
+      }
+    },
+    {
+      "id": "realworld_efficiency",
+      "title": "Real-world execution efficiency",
+      "caption": "Real-world execution efficiency. PanoVLN achieves the best overall navigation efficiency among the compared methods.",
+      "columns": [
+        "Method",
+        "Time (s) ↓",
+        "Speed (cm/s) ↑",
+        "Wait (%) ↓",
+        "Pauses ↓",
+        "Calls ↓",
+        "Latency (s) ↓"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "NaVid",
+            "135.2",
+            "12.9",
+            "23.2",
+            "15.7",
+            "29.4",
+            "0.90"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 273,
+            "label": "tab:realworld_efficiency"
+          }
+        },
+        {
+          "cells": [
+            "NaVILA",
+            "194.0",
+            "8.2",
+            "24.7",
+            "29.6",
+            "41.3",
+            "1.05"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 275,
+            "label": "tab:realworld_efficiency"
+          }
+        },
+        {
+          "cells": [
+            "StreamVLN",
+            "117.8",
+            "13.3",
+            "27.1",
+            "8.3",
+            "34.3",
+            "0.58"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 277,
+            "label": "tab:realworld_efficiency"
+          }
+        },
+        {
+          "cells": [
+            "JanusVLN",
+            "412.9",
+            "5.3",
+            "39.2",
+            "95.3",
+            "101.7",
+            "1.32"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 279,
+            "label": "tab:realworld_efficiency"
+          }
+        },
+        {
+          "cells": [
+            "PanoVLN (Ours)",
+            "86.4",
+            "25.7",
+            "13.6",
+            "5.4",
+            "7.4",
+            "1.08"
+          ],
+          "bold": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 282,
+            "label": "tab:realworld_efficiency"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/4.exp.tex",
+        "line": 249,
+        "label": "tab:realworld_efficiency"
+      }
+    },
+    {
+      "id": "realworld_navigation",
+      "title": "Real-world navigation performance",
+      "caption": "20 shared instruction–route pairs per setting, without scene-specific fine-tuning. Success rate (%) and navigation error (m).",
+      "columns": [
+        "Method",
+        "Hallway SR ↑",
+        "Hallway NE ↓",
+        "Office SR ↑",
+        "Office NE ↓",
+        "Campus SR ↑",
+        "Campus NE ↓"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "NaVid",
+            "60",
+            "2.1",
+            "40",
+            "5.6",
+            "0",
+            "12.6"
+          ],
+          "highlight": false,
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "source": {
+            "path": "Figures/real_world_exp/realworld_exp.pdf",
+            "page": 1,
+            "location": "Visible labels above bars in the SR and NE charts"
+          }
+        },
+        {
+          "cells": [
+            "NaVILA",
+            "75",
+            "1.4",
+            "30",
+            "4.7",
+            "0",
+            "10.7"
+          ],
+          "highlight": false,
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "source": {
+            "path": "Figures/real_world_exp/realworld_exp.pdf",
+            "page": 1,
+            "location": "Visible labels above bars in the SR and NE charts"
+          }
+        },
+        {
+          "cells": [
+            "StreamVLN",
+            "80",
+            "0.9",
+            "55",
+            "2.6",
+            "15",
+            "3.9"
+          ],
+          "highlight": false,
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "source": {
+            "path": "Figures/real_world_exp/realworld_exp.pdf",
+            "page": 1,
+            "location": "Visible labels above bars in the SR and NE charts"
+          }
+        },
+        {
+          "cells": [
+            "JanusVLN",
+            "85",
+            "0.7",
+            "65",
+            "2.3",
+            "30",
+            "3.3"
+          ],
+          "highlight": false,
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "source": {
+            "path": "Figures/real_world_exp/realworld_exp.pdf",
+            "page": 1,
+            "location": "Visible labels above bars in the SR and NE charts"
+          }
+        },
+        {
+          "cells": [
+            "PanoVLN",
+            "100",
+            "0.3",
+            "95",
+            "0.4",
+            "80",
+            "1.2"
+          ],
+          "highlight": true,
+          "bold": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "source": {
+            "path": "Figures/real_world_exp/realworld_exp.pdf",
+            "page": 1,
+            "location": "Visible labels above bars in the SR and NE charts"
+          }
+        }
+      ],
+      "source": {
+        "path": "Figures/real_world_exp/realworld_exp.pdf",
+        "page": 1,
+        "tex_path": "Sections/4.exp.tex",
+        "label": "fig:realworld_navigation",
+        "verification": "Extracted PDF labels and visually checked each bar against its method/setting legend."
+      }
+    },
+    {
+      "id": "sampling_ablation",
+      "title": "Training data comparison",
+      "caption": "Training data comparison.",
+      "columns": [
+        "Sampling",
+        "NE ↓",
+        "OS ↑",
+        "SR ↑",
+        "SPL ↑"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "Random",
+            "5.37",
+            "70.7",
+            "56.4",
+            "49.5"
+          ],
+          "bold": [
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 356,
+            "label": "tab:sampling_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Ours",
+            "4.40",
+            "69.9",
+            "62.8",
+            "57.2"
+          ],
+          "bold": [
+            false,
+            true,
+            false,
+            true,
+            true
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 358,
+            "label": "tab:sampling_ablation"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/4.exp.tex",
+        "line": 343,
+        "label": "tab:sampling_ablation"
+      }
+    },
+    {
+      "id": "cge_ablation",
+      "title": "Execution strategy comparison",
+      "caption": "Execution strategy comparison. We compare fixed, random, and confidence-guided execution. CGE achieves the best navigation performance on both benchmarks.",
+      "columns": [
+        "Execution strategy",
+        "R2R NE ↓",
+        "R2R OS ↑",
+        "R2R SR ↑",
+        "R2R SPL ↑",
+        "RxR NE ↓",
+        "RxR SR ↑",
+        "RxR SPL ↑",
+        "RxR nDTW ↑"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "Fixed: 1 action",
+            "4.42",
+            "68.2",
+            "64.6",
+            "60.5",
+            "4.11",
+            "65.7",
+            "55.6",
+            "70.3"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 399,
+            "label": "tab:cge_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Fixed: 6 actions",
+            "4.43",
+            "70.8",
+            "64.2",
+            "58.7",
+            "4.25",
+            "65.4",
+            "54.2",
+            "69.0"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 400,
+            "label": "tab:cge_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Fixed: 12 actions",
+            "4.65",
+            "69.7",
+            "61.4",
+            "55.4",
+            "4.98",
+            "61.1",
+            "46.4",
+            "64.6"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 401,
+            "label": "tab:cge_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Fixed: 18 actions",
+            "4.89",
+            "67.0",
+            "57.2",
+            "50.9",
+            "5.64",
+            "54.9",
+            "43.4",
+            "59.8"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 402,
+            "label": "tab:cge_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Random: 1–18 actions",
+            "4.62",
+            "68.5",
+            "61.3",
+            "55.6",
+            "5.07",
+            "59.9",
+            "52.3",
+            "64.9"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 403,
+            "label": "tab:cge_ablation"
+          }
+        },
+        {
+          "cells": [
+            "CGE (Ours)",
+            "4.10",
+            "71.0",
+            "66.6",
+            "61.5",
+            "4.06",
+            "66.5",
+            "56.4",
+            "70.8"
+          ],
+          "bold": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 405,
+            "label": "tab:cge_ablation"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/4.exp.tex",
+        "line": 381,
+        "label": "tab:cge_ablation"
+      }
+    },
+    {
+      "id": "spatial_encoder_ablation",
+      "title": "Geometry encoder comparison",
+      "caption": "Geometry encoder comparison. We compare geometric features from different encoders. PanoVGGT yields the highest success rates on both benchmarks.",
+      "columns": [
+        "Extra encoder",
+        "R2R NE ↓",
+        "R2R OS ↑",
+        "R2R SR ↑",
+        "R2R SPL ↑",
+        "RxR NE ↓",
+        "RxR SR ↑",
+        "RxR SPL ↑",
+        "RxR nDTW ↑"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "None",
+            "4.10",
+            "71.0",
+            "66.6",
+            "61.5",
+            "4.06",
+            "66.5",
+            "56.4",
+            "70.8"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 448,
+            "label": "tab:spatial_encoder_ablation"
+          }
+        },
+        {
+          "cells": [
+            "UniK3D",
+            "3.77",
+            "73.2",
+            "67.8",
+            "63.3",
+            "3.92",
+            "65.4",
+            "57.3",
+            "68.1"
+          ],
+          "bold": [
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false,
+            true,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 450,
+            "label": "tab:spatial_encoder_ablation"
+          }
+        },
+        {
+          "cells": [
+            "DA2",
+            "4.01",
+            "72.3",
+            "65.5",
+            "61.6",
+            "4.35",
+            "63.0",
+            "55.9",
+            "67.7"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 452,
+            "label": "tab:spatial_encoder_ablation"
+          }
+        },
+        {
+          "cells": [
+            "DAP",
+            "4.15",
+            "70.9",
+            "64.5",
+            "60.4",
+            "4.48",
+            "61.1",
+            "54.3",
+            "66.5"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 454,
+            "label": "tab:spatial_encoder_ablation"
+          }
+        },
+        {
+          "cells": [
+            "PanoVGGT (Ours)",
+            "3.91",
+            "73.6",
+            "68.6",
+            "63.7",
+            "4.02",
+            "67.1",
+            "57.2",
+            "71.5"
+          ],
+          "bold": [
+            true,
+            false,
+            true,
+            true,
+            true,
+            false,
+            true,
+            false,
+            true
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/4.exp.tex",
+            "line": 457,
+            "label": "tab:spatial_encoder_ablation"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/4.exp.tex",
+        "line": 430,
+        "label": "tab:spatial_encoder_ablation"
+      }
+    },
+    {
+      "id": "data_ablation",
+      "title": "Training data composition on R2R-CE and RxR-CE Val-Unseen",
+      "caption": "Training data composition on R2R-CE and RxR-CE Val-Unseen. All settings retain PanoVGGT, CGE, and the H=18 prediction setting.",
+      "columns": [
+        "R2R",
+        "RxR",
+        "DAgger",
+        "PanoVLN data",
+        "R2R NE ↓",
+        "R2R OS ↑",
+        "R2R SR ↑",
+        "R2R SPL ↑",
+        "RxR NE ↓",
+        "RxR SR ↑",
+        "RxR SPL ↑",
+        "RxR nDTW ↑"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "✓",
+            "✓",
+            "",
+            "",
+            "3.91",
+            "73.6",
+            "68.6",
+            "63.7",
+            "4.02",
+            "67.1",
+            "57.2",
+            "71.5"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/6.appendix.tex",
+            "line": 211,
+            "label": "tab:data_ablation"
+          }
+        },
+        {
+          "cells": [
+            "✓",
+            "✓",
+            "✓",
+            "",
+            "3.10",
+            "79.7",
+            "73.9",
+            "67.9",
+            "3.14",
+            "74.1",
+            "63.9",
+            "71.4"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/6.appendix.tex",
+            "line": 215,
+            "label": "tab:data_ablation"
+          }
+        },
+        {
+          "cells": [
+            "✓",
+            "✓",
+            "✓",
+            "✓",
+            "2.83",
+            "83.1",
+            "77.3",
+            "70.6",
+            "2.85",
+            "78.0",
+            "65.9",
+            "73.3"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": true,
+          "source": {
+            "path": "Sections/6.appendix.tex",
+            "line": 219,
+            "label": "tab:data_ablation"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/6.appendix.tex",
+        "line": 188,
+        "label": "tab:data_ablation"
+      }
+    },
+    {
+      "id": "backbone_ablation",
+      "title": "VLM backbone comparison on R2R-CE and RxR-CE Val-Unseen",
+      "caption": "VLM backbone comparison on R2R-CE and RxR-CE Val-Unseen. All backbones use the full training-data configuration, PanoVGGT, CGE, and H=18.",
+      "columns": [
+        "Backbone",
+        "R2R NE ↓",
+        "R2R OS ↑",
+        "R2R SR ↑",
+        "R2R SPL ↑",
+        "RxR NE ↓",
+        "RxR SR ↑",
+        "RxR SPL ↑",
+        "RxR nDTW ↑"
+      ],
+      "rows": [
+        {
+          "cells": [
+            "Qwen2.5-VL-7B",
+            "2.96",
+            "82.2",
+            "75.9",
+            "68.6",
+            "2.88",
+            "76.3",
+            "65.1",
+            "72.7"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/6.appendix.tex",
+            "line": 258,
+            "label": "tab:backbone_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Qwen3-VL-4B",
+            "2.91",
+            "81.5",
+            "76.2",
+            "70.4",
+            "2.96",
+            "75.7",
+            "64.9",
+            "71.6"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/6.appendix.tex",
+            "line": 262,
+            "label": "tab:backbone_ablation"
+          }
+        },
+        {
+          "cells": [
+            "Qwen3.5-4B",
+            "2.83",
+            "83.1",
+            "77.3",
+            "70.6",
+            "2.85",
+            "78.0",
+            "65.9",
+            "73.3"
+          ],
+          "bold": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "highlight": false,
+          "source": {
+            "path": "Sections/6.appendix.tex",
+            "line": 267,
+            "label": "tab:backbone_ablation"
+          }
+        }
+      ],
+      "source": {
+        "path": "Sections/6.appendix.tex",
+        "line": 240,
+        "label": "tab:backbone_ablation"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "id": "action_horizon",
+      "source_pdf": "Figures/action_horizon/main.pdf",
+      "image": "assets/figures/action_horizon.webp",
+      "pdf": "assets/figures/action_horizon.pdf",
+      "width": 3200,
+      "height": 703,
+      "pages": 1,
+      "webp_bytes": 123408,
+      "references": [
+        {
+          "path": "Sections/4.exp.tex",
+          "line": 311,
+          "label": "fig:action_horizon",
+          "caption": "Prediction horizon ablation. Panoramic policies benefit from longer supervision and outperform perspective policies at longer horizons."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Prediction horizon ablation. Panoramic policies benefit from longer supervision and outperform perspective policies at longer horizons."
+    },
+    {
+      "id": "attention_analyze-appendix_attention_gallery",
+      "source_pdf": "Figures/attention_analyze/appendix_attention_gallery.pdf",
+      "image": "assets/figures/attention_analyze-appendix_attention_gallery.webp",
+      "pdf": "assets/figures/attention_analyze-appendix_attention_gallery.pdf",
+      "width": 2287,
+      "height": 3200,
+      "pages": 1,
+      "webp_bytes": 912864,
+      "references": [
+        {
+          "path": "Sections/6.appendix.tex",
+          "line": 311,
+          "label": "fig:attention_gallery",
+          "caption": "Additional paired attention cases, each using the same ERP and instruction. Blue bold text marks the relevant route clause; dashed lines bound the forward 90° sector. Each case note identifies the visible hotspot locations."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Additional paired attention cases, each using the same ERP and instruction. Blue bold text marks the relevant route clause; dashed lines bound the forward 90° sector. Each case note identifies the visible hotspot locations."
+    },
+    {
+      "id": "attention_analyze-main_attention_pair",
+      "source_pdf": "Figures/attention_analyze/main_attention_pair.pdf",
+      "image": "assets/figures/attention_analyze-main_attention_pair.webp",
+      "pdf": "assets/figures/attention_analyze-main_attention_pair.pdf",
+      "width": 3200,
+      "height": 1133,
+      "pages": 1,
+      "webp_bytes": 410216,
+      "references": [],
+      "used_in_current_paper": false,
+      "caption": "Paired panoramic attention visualization.",
+      "caption_source": "Descriptive label for supplied, currently unreferenced figure; not a paper caption."
+    },
+    {
+      "id": "data_pipeline-data_pipeline",
+      "source_pdf": "Figures/data_pipeline/data_pipeline.pdf",
+      "image": "assets/figures/data_pipeline-data_pipeline.webp",
+      "pdf": "assets/figures/data_pipeline-data_pipeline.pdf",
+      "width": 3200,
+      "height": 1800,
+      "pages": 1,
+      "webp_bytes": 832206,
+      "references": [
+        {
+          "path": "Sections/3.method.tex",
+          "line": 144,
+          "label": "fig:data_pipeline",
+          "caption": "Data construction pipeline. We construct routes with frequent branching points, generate and verify instructions, and sample training states."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Data construction pipeline. We construct routes with frequent branching points, generate and verify instructions, and sample training states."
+    },
+    {
+      "id": "dataset_turn",
+      "source_pdf": "Figures/dataset_turn/main.pdf",
+      "image": "assets/figures/dataset_turn.webp",
+      "pdf": "assets/figures/dataset_turn.pdf",
+      "width": 3095,
+      "height": 1513,
+      "pages": 1,
+      "webp_bytes": 66932,
+      "references": [
+        {
+          "path": "Sections/6.appendix.tex",
+          "line": 284,
+          "label": "fig:reference_path_turns",
+          "caption": "Reference-path turn distribution in R2R-CE and RxR-CE, normalized over 54,457 turns of at least 30°. The 45°–180° categories account for 53.3% of turns."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Reference-path turn distribution in R2R-CE and RxR-CE, normalized over 54,457 turns of at least 30°. The 45°–180° categories account for 53.3% of turns."
+    },
+    {
+      "id": "datasource_ablation",
+      "source_pdf": "Figures/datasource_ablation/main.pdf",
+      "image": "assets/figures/datasource_ablation.webp",
+      "pdf": "assets/figures/datasource_ablation.pdf",
+      "width": 3200,
+      "height": 673,
+      "pages": 1,
+      "webp_bytes": 107424,
+      "references": [
+        {
+          "path": "Sections/4.exp.tex",
+          "line": 424,
+          "label": "fig:data_scale_ablation",
+          "caption": "Training data comparison. We compare data sources across training scales on R2R-CE Val-Unseen.Our data consistently delivers the best navigation performance."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Training data comparison. We compare data sources across training scales on R2R-CE Val-Unseen.Our data consistently delivers the best navigation performance."
+    },
+    {
+      "id": "model_architecture-model_architecture",
+      "source_pdf": "Figures/model_architecture/model_architecture.pdf",
+      "image": "assets/figures/model_architecture-model_architecture.webp",
+      "pdf": "assets/figures/model_architecture-model_architecture.pdf",
+      "width": 3200,
+      "height": 926,
+      "pages": 1,
+      "webp_bytes": 234148,
+      "references": [
+        {
+          "path": "Sections/3.method.tex",
+          "line": 80,
+          "label": "fig:policy_architecture",
+          "caption": "PanoVLN pipeline. Current and historical panoramas share a fixed visual-token budget. Aligned geometric features enrich the current visual tokens, and uncertainty determines how much of the predicted action sequence to execute."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "PanoVLN pipeline. Current and historical panoramas share a fixed visual-token budget. Aligned geometric features enrich the current visual tokens, and uncertainty determines how much of the predicted action sequence to execute."
+    },
+    {
+      "id": "navigation_cases-r2r_navigation",
+      "source_pdf": "Figures/navigation_cases/r2r_navigation.pdf",
+      "image": "assets/figures/navigation_cases-r2r_navigation.webp",
+      "pdf": "assets/figures/navigation_cases-r2r_navigation.pdf",
+      "width": 2034,
+      "height": 3200,
+      "pages": 1,
+      "webp_bytes": 938084,
+      "references": [
+        {
+          "path": "Sections/6.appendix.tex",
+          "line": 346,
+          "label": "fig:r2r_examples",
+          "caption": "Navigation cases on R2R-CE Val-Unseen. Each case shows four panoramic observations in reading order and the full instruction. Numbered markers link each observation to its location on the trajectory; blue and green denote the executed and reference routes."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Navigation cases on R2R-CE Val-Unseen. Each case shows four panoramic observations in reading order and the full instruction. Numbered markers link each observation to its location on the trajectory; blue and green denote the executed and reference routes."
+    },
+    {
+      "id": "navigation_cases-realworld_navigation",
+      "source_pdf": "Figures/navigation_cases/realworld_navigation.pdf",
+      "image": "assets/figures/navigation_cases-realworld_navigation.webp",
+      "pdf": "assets/figures/navigation_cases-realworld_navigation.pdf",
+      "width": 3200,
+      "height": 1172,
+      "pages": 1,
+      "webp_bytes": 1014270,
+      "references": [
+        {
+          "path": "Sections/4.exp.tex",
+          "line": 205,
+          "label": "fig:realworld_navigation_cases",
+          "caption": "Real-world navigation. PanoVLN deployed on a quadruped robot and transfers to real-world instruction following without scene-specific fine-tuning."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Real-world navigation. PanoVLN deployed on a quadruped robot and transfers to real-world instruction following without scene-specific fine-tuning."
+    },
+    {
+      "id": "navigation_cases-realworld_navigation_appendix",
+      "source_pdf": "Figures/navigation_cases/realworld_navigation_appendix.pdf",
+      "image": "assets/figures/navigation_cases-realworld_navigation_appendix.webp",
+      "pdf": "assets/figures/navigation_cases-realworld_navigation_appendix.pdf",
+      "width": 2460,
+      "height": 3200,
+      "pages": 1,
+      "webp_bytes": 1346682,
+      "references": [
+        {
+          "path": "Sections/6.appendix.tex",
+          "line": 332,
+          "label": "fig:robot_examples",
+          "caption": "Real-world navigation cases in Hallway, Office, and Campus. Each row shows the instruction and successive observations from one trial, with timestamps and route annotations."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Real-world navigation cases in Hallway, Office, and Campus. Each row shows the instruction and successive observations from one trial, with timestamps and route annotations."
+    },
+    {
+      "id": "navigation_cases-rxr_navigation",
+      "source_pdf": "Figures/navigation_cases/rxr_navigation.pdf",
+      "image": "assets/figures/navigation_cases-rxr_navigation.webp",
+      "pdf": "assets/figures/navigation_cases-rxr_navigation.pdf",
+      "width": 2034,
+      "height": 3200,
+      "pages": 1,
+      "webp_bytes": 897936,
+      "references": [
+        {
+          "path": "Sections/6.appendix.tex",
+          "line": 359,
+          "label": "fig:rxr_examples",
+          "caption": "Navigation cases on RxR-CE Val-Unseen. Four panoramic observations per case are linked to the trajectory by numbered markers. Blue and green denote the executed and reference routes. Instruction excerpts retain the original wording; ellipses mark omissions."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Navigation cases on RxR-CE Val-Unseen. Four panoramic observations per case are linked to the trajectory by numbered markers. Blue and green denote the executed and reference routes. Instruction excerpts retain the original wording; ellipses mark omissions."
+    },
+    {
+      "id": "position_uncertainty-position_uncertainty",
+      "source_pdf": "Figures/position_uncertainty/position_uncertainty.pdf",
+      "image": "assets/figures/position_uncertainty-position_uncertainty.webp",
+      "pdf": "assets/figures/position_uncertainty-position_uncertainty.pdf",
+      "width": 3200,
+      "height": 1859,
+      "pages": 1,
+      "webp_bytes": 91256,
+      "references": [
+        {
+          "path": "Sections/3.method.tex",
+          "line": 89,
+          "label": "fig:cge_uncertainty",
+          "caption": "Action uncertainty.Uncertainty rises after an initial dip and varies across policy calls, motivating adaptive execution."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Action uncertainty.Uncertainty rises after an initial dip and varies across policy calls, motivating adaptive execution."
+    },
+    {
+      "id": "real_world_exp-realworld_exp",
+      "source_pdf": "Figures/real_world_exp/realworld_exp.pdf",
+      "image": "assets/figures/real_world_exp-realworld_exp.webp",
+      "pdf": "assets/figures/real_world_exp-realworld_exp.pdf",
+      "width": 3200,
+      "height": 657,
+      "pages": 1,
+      "webp_bytes": 69140,
+      "references": [
+        {
+          "path": "Sections/4.exp.tex",
+          "line": 234,
+          "label": "fig:realworld_navigation",
+          "caption": "Real-world navigation performance. We compare SR and NE on 20 shared instruction–route pairs each in Hallway, Office, and Campus and achieves the best navigation performance."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "Real-world navigation performance. We compare SR and NE on 20 shared instruction–route pairs each in Hallway, Office, and Campus and achieves the best navigation performance."
+    },
+    {
+      "id": "teaser-teaser",
+      "source_pdf": "Figures/teaser/teaser.pdf",
+      "image": "assets/figures/teaser-teaser.webp",
+      "pdf": "assets/figures/teaser-teaser.pdf",
+      "width": 3196,
+      "height": 1802,
+      "pages": 1,
+      "webp_bytes": 720168,
+      "references": [
+        {
+          "path": "main.tex",
+          "line": 70,
+          "label": "fig:teaser",
+          "caption": "PanoVLN fully exploits the wider visual context of panoramas to make vision-and-language navigation more accurate and efficient."
+        }
+      ],
+      "used_in_current_paper": true,
+      "caption": "PanoVLN fully exploits the wider visual context of panoramas to make vision-and-language navigation more accurate and efficient."
+    },
+    {
+      "id": "train_cost-train_cost_r2r",
+      "source_pdf": "Figures/train_cost/train_cost_r2r.pdf",
+      "image": "assets/figures/train_cost-train_cost_r2r.webp",
+      "pdf": "assets/figures/train_cost-train_cost_r2r.pdf",
+      "width": 3182,
+      "height": 2382,
+      "pages": 1,
+      "webp_bytes": 331748,
+      "references": [],
+      "used_in_current_paper": false,
+      "caption": "Success rate versus the number of training samples on R2R-CE.",
+      "caption_source": "Descriptive label for supplied, currently unreferenced figure; not a paper caption."
+    }
+  ],
+  "source_notes": [
+    {
+      "severity": "inconsistency",
+      "detail": "Appendix prose claims Qwen3-VL-4B 76.2% SR on both benchmarks. Its actual table reports R2R 76.2 and RxR 75.7. Website tables preserve the tabulated numbers.",
+      "source": {
+        "path": "Sections/6.appendix.tex",
+        "lines": [
+          233,
+          264
+        ]
+      }
+    },
+    {
+      "severity": "unreferenced_figure",
+      "detail": "Two supplied assets are not referenced by the current TeX: attention_analyze/main_attention_pair.pdf and train_cost/train_cost_r2r.pdf. They are still exported because the user requested every supplied figure."
+    },
+    {
+      "severity": "cross_figure_difference",
+      "detail": "The unreferenced training-cost figure labels StreamVLN R2R SR as 56.9, while the main benchmark table reports 56.4. The asset is preserved unchanged; headline and benchmark data use the main table.",
+      "source": {
+        "path": "Figures/train_cost/train_cost_r2r.pdf",
+        "page": 1
+      }
+    }
+  ]
+}
