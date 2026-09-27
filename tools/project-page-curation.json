@@ -1,0 +1,18 @@
+{
+  "tables": [
+    {
+      "slot": "benchmark-table",
+      "source_id": "simulation_main",
+      "title": "Simulation navigation: selected baselines on Val-Unseen",
+      "methods": ["JanusVLN", "DualVLN", "CorrectNav†", "AwareVLN", "PanoVLN (Ours)"],
+      "columns": ["Method", "R2R SR ↑", "R2R SPL ↑", "RxR SR ↑", "RxR SPL ↑"]
+    },
+    {
+      "slot": "efficiency-table",
+      "source_id": "realworld_efficiency",
+      "title": "Real-world execution efficiency",
+      "methods": ["NaVid", "NaVILA", "StreamVLN", "JanusVLN", "PanoVLN (Ours)"],
+      "columns": ["Method", "Time (s) ↓", "Speed (cm/s) ↑", "Pauses ↓", "Calls ↓"]
+    }
+  ]
+}
