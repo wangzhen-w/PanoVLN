@@ -6,11 +6,11 @@ GitHub Pages serves this static `docs/` directory through the repository workflo
 
 The project page loads one YouTube embed only after the visitor presses Play. The README links a still thumbnail to the same video, since GitHub Markdown does not render YouTube iframes. The released film contains an opening title and three original real-world routes: office TV, hallway red carpet, and campus chair. Motion is encoded at 3×; the viewer should leave YouTube playback at 1×.
 
-The upload master is 3840×2160 at 29.97 fps after the iMovie export. Its panoramic inputs are native 1280×640 at 10 fps; its external cameras are 1920×1080 HLG recordings. The 4K frame is the composition size, not a claim of native 4K camera detail. Phone footage is tone-mapped from BT.2020 HLG into BT.709 SDR with Hable highlight roll-off. No masking, brightness boost, or intermediate compressed demo is used. The two cameras use fixed start offsets; the phone's final frame is held where its recorder stops earlier. Capture metadata and original camera audio are removed. The final iMovie edit adds 0.6-second cross dissolves and an instrumental soundtrack, with a 2.5-second fade-in and 6-second fade-out. Navigation footage remains at 3×; source edges overlap during transitions.
+The upload master is 3840×2160 at 29.97 fps after the iMovie export. Its panoramic inputs are native 1280×640 at 10 fps; its external cameras are 1920×1080 HLG recordings. The 4K frame is the composition size, not a claim of native 4K camera detail. Phone footage is tone-mapped from BT.2020 HLG into BT.709 SDR with Hable highlight roll-off. No masking, brightness boost, or intermediate compressed demo is used. Each route uses a complete 16:9 external-camera frame with a complete 2:1 panorama inset in the upper right. Routes are joined in time, not arranged as narrow simultaneous columns. The two cameras use fixed start offsets; the phone's final frame is held where its recorder stops earlier. Capture metadata and original camera audio are removed. The final iMovie edit adds 0.6-second cross dissolves and an instrumental soundtrack, with a 2.5-second fade-in and 6-second fade-out. Navigation footage remains at 3×; source edges overlap during transitions.
 
 The original recordings, source-rendering scripts, editable iMovie library, and master are kept on T9 outside this Git repository. The iMovie library is stored inside the APFS sparse disk image on T9. `tools/build_release_film.py` prepares the source-derived scene clips; the final transitions and soundtrack are assembled in iMovie. The site tracks thumbnails and `assets/media/film.json`, not MP4/GIF files. Older media remain in Git history; no history rewrite is needed for this release.
 
-To replace the video, update the `data-video-id` and watch URL in `index.html`, the watch URL in `../README.md`, and the ID in `assets/media/film.json`. Replace `film-poster.jpg` and the social card if the footage changes. Keep the embed's descriptive title and click-to-load behavior.
+To replace the video, update the `data-video-id` and watch URL in `index.html`, the watch URL in `../README.md`, and the ID in `assets/media/film.json`. Replace the single-frame `film-poster.jpg`, the README title card `release-poster.jpg`, and the social card if the footage changes. Keep the embed's descriptive title and click-to-load behavior.
 
 ### Soundtrack attribution
 
@@ -22,6 +22,6 @@ To replace the video, update the `data-video-id` and watch URL in `index.html`, 
 
 ## Design and licenses
 
-See [DESIGN.md](DESIGN.md) for the JanusVLN layout reference, liquid-glass treatment, and accessibility fallbacks. The site uses self-hosted Geist; the film uses Geist and Gilda Display. Both licenses are included. Platform and Phosphor icon provenance is in [assets/icons/README.md](assets/icons/README.md).
+See [DESIGN.md](DESIGN.md) for the JanusVLN layout reference, liquid-glass treatment, and accessibility fallbacks. The site uses self-hosted Geist; the film uses Geist. The font license is included. Platform and Phosphor icon provenance is in [assets/icons/README.md](assets/icons/README.md).
 
 Before deployment, check desktop and mobile layouts, keyboard controls, the YouTube link and embed, table overflow, citation copying, local links, and the disabled arXiv control.
