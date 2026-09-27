@@ -223,3 +223,11 @@ realworld/**/ros2_unitree_api_ws/install/
 realworld/**/ros2_unitree_api_ws/log/
 realworld/**/__pycache__/
 realworld/**/*.py[codz]
+
+# macOS metadata on external volumes
+._*
+.DS_Store
+
+# Optional high-resolution exports; web uses WebP and vector PDF.
+/docs/assets/figures/*.png
+/build/
