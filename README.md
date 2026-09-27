@@ -1,273 +1,197 @@
 <div align="center">
+  <img src="docs/assets/brand/wordmark.svg" alt="PanoVLN" width="460" />
+  <h3>Towards Effective Panoramic Vision-and-Language Navigation</h3>
+  <p>See in 360°. Navigate with language.</p>
 
-# 🧭 PanoVLN
+  <p>
+    <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-2955E8?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
+    <a href="docs/reproduction.md"><img src="https://img.shields.io/badge/Documentation-Get_started-102C43?style=flat-square&logo=readthedocs&logoColor=white" alt="Documentation" /></a>
+    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-2955E8?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
+    <img src="https://img.shields.io/badge/arXiv-Coming_soon-6B7280?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv — coming soon" />
+    <a href="https://github.com/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/GitHub-Code-24292F?style=flat-square&logo=github&logoColor=white" alt="GitHub source code" /></a>
+    <a href="https://github.com/wangzhen-w/PanoVLN/stargazers"><img src="https://img.shields.io/github/stars/wangzhen-w/PanoVLN?style=flat-square&color=2955E8" alt="GitHub stars" /></a>
+    <a href="https://github.com/wangzhen-w/PanoVLN/issues"><img src="https://img.shields.io/github/issues/wangzhen-w/PanoVLN?style=flat-square&color=102C43" alt="Open issues" /></a>
+  </p>
+  <p>
+    <a href="https://huggingface.co/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/🤗_Model-PanoVLN-E6B94B?style=flat-square" alt="PanoVLN model" /></a>
+    <a href="https://huggingface.co/wangzhen-w/PanoVLN_base"><img src="https://img.shields.io/badge/🤗_Model-PanoVLN_Base-E6B94B?style=flat-square" alt="PanoVLN Base model" /></a>
+    <a href="https://huggingface.co/wangzhen-w/PanoVLN_realworld"><img src="https://img.shields.io/badge/🤗_Model-Real_World-E6B94B?style=flat-square" alt="PanoVLN Real World model" /></a>
+    <a href="https://huggingface.co/datasets/wangzhen-w/PanoVLN"><img src="https://img.shields.io/badge/🤗_Dataset-PanoVLN-E6B94B?style=flat-square" alt="PanoVLN training data" /></a>
+  </p>
 
-### Learning Vision-and-Language Navigation in 360°
+  <p>
+    Zhen Wang<sup>1</sup> · Changpeng Wang<sup>1</sup> · Zhe Liu<sup>2</sup> · Zhangyang Qi<sup>2</sup><br />
+    Yuxiang Lu<sup>2</sup> · Zimo Zeng<sup>1</sup> · Donglian Qi<sup>1</sup> · Xi Chen<sup>2</sup><br />
+    <sup>1</sup>Zhejiang University &nbsp;&nbsp; <sup>2</sup>The University of Hong Kong
+  </p>
 
-**Panoramic observations · Geometry-aware action prediction · Confidence-guided execution**
-
-<p>
-  <a href="#overview"><img src="https://img.shields.io/badge/Vision-360%C2%B0_Panoramas-0F766E?style=flat-square" alt="360-degree panoramic vision — overview" /></a>
-  <a href="#model-zoo"><img src="https://img.shields.io/badge/Backbone-Qwen3.5--4B-6366F1?style=flat-square" alt="Qwen3.5-4B backbone — model zoo" /></a>
-  <a href="#evaluation"><img src="https://img.shields.io/badge/Simulation-Habitat-2563EB?style=flat-square" alt="Habitat simulation — evaluation guide" /></a>
-  <a href="realworld/README.md"><img src="https://img.shields.io/badge/Robot-Unitree_Go2-334155?style=flat-square" alt="Unitree Go2 — real-world deployment" /></a>
-</p>
-
-[Getting Started](#getting-started) · [Data Preparation](#data-preparation) · [Training](#training) · [Evaluation](#evaluation) · [Real-World Deployment](realworld/README.md) · [Model Zoo](#model-zoo)
-
+  <a href="https://wangzhen-w.github.io/PanoVLN/#demos">
+    <img src="docs/assets/media/readme-preview.gif" alt="Watch PanoVLN navigate in simulation and the real world" width="100%" />
+  </a>
+  <p><a href="https://wangzhen-w.github.io/PanoVLN/#demos">Watch the navigation demos ↗</a></p>
 </div>
 
----
+## 📋 Table of Contents
 
-<a name="overview"></a>
+- [Introduction](#introduction)
+- [News](#news)
+- [Getting Started](#getting-started)
+- [Overview of Benchmark & Model Zoo](#benchmark-and-model-zoo)
+- [Customization](#customization)
+- [Contribute](#contribute)
+- [Community Deployment & Best Practices](#community)
+- [Citation](#citation)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
-PanoVLN follows natural-language navigation instructions using **360° RGB panoramas**. It combines a vision-language model with a frozen panoramic geometry encoder, predicts sequences of navigation actions, and adapts how many actions to execute before observing the environment again.
+<a id="introduction"></a>
+## 🏠 Introduction
 
-This repository includes data preparation, supervised training, DAgger collection, Habitat evaluation, and a client–server deployment for the Unitree Go2.
+PanoVLN follows natural-language navigation instructions using 360° RGB panoramas. This repository provides the code and checkpoints to train a policy, evaluate it in Habitat, and deploy it on a Unitree Go2 with a panoramic camera.
 
-The training data is available on [Hugging Face](https://huggingface.co/datasets/wangzhen-w/PanoVLN), and model checkpoints are linked in the [Model Zoo](#model-zoo).
+| I want to… | Start here |
+| --- | --- |
+| Run a released model in simulation | [Install and evaluate](docs/reproduction.md#evaluate-a-checkpoint) |
+| Download checkpoints or training annotations | [Model zoo and datasets](#model-zoo) |
+| Train or fine-tune a model | [Prepare data and train](docs/reproduction.md#prepare-training-data) |
+| Collect new trajectories and instructions | [Dataset generation](dataset_create/README.md) |
+| Deploy on a robot | [Real-world deployment](realworld/README.md) |
+| Explore the method, results, and videos | [Project page](https://wangzhen-w.github.io/PanoVLN/) |
 
-| | What is included |
-| :--- | :--- |
-| 🌐 **Panoramic perception** | Current and historical ERP observations provide visual context around the agent. |
-| 🧩 **Semantic–geometric fusion** | PanoVGGT aggregator features are spatially grouped and fused into the VLM's current-image tokens after the visual merger. |
-| 🎯 **Confidence-guided execution** | Predict 18 actions, then select an execution prefix using action uncertainty before replanning. |
-| 🛠️ **Data-to-robot workflow** | Trajectory and instruction generation, DAgger, simulation evaluation, and recorded real-world trials. |
+<a id="news"></a>
+## 🔥 News
 
-The action vocabulary is `forward` (0.25 m), `left` (15°), `right` (15°), and `stop`. Training targets contain exactly **18 actions**, with terminal targets padded using `stop`. The prediction length and the number of actions executed per model call are separate.
+- **2026-09-25:** Source code released, including training, data generation, simulation evaluation, and robot deployment.
+- **Available:** Three [model checkpoints](#model-zoo) and the [training annotations](https://huggingface.co/datasets/wangzhen-w/PanoVLN) are hosted on Hugging Face.
+- **Coming soon:** arXiv preprint. The arXiv badge will become a link when the preprint is available.
 
-<a name="getting-started"></a>
+<a id="getting-started"></a>
+## 📚 Getting Started
 
-## 🚀 Getting Started
-
-### 1. Clone the repository
+Use **Linux with an NVIDIA GPU** for training and model inference. Simulation also requires Habitat-Sim / Habitat-Lab 0.3.3 and the appropriate scene assets. The [reproduction guide](docs/reproduction.md) contains the environment setup and exact data layout.
 
 ```bash
 git clone https://github.com/wangzhen-w/PanoVLN.git
 cd PanoVLN
+
+# After installing the environment in docs/reproduction.md:
+hf download wangzhen-w/PanoVLN --local-dir checkpoints/PanoVLN
 ```
 
-Run the following commands from the repository root unless a step says otherwise.
-
-### 2. Set up the model environment
-
-Use Linux with an NVIDIA GPU. Create the environment and install the core dependencies:
+Next, obtain the [evaluation scenes and annotations](docs/reproduction.md#scenes-and-navigation-annotations). Edit `MODEL_PATH`, `GPU_IDS`, `PROCS_PER_GPU`, and `SAVE_PATH` at the top of the evaluation launcher to match your machine, then run:
 
 ```bash
-conda create -n panovln python=3.12 -y
-conda activate panovln
-
-python -m pip install torch==2.10.0 torchvision==0.25.0
-python -m pip install \
-  transformers==5.5.0 accelerate==1.13.0 peft==0.18.1 \
-  deepspeed==0.18.0 \
-  numpy pillow pyyaml tqdm scipy einops timm omegaconf \
-  huggingface-hub safetensors wandb
+bash scripts/eval_r2r.sh  # R2R-CE val-unseen
+# or
+bash scripts/eval_rxr.sh  # RxR-CE val-unseen
 ```
 
-Install a compatible [FlashAttention 2 build](https://github.com/Dao-AILab/flash-attention#installation-and-features), or select `sdpa` in the model settings. Choose [PyTorch CUDA wheels](https://pytorch.org/get-started/previous-versions/) compatible with your machine.
+Results are written to `result.jsonl` and `result_summary.json` in your chosen output directory. The [first-run configuration](docs/reproduction.md#evaluate-a-checkpoint) starts with one worker and a small episode budget.
 
 <details>
-<summary><b>Habitat setup — needed for rendering, DAgger, and simulation evaluation</b></summary>
+<summary><strong>Repository map</strong></summary>
 
-Install **Habitat-Sim 0.3.3** with rendering support. Follow its [versioned build instructions](https://github.com/facebookresearch/habitat-sim/blob/v0.3.3/BUILD_FROM_SOURCE.md); use a headless build on servers without a display.
-
-Install the matching Habitat-Lab and Habitat-Baselines packages into the same environment:
-
-```bash
-git clone --branch v0.3.3 https://github.com/facebookresearch/habitat-lab.git ../habitat-lab
-python -m pip install -e ../habitat-lab/habitat-lab -e ../habitat-lab/habitat-baselines
-python -m pip install fastdtw networkx imageio imageio-ffmpeg opencv-python
-```
+| Path | Purpose |
+| --- | --- |
+| `config/` | Habitat datasets, sensors, and evaluation settings |
+| `scripts/` | Data preparation, DAgger, and evaluation launchers |
+| `src/train/` | Training entry point and model configuration |
+| `src/qwen_vl/`, `src/panovggt/` | Navigation model and geometry encoder |
+| `dataset_create/` | Trajectory sampling and instruction generation |
+| `realworld/` | GPU servers, robot clients, and deployment guides |
+| `docs/` | Project website and reproduction documentation |
 
 </details>
 
-### 3. Download model weights
+<a id="benchmark-and-model-zoo"></a>
+<a id="model-zoo"></a>
+## 📦 Overview of Benchmark & Model Zoo
 
-See the [Model Zoo](#model-zoo). Training starts from Qwen3.5-4B and PanoVGGT; evaluation and deployment require a trained PanoVLN checkpoint.
+### Checkpoints
 
-Before running a bash launcher, edit its settings at the top for your Python environment, GPUs, and local paths.
+| Checkpoint | Use it for | Download | Local directory |
+| --- | --- | --- | --- |
+| **PanoVLN** | Full-data simulation results | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN) | `checkpoints/PanoVLN/` |
+| **PanoVLN Base (†)** | R2R/RxR-only navigation-data results | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_base) | `checkpoints/PanoVLN_base/` |
+| **PanoVLN Real World** | Robot deployment with trajectory recovery and collision avoidance | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_realworld) | `checkpoints/PanoVLN_realworld/` |
 
-<a name="data-preparation"></a>
+Download the complete checkpoint directory, including its tokenizer and processor files. For training from initialization, also obtain [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) and the [PanoVGGT weights](https://huggingface.co/YijingGuo/PanoVGGT).
 
-## 🗂️ Data Preparation
+### Training data
 
-### 1. Obtain scenes and navigation annotations
-
-Download the **[PanoVLN training dataset](https://huggingface.co/datasets/wangzhen-w/PanoVLN)** from Hugging Face and follow the dataset repository instructions to prepare the released files.
-
-For **R2R-CE** and **RxR-CE**, follow the [VLN-CE dataset instructions](https://github.com/jacobkrantz/VLN-CE#data). Obtain the corresponding Matterport3D scene assets separately. Creating additional PanoVLN trajectories requires [HM3D scenes](https://aihabitat.org/datasets/hm3d/).
-
-All dataset paths are relative to the repository root, with `data/` as the default data root. Place your dataset there, or create a symlink at that location to an existing dataset directory. Arrange the downloaded files as follows; keep the split subdirectories in R2R, RxR, and HM3D:
-
-```text
-data/
-├── general_vln_dataset/
-│   ├── r2r/
-│   │   ├── train/
-│   │   │   └── train.json.gz
-│   │   ├── val_seen/
-│   │   │   └── val_seen.json.gz
-│   │   └── val_unseen/
-│   │       └── val_unseen.json.gz
-│   ├── rxr/
-│   │   ├── train/
-│   │   │   └── train_guide.json.gz
-│   │   ├── val_seen/
-│   │   │   └── val_seen_guide.json.gz
-│   │   └── val_unseen/
-│   │       └── val_unseen_guide.json.gz
-│   └── panovln/
-│       └── train.json.gz
-├── scene/
-│   ├── hm3d/
-│   │   ├── train/
-│   │   │   ├── 00000-kfPV7w3FaU5/
-│   │   │   ├── 00001-UVdNNRcVyV1/
-│   │   │   └── ...
-│   │   └── val/
-│   │       └── ...
-│   └── mp3d/
-│       ├── 17DRP5sb8fy/
-│       ├── 1LXtFkjw3qL/
-│       └── ...
-├── images/
-│   ├── r2r/
-│   │   └── <episode_id>/
-│   │       └── frame_0.jpg
-│   ├── rxr/
-│   │   └── <episode_id>/
-│   │       └── frame_0.jpg
-│   ├── panovln/
-│   │   └── <episode_id>/
-│   │       └── frame_0.jpg
-│   └── dagger/
-│       └── <trajectory_id>/
-│           └── frame_0.jpg
-├── sub_dataset/
-│   ├── r2r.jsonl
-│   ├── rxr.jsonl
-│   ├── panovln.jsonl
-│   └── dagger.jsonl
-└── train.jsonl                           # Generated 18-action training samples
-```
-
-Only the datasets used in your run are required. Keep the original scene assets and their navigation meshes. The paths in [`config/`](config/) follow this layout.
-
-### 2. Generate action annotations and panoramic frames
-
-Data scripts process **R2R and RxR by default**. Change `DATASET_NAMES` at the top of each script to select other datasets (`SOURCE_DATASET_NAMES` for DAgger collection).
-
-Run preprocessing and frame extraction in order:
+The [PanoVLN dataset repository](https://huggingface.co/datasets/wangzhen-w/PanoVLN) contains navigation annotations and prepared training JSONL files. Scene assets are obtained separately; render the panoramic images using the [data preparation workflow](docs/reproduction.md#prepare-training-data).
 
 ```bash
-bash scripts/preprocess.sh
-bash scripts/extract_frame.sh
+hf download wangzhen-w/PanoVLN --repo-type dataset --local-dir data
 ```
 
-Annotations are saved to `data/sub_dataset/`, and images to `data/images/`. Skip the corresponding step if these files are already prepared.
+The model and dataset share the name `PanoVLN`; the dataset URL contains **`/datasets/`**, and its download command uses **`--repo-type dataset`**.
 
-### 3. Prepare the training file
+### Benchmark reference
 
-Build the training JSONL with [`scripts/prepare_dataset.sh`](scripts/prepare_dataset.sh):
+Val-unseen results from the manuscript. SR and SPL are percentages. † uses R2R-CE and RxR-CE navigation data; the full model additionally uses the constructed PanoVLN dataset.
 
-```bash
-bash scripts/prepare_dataset.sh
+| Checkpoint | R2R-CE SR ↑ | R2R-CE SPL ↑ | RxR-CE SR ↑ | RxR-CE SPL ↑ |
+| --- | ---: | ---: | ---: | ---: |
+| PanoVLN Base (†) | 73.9 | 67.9 | 74.1 | 63.9 |
+| **PanoVLN** | **77.3** | **70.6** | **78.0** | **65.9** |
+
+See the [project page](https://wangzhen-w.github.io/PanoVLN/#results) for the full comparisons and the [evaluation guide](docs/reproduction.md#evaluate-a-checkpoint) to reproduce these runs.
+
+<a id="customization"></a>
+## 🔧 Customization
+
+| Change | Edit |
+| --- | --- |
+| Training checkpoint, data, precision, learning rates | [`src/train/config/config.yaml`](src/train/config/config.yaml) |
+| Training GPUs and output directory | [`src/train/train.sh`](src/train/train.sh) |
+| Evaluation checkpoint, worker count, and execution policy | [`scripts/eval_r2r.sh`](scripts/eval_r2r.sh), [`scripts/eval_rxr.sh`](scripts/eval_rxr.sh) |
+| Scene paths, dataset split, and sensors | [`config/`](config/) |
+| Source datasets for preprocessing and frame rendering | `DATASET_NAMES` in [`scripts/`](scripts/) |
+| Robot camera, instruction, motion, and server address | [`realworld/panovln/go2_client.yaml`](realworld/panovln/go2_client.yaml) |
+
+The model predicts **18 actions** from `forward` (0.25 m), `left` (15°), `right` (15°), and `stop`. `actions_per_replan` controls how many predicted actions are executed before the next observation. See the [training configuration guide](src/train/README.md) for supported architecture and tuning options.
+
+<a id="contribute"></a>
+## 👥 Contribute
+
+Contributions to installation, reproducibility, dataset tooling, and robot integrations are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md), open an [issue](https://github.com/wangzhen-w/PanoVLN/issues) for substantial changes, and include the command and evidence used to validate a pull request.
+
+<a id="community"></a>
+## 🚀 Community Deployment & Best Practices
+
+Use [GitHub Issues](https://github.com/wangzhen-w/PanoVLN/issues) to ask questions, report failures, or share a deployment. Include the commit, checkpoint, configuration, hardware, and a concise log excerpt so others can reproduce it.
+
+- **Start with a small simulation run.** Use one worker per GPU and a few episodes, then scale once the run completes.
+- **Keep experiments separate.** Evaluation resumes by skipping completed episodes; choose a new output directory when changing a checkpoint or policy.
+- **Use the deployment checkpoint on the robot.** Follow the [server/client setup](realworld/README.md), inspect the client with `--print-config`, and verify server readiness before a trial.
+- **Preserve the complete checkpoint and configuration.** Keep tokenizer/processor files, data paths, and evaluation settings with your experiment record.
+
+<a id="citation"></a>
+## 🔗 Citation
+
+If you use PanoVLN, please cite the project. This entry will be updated with the arXiv identifier when it is available.
+
+```bibtex
+@misc{wang2026panovln,
+  title  = {PanoVLN: Towards Effective Panoramic Vision-and-Language Navigation},
+  author = {Zhen Wang and Changpeng Wang and Zhe Liu and Zhangyang Qi and
+            Yuxiang Lu and Zimo Zeng and Donglian Qi and Xi Chen},
+  year   = {2026},
+  url    = {https://github.com/wangzhen-w/PanoVLN}
+}
 ```
 
-The default output is `data/train.jsonl`, containing 18-action training samples.
+Machine-readable citation metadata is available in [CITATION.cff](CITATION.cff).
 
-<a name="custom-data"></a>
+<a id="license"></a>
+## 📄 License
 
-To create new PanoVLN trajectories and instructions, follow the [dataset-generation guide](dataset_create/README.md).
+The repository-wide code license is pending an author decision. Bundled third-party components retain their [PanoVGGT](src/panovggt/LICENSE), [NaVid](realworld/navid/licenses/LICENSE), and [NaVILA](realworld/navila/licenses/LICENSE) license notices.
 
-<a name="training"></a>
+The released Hugging Face model and dataset cards specify **Matterport Academic Use** terms. Consult each resource's card and the [Matterport academic-use agreement](https://matterport.com/legal/matterport-end-user-license-agreement-academic-use-model-data) before use. Obtain source scenes under their respective access and license terms.
 
-## 🏋️ Training
-
-Set your model and data paths in [`src/train/config/config.yaml`](src/train/config/config.yaml), then choose the GPUs and output directory in [`src/train/train.sh`](src/train/train.sh).
-
-```bash
-bash src/train/train.sh
-```
-
-The model is saved to the launcher's output directory. See the [training guide](src/train/README.md) for configuration details.
-
-<a name="dagger"></a>
-
-### DAgger refinement
-
-After training an initial policy, select that checkpoint and the source datasets in [`scripts/generate_dagger_data.sh`](scripts/generate_dagger_data.sh):
-
-```bash
-bash scripts/generate_dagger_data.sh
-```
-
-Then include `dagger` in `scripts/prepare_dataset.sh`. Configure training to start from the initial policy and save to a new output directory, then rebuild the training file and fine-tune:
-
-```bash
-bash scripts/prepare_dataset.sh --overwrite
-bash src/train/train.sh
-```
-
-<a name="evaluation"></a>
-
-## 📊 Evaluation
-
-<a name="benchmark-results"></a>
-
-### Reported benchmark results
-
-Val-Unseen results from the manuscript. NE is in meters; all other scores are percentages. † denotes training without navigation data beyond R2R-CE and RxR-CE.
-
-| Checkpoint | R2R NE ↓ | R2R OS ↑ | R2R SR ↑ | R2R SPL ↑ | RxR NE ↓ | RxR SR ↑ | RxR SPL ↑ | RxR nDTW ↑ |
-| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| PanoVLN† (`PanoVLN_base`) | 3.10 | 79.7 | 73.9 | 67.9 | 3.14 | 74.1 | 63.9 | 71.4 |
-| **PanoVLN** (`PanoVLN`) | **2.83** | **83.1** | **77.3** | **70.6** | **2.85** | **78.0** | **65.9** | 73.3 |
-
-### Run simulation evaluation
-
-Set the checkpoint, GPUs, and output directory in [`scripts/eval_r2r.sh`](scripts/eval_r2r.sh) or [`scripts/eval_rxr.sh`](scripts/eval_rxr.sh), then run the corresponding benchmark:
-
-```bash
-# R2R-CE
-bash scripts/eval_r2r.sh
-
-# RxR-CE
-bash scripts/eval_rxr.sh
-```
-
-The script saves per-episode results to `result.jsonl` and aggregate metrics to `result_summary.json` in the selected output directory. Use a separate directory for each experiment.
-
-<a name="real-world"></a>
-
-## 🤖 Real-World Deployment
-
-Deploy PanoVLN on a Unitree Go2 with a GPU inference server and panoramic-camera robot client. See the **[real-world deployment guide](realworld/README.md)** for environment setup, checkpoint configuration, ROS message compilation, navigation, and experiment recording.
-
+<a id="acknowledgements"></a>
 ## 🙏 Acknowledgements
 
-PanoVLN builds on [Qwen](https://github.com/QwenLM/Qwen3.5), [PanoVGGT](https://github.com/YijingGuo-June/PanoVGGT), [Habitat](https://github.com/facebookresearch/habitat-lab), and the [VLN-CE](https://github.com/jacobkrantz/VLN-CE) ecosystem. We thank their authors for making their work available. Bundled third-party components retain their original license notices.
-
-<a name="model-zoo"></a>
-
-## 🤗 Model Zoo
-
-| Model | Role | Repository / weights | Suggested local path |
-| :--- | :--- | :--- | :--- |
-| **PanoVLN** | Full-data checkpoint for simulation benchmarks | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN) | `checkpoints/PanoVLN/` |
-| **PanoVLN Base (†)** | R2R/RxR-only navigation-data checkpoint | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_base) | `checkpoints/PanoVLN_base/` |
-| **PanoVLN Real World** | Robot deployment with enhanced trajectory recovery and collision avoidance | [Hugging Face](https://huggingface.co/wangzhen-w/PanoVLN_realworld) | `checkpoints/PanoVLN_realworld/` |
-| Qwen3.5-4B | VLM initialization for training | [Hugging Face](https://huggingface.co/Qwen/Qwen3.5-4B) | `checkpoints/Qwen3.5-4B/` |
-| PanoVGGT | Frozen panoramic geometry encoder | [Upstream checkpoint](https://huggingface.co/YijingGuo/PanoVGGT) | `checkpoints/PanoVGGT/model.pt` |
-
-Use `PanoVLN` to reproduce the full-data simulation results and `PanoVLN_base` for the PanoVLN† results.
-
-For physical robot deployment, we provide a dedicated **`PanoVLN_realworld`** checkpoint with two enhancements:
-
-- **Trajectory recovery:** Improved ability to recover from deviations and resume following the navigation instruction.
-- **Collision avoidance:** Improved ability to avoid obstacles during navigation.
-
-These enhancements address recovery and collision avoidance during physical execution, which motivates a separate deployment checkpoint. Use `PanoVLN_realworld` with the [real-world deployment guide](realworld/README.md); use the simulation checkpoints above to reproduce the reported benchmark results.
-
-Use a fully saved PanoVLN checkpoint, including its tokenizer and processor files, for evaluation or deployment.
+PanoVLN builds on [Qwen](https://github.com/QwenLM/Qwen3.5), [PanoVGGT](https://github.com/YijingGuo-June/PanoVGGT), [Habitat](https://github.com/facebookresearch/habitat-lab), and [VLN-CE](https://github.com/jacobkrantz/VLN-CE). We thank their authors and the dataset contributors for making these resources available.

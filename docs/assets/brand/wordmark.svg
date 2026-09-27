@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 64" role="img" aria-labelledby="title">
+  <title id="title">PanoVLN</title>
+  <g fill="none" stroke="#2059EB" stroke-width="2.8">
+    <ellipse cx="36" cy="32" rx="23" ry="22.5"/>
+    <ellipse cx="36" cy="32" rx="31" ry="13.5"/>
+  </g>
+  <path fill="#2059EB" d="M36 12 44 34 28 30Z"/>
+  <text x="82" y="46" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" fill="#0C2340">PanoVLN</text>
+</svg>
