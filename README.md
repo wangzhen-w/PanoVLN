@@ -11,7 +11,6 @@
 
   <p>
     <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-0066CC?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
-    <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-0066CC?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
     <a href="https://arxiv.org/abs/2609.34759"><img src="https://img.shields.io/badge/arXiv-2609.34759-B31B1B?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv:2609.34759" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/stargazers"><img src="https://img.shields.io/github/stars/wangzhen-w/PanoVLN?style=flat-square&color=2955E8" alt="GitHub stars" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/issues"><img src="https://img.shields.io/github/issues/wangzhen-w/PanoVLN?style=flat-square&color=102C43" alt="Open issues" /></a>
@@ -44,7 +43,7 @@ This repository provides **training and data-generation code, Habitat evaluation
 | Train or fine-tune | [Training data](#data-preparation) → [training](#training) |
 | Deploy on a Unitree Go2 | [Real-world deployment](#real-world-deployment) |
 | Generate new trajectories and instructions | [Dataset-generation guide](dataset_create/README.md) |
-| Read the method and full results | [Paper](docs/assets/paper/PanoVLN.pdf) · [project page](https://wangzhen-w.github.io/PanoVLN/) |
+| Read the method and full results | [Paper on arXiv](https://arxiv.org/abs/2609.34759) · [project page](https://wangzhen-w.github.io/PanoVLN/) |
 
 <a id="news"></a>
 ## 🔥 News
@@ -332,6 +331,7 @@ If you use PanoVLN, please cite our paper.
   eprint = {2609.34759},
   archivePrefix = {arXiv},
   primaryClass = {cs.CV},
+  doi    = {10.48550/arXiv.2609.34759},
   url    = {https://arxiv.org/abs/2609.34759}
 }
 ```

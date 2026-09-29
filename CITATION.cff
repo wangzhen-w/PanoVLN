@@ -39,3 +39,37 @@ identifiers:
   - type: url
     value: "https://arxiv.org/abs/2609.34759"
     description: "PanoVLN arXiv preprint"
+
+preferred-citation:
+  type: article
+  title: "PanoVLN: Towards Effective Panoramic Vision-and-Language Navigation"
+  authors:
+    - family-names: Wang
+      given-names: Zhen
+      affiliation: Zhejiang University
+    - family-names: Wang
+      given-names: Changpeng
+      affiliation: Zhejiang University
+    - family-names: Liu
+      given-names: Zhe
+      affiliation: The University of Hong Kong
+    - family-names: Qi
+      given-names: Zhangyang
+      affiliation: The University of Hong Kong
+    - family-names: Lu
+      given-names: Yuxiang
+      affiliation: The University of Hong Kong
+    - family-names: Zeng
+      given-names: Zimo
+      affiliation: Zhejiang University
+    - family-names: Qi
+      given-names: Donglian
+      affiliation: Zhejiang University
+    - family-names: Chen
+      given-names: Xi
+      affiliation: The University of Hong Kong
+  journal: "arXiv"
+  year: 2026
+  date-published: "2026-09-28"
+  doi: "10.48550/arXiv.2609.34759"
+  url: "https://arxiv.org/abs/2609.34759"

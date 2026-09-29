@@ -1,5 +1,5 @@
 {
-  "source": "../paper/PanoVLN.pdf",
+  "source": "https://raw.githubusercontent.com/wangzhen-w/PanoVLN/6a4c04137bda2d7d0e3de7f8c5173834a343da66/docs/assets/paper/PanoVLN.pdf",
   "sha256": "0fe85d572aa117779f7e058adcd44252b87218e73cd96dc3392e45004d5d0b63",
   "tables": [
     {
@@ -32,5 +32,7 @@
       ],
       "render_dpi": 432
     }
-  ]
+  ],
+  "paper_url": "https://arxiv.org/abs/2609.34759",
+  "source_note": "Immutable preprint snapshot used for these existing crops; the hash refers to that snapshot. The current paper is hosted on arXiv."
 }

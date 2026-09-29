@@ -17,13 +17,13 @@ The seven LaTeX result tables are parsed from `Sections/4.exp.tex` and `Sections
 
 All 15 supplied figure PDFs are included. The two files that are not currently referenced by the manuscript have `used_in_current_paper: false`. The JSON also records two source inconsistencies, preserving the original assets and taking benchmark values from the actual LaTeX tables.
 
-For the public PDF, compile the paper's `public_preprint.tex` entry point using Tectonic or an existing TeX installation, and copy its resulting PDF to `docs/assets/paper/PanoVLN.pdf`. This entry point displays the authors with a `Preprint` page header. The original `main.tex` retains its existing review-mode setting.
+The public paper is hosted on [arXiv](https://arxiv.org/abs/2609.34759); use its [PDF](https://arxiv.org/pdf/2609.34759) for reading. Do not copy a full-paper PDF into the repository. Keep local compilations outside Git when regenerating figure or table crops.
 
 ## Curated project-page results
 
-`build_project_content.py` renders three main-result tables: the selected simulation benchmark, real-world success rate, and real-world execution efficiency. Each shows five methods. `project-page-curation.json` selects source tables, methods and columns by name; all values come from the extracted JSON. Keep the marked `benchmark-table`, `realworld-table`, and `efficiency-table` slots in the HTML. Missing or duplicate slots stop the builder before it writes the page.
+The current project page uses original figure assets and image crops of the typeset simulation and execution-efficiency tables, each linked to a vector PDF crop. Execution efficiency is always visible. `docs/assets/tables/sources.json` records the exact source snapshot, its SHA-256, page numbers, and crop rectangles. The historical snapshot is recorded for reproducibility; the reader-facing paper link points to arXiv.
 
-All eight source tables, 15 figure records, and source notes remain in `docs/assets/research-data.json`. The public page shows the architecture and main results, with efficiency in a disclosure; the full paper contains the ablations. `render_realworld_sr.py` remains available as an optional standalone chart exporter, but the website uses HTML tables for readable labels on small screens.
+The extraction scripts and `build_project_content.py` are legacy provenance tools for the former HTML-table layout. The latter requires its marked table slots and does not update the current image-based page. To refresh the current tables, render new crops from the updated manuscript, inspect every row and column, and update `sources.json`. See `docs/WEBSITE.md` for the current page workflow.
 
 ## Release film
 
@@ -37,4 +37,4 @@ python tools/build_release_film.py \
   --ffmpeg /path/to/ffmpeg
 ```
 
-The font directory contains `Geist.ttf` (the variable font) and `GildaDisplay.ttf`, obtained from the official [Google Fonts repository](https://github.com/google/fonts), under their SIL Open Font Licenses. The script requires Pillow. Its manifest records the source files, fixed camera offsets, speed, resolution, and HDR-to-SDR filter. The film is muted, has no masks, and removes capture metadata. Upload `PanoVLN_navigation_release.mp4` to YouTube; see `docs/WEBSITE.md` for linking it. Do not add the MP4 or rendering intermediates to this repository.
+The font directory contains `Geist.ttf` (the variable font) and `GildaDisplay.ttf`, obtained from the official [Google Fonts repository](https://github.com/google/fonts), under their SIL Open Font Licenses. The script requires Pillow. Its manifest records the source files, fixed camera offsets, speed, resolution, and HDR-to-SDR filter. The film is muted, has no masks, and removes capture metadata. Publish the final viewing copy as an external video attachment; see `docs/WEBSITE.md` for the current editing, soundtrack, and hosting workflow. Do not add the MP4 or rendering intermediates to this repository.
