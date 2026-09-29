@@ -12,7 +12,7 @@
   <p>
     <a href="https://wangzhen-w.github.io/PanoVLN/"><img src="https://img.shields.io/badge/HomePage-Explore-0066CC?style=flat-square&logo=googlechrome&logoColor=white" alt="Project homepage" /></a>
     <a href="docs/assets/paper/PanoVLN.pdf"><img src="https://img.shields.io/badge/Paper-PDF-0066CC?style=flat-square&logo=googledocs&logoColor=white" alt="Read the paper PDF" /></a>
-    <img src="https://img.shields.io/badge/arXiv-Coming_soon-6B7280?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv — coming soon" />
+    <a href="https://arxiv.org/abs/2609.34759"><img src="https://img.shields.io/badge/arXiv-2609.34759-B31B1B?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv:2609.34759" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/stargazers"><img src="https://img.shields.io/github/stars/wangzhen-w/PanoVLN?style=flat-square&color=2955E8" alt="GitHub stars" /></a>
     <a href="https://github.com/wangzhen-w/PanoVLN/issues"><img src="https://img.shields.io/github/issues/wangzhen-w/PanoVLN?style=flat-square&color=102C43" alt="Open issues" /></a>
   </p>
@@ -51,7 +51,7 @@ This repository provides **training and data-generation code, Habitat evaluation
 
 - **2026-09-25:** Source code released, including training, data generation, simulation evaluation, and robot deployment.
 - **Available:** [Three checkpoints](#model-zoo), [training annotations](https://huggingface.co/datasets/wangzhen-w/PanoVLN), and the [project page](https://wangzhen-w.github.io/PanoVLN/) with a real-world navigation video and main results.
-- **Coming soon:** arXiv preprint. The badge will link to the paper when an identifier is available.
+- **2026-09-28:** The [paper](https://arxiv.org/abs/2609.34759) is available on arXiv.
 
 <a id="getting-started"></a>
 ## 📚 Getting Started
@@ -321,7 +321,7 @@ Action targets contain **18 words** from `forward` (0.25 m), `left` (15°), `rig
 <a id="citation"></a>
 ## 🔗 Citation
 
-If you use PanoVLN, please cite the project. This entry will be updated with the arXiv identifier when it is available.
+If you use PanoVLN, please cite our paper.
 
 ```bibtex
 @misc{wang2026panovln,
@@ -329,7 +329,10 @@ If you use PanoVLN, please cite the project. This entry will be updated with the
   author = {Zhen Wang and Changpeng Wang and Zhe Liu and Zhangyang Qi and
             Yuxiang Lu and Zimo Zeng and Donglian Qi and Xi Chen},
   year   = {2026},
-  url    = {https://github.com/wangzhen-w/PanoVLN}
+  eprint = {2609.34759},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CV},
+  url    = {https://arxiv.org/abs/2609.34759}
 }
 ```
 

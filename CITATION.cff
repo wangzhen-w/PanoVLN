@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use PanoVLN, please cite this project. Paper metadata will be updated when the arXiv preprint is available."
+message: "If you use PanoVLN, please cite the paper at https://arxiv.org/abs/2609.34759."
 type: software
 title: "PanoVLN: Towards Effective Panoramic Vision-and-Language Navigation"
 authors:
@@ -34,3 +34,8 @@ keywords:
   - panoramic vision
   - embodied AI
   - robotics
+
+identifiers:
+  - type: url
+    value: "https://arxiv.org/abs/2609.34759"
+    description: "PanoVLN arXiv preprint"
