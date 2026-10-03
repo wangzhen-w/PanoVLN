@@ -205,7 +205,7 @@ The model predicts 18 actions. The launchers independently control how many to e
 | `ACTIONS_PER_REPLAN=6` | Use a fixed six-action execution prefix |
 | `UNCERTAINTY_BUDGET=1.2` | Confidence budget for prefix selection |
 
-The launchers use Python defaults for the uncertainty action range `(4, 8)` and collision recovery after `2` consecutive forward collisions with static RGB. Both benchmarks execute STOP only when it falls within the selected action prefix; STOP does not extend the fixed execution length or the uncertainty-selected horizon.
+The launchers use Python defaults for the uncertainty action range `(4, 8)`, a stop-commit window of `10` for both R2R and RxR, and collision recovery after `2` consecutive forward collisions with static RGB. A predicted STOP within the first 10 actions (counting STOP itself) commits execution through that STOP, overriding the fixed execution length or uncertainty budget/range.
 
 ## Prepare training data
 
