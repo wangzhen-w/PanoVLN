@@ -51,14 +51,11 @@ from src.eval.action_policy import (
     ATOMIC_ACTION_NAMES,
     STOP_ACTION_ID,
     DEFAULT_REPLAN_ACTION_RANGE,
-    DEFAULT_STOP_COMMIT_MAX_ACTIONS,
     DEFAULT_UNCERTAINTY_BUDGET,
     build_action_token_lookup,
     extract_action_uncertainties,
-    select_stop_commit_horizon,
     select_uncertainty_horizon,
     validate_replan_action_range,
-    validate_stop_commit_max_actions,
     validate_uncertainty_budget,
 )
 from src.eval.collision_recovery import (
@@ -85,10 +82,6 @@ from src.qwen_vl import Qwen3_5ForConditionalGenerationForPanoVLN
 from src.train.utils import build_prompt_and_target
 
 CHECKPOINT_DIR_PATTERN = re.compile(r"^checkpoint-\d+$")
-DEFAULT_EVAL_STOP_COMMIT_MAX_ACTIONS = {
-    "R2RVLNCE-v1": 9,
-    "RxRVLNCE-v1": 10,
-}
 DEFAULT_EVAL_GENERATION_KWARGS = {
     "max_new_tokens": 24,
     "temperature": 0,
@@ -418,13 +411,8 @@ def evaluate_agent(
     uncertainty_budget=DEFAULT_UNCERTAINTY_BUDGET,
     seed=42,
     replan_action_range=DEFAULT_REPLAN_ACTION_RANGE,
-    stop_commit_max_actions=None,
     collision_recovery_steps=DEFAULT_COLLISION_RECOVERY_STEPS,
 ) -> None:
-    if stop_commit_max_actions is None:
-        stop_commit_max_actions = DEFAULT_EVAL_STOP_COMMIT_MAX_ACTIONS.get(
-            config.habitat.dataset.type, DEFAULT_STOP_COMMIT_MAX_ACTIONS,
-        )
     done_pairs = _load_done_pairs(result_path)
     pending_episodes = _filter_pending_episodes(list(dataset.episodes), done_pairs)
     dataset.episodes = pending_episodes
@@ -454,7 +442,6 @@ def evaluate_agent(
         uncertainty_budget=uncertainty_budget,
         seed=seed,
         replan_action_range=replan_action_range,
-        stop_commit_max_actions=stop_commit_max_actions,
         collision_recovery_steps=collision_recovery_steps,
     )
 
@@ -492,9 +479,7 @@ def evaluate_agent(
             result_row["model_generated_actions"] = list(agent.model_generated_actions)
             result_row["model_parsed_action_sequences"] = list(agent.model_parsed_action_sequences)
             result_row["actions_per_replan"] = agent.actions_per_replan
-            result_row["stop_commit_max_actions"] = agent.stop_commit_max_actions
             result_row["model_actions_per_replan"] = list(agent.model_actions_per_replan)
-            result_row["model_stop_committed"] = list(agent.model_stop_committed)
             if agent.actions_per_replan == "uncertainty":
                 result_row["replan_action_range"] = list(agent.replan_action_range)
                 result_row["uncertainty_budget"] = agent.uncertainty_budget
@@ -527,7 +512,6 @@ class PanoVLN_Agent(Agent):
         uncertainty_budget=DEFAULT_UNCERTAINTY_BUDGET,
         seed=42,
         replan_action_range=DEFAULT_REPLAN_ACTION_RANGE,
-        stop_commit_max_actions=DEFAULT_STOP_COMMIT_MAX_ACTIONS,
         collision_recovery_steps=DEFAULT_COLLISION_RECOVERY_STEPS,
     ):
         
@@ -535,7 +519,6 @@ class PanoVLN_Agent(Agent):
 
         self.uncertainty_budget = validate_uncertainty_budget(uncertainty_budget)
         self.replan_action_range = validate_replan_action_range(replan_action_range)
-        self.stop_commit_max_actions = validate_stop_commit_max_actions(stop_commit_max_actions)
         self.collision_recovery = CollisionRecovery(collision_recovery_steps)
         
         self.result_path = result_path
@@ -619,7 +602,6 @@ class PanoVLN_Agent(Agent):
             f"actions_per_replan={self.actions_per_replan}, "
             f"replan_action_range={self.replan_action_range}, "
             f"uncertainty_budget={self.uncertainty_budget}, "
-            f"stop_commit_max_actions={self.stop_commit_max_actions}, "
             f"collision_recovery_steps={self.collision_recovery.steps}, "
             "view_mode=panorama)"
         )
@@ -753,23 +735,17 @@ class PanoVLN_Agent(Agent):
         return navigation, action_ids
 
     def _build_pending_action_queue(self, action_ids):
-        # Inspect the complete current prediction BEFORE applying either policy.
-        # A nearby STOP may extend execution beyond fixed K or the uncertainty cap.
-        horizon = select_stop_commit_horizon(action_ids, self.stop_commit_max_actions)
-        stop_committed = horizon is not None
-        if not stop_committed:
-            horizon = self.actions_per_replan
-            if horizon == "uncertainty":
-                prefix = list(action_ids[:self.replan_action_range[1]])
-                if STOP_ACTION_ID in prefix:
-                    prefix = prefix[:prefix.index(STOP_ACTION_ID) + 1]
-                if prefix != self.prediction_action_ids:
-                    raise ValueError("Parsed actions do not match uncertainty logits")
-                horizon = select_uncertainty_horizon(
-                    self.prediction_action_uncertainties, self.uncertainty_budget, self.replan_action_range,
-                )
+        horizon = self.actions_per_replan
+        if horizon == "uncertainty":
+            prefix = list(action_ids[:self.replan_action_range[1]])
+            if STOP_ACTION_ID in prefix:
+                prefix = prefix[:prefix.index(STOP_ACTION_ID) + 1]
+            if prefix != self.prediction_action_ids:
+                raise ValueError("Parsed actions do not match uncertainty logits")
+            horizon = select_uncertainty_horizon(
+                self.prediction_action_uncertainties, self.uncertainty_budget, self.replan_action_range,
+            )
         self.model_actions_per_replan.append(horizon)
-        self.model_stop_committed.append(stop_committed)
         action_ids = select_actions_for_replan(
             action_ids,
             actions_per_replan=horizon,
@@ -802,7 +778,6 @@ class PanoVLN_Agent(Agent):
         self.prediction_action_ids = []
         self.prediction_action_uncertainties = []
         self.model_actions_per_replan = []
-        self.model_stop_committed = []
         self.prediction_turn_logits = None
         self.last_action = None
         self.collision_recovery.reset()
@@ -897,14 +872,13 @@ def main():
         default="uncertainty",
         help=(
             "positive integer for a fixed execution length, or 'uncertainty' (default) "
-            "for a current-logits budget within --replan-action-range; "
-            "nearby STOP commitment takes priority in both modes"
+            "for a current-logits budget within --replan-action-range"
         ),
     )
     parser.add_argument(
         "--replan-action-range", type=int, nargs=2, metavar=("MIN", "MAX"),
         default=DEFAULT_REPLAN_ACTION_RANGE,
-        help="inclusive K range for uncertainty (default: 4 8); STOP commitment may exceed this cap",
+        help="inclusive K range for uncertainty (default: 4 8)",
     )
     parser.add_argument(
         "--uncertainty-budget", type=float, default=DEFAULT_UNCERTAINTY_BUDGET,
@@ -912,12 +886,6 @@ def main():
              "set to an offline median six-action prefix score (default: 1.2)",
     )
     parser.add_argument("--seed", type=int, default=42, help="random seed for python, numpy, and torch")
-    parser.add_argument(
-        "--stop-commit-max-actions", type=int, default=None,
-        help="execute through the first STOP within this many predicted actions, including STOP itself "
-             "(default: R2R 9, RxR 10, otherwise 12; 0 disables); "
-             "overrides fixed K and the uncertainty budget/range",
-    )
     parser.add_argument(
         "--collision-recovery-steps", type=int, default=DEFAULT_COLLISION_RECOVERY_STEPS,
         help="consecutive forward collisions with static RGB before recovery (default: 2; 0 disables); "
@@ -928,8 +896,6 @@ def main():
     try:
         args.uncertainty_budget = validate_uncertainty_budget(args.uncertainty_budget)
         args.replan_action_range = validate_replan_action_range(args.replan_action_range)
-        if args.stop_commit_max_actions is not None:
-            args.stop_commit_max_actions = validate_stop_commit_max_actions(args.stop_commit_max_actions)
         args.collision_recovery_steps = validate_collision_recovery_steps(args.collision_recovery_steps)
     except ValueError as exc:
         parser.error(str(exc))
@@ -979,7 +945,7 @@ def main():
                 args.forward_distance, args.turn_angle, args.max_memory_images,
                 args.memory_pool_window_frames, args.save_topdown, args.attn_implementation,
                 args.early_stop_max_steps, args.actions_per_replan,
-                args.uncertainty_budget, args.seed, args.replan_action_range, args.stop_commit_max_actions,
+                args.uncertainty_budget, args.seed, args.replan_action_range,
                 args.collision_recovery_steps)
 
 if __name__ == "__main__":

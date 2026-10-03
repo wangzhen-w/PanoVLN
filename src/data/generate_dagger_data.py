@@ -61,12 +61,12 @@ from src.data.habitat_shortest_path import (
 )
 from habitat.tasks.nav.shortest_path_follower import ShortestPathFollower
 
+from src.eval.action_policy import select_stop_commit_horizon
 from src.eval.eval import (
     DEFAULT_MAX_MEMORY_IMAGES,
     DEFAULT_MEMORY_POOL_WINDOW_FRAMES,
     DEFAULT_REPLAN_ACTION_RANGE,
     PanoVLN_Agent,
-    select_stop_commit_horizon,
     select_uncertainty_horizon,
 )
 from src.data.prepare_training_data import (
@@ -1380,7 +1380,6 @@ def dagger_worker(
             actions_per_replan="uncertainty",
             uncertainty_budget=execution_policy["uncertainty_budget"],
             replan_action_range=execution_policy["replan_action_range"],
-            stop_commit_max_actions=0,
             collision_recovery_steps=0,
         )
         if VLN_ACTION_SEQUENCE_LENGTH != action_horizon:

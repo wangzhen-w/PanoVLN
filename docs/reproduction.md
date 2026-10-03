@@ -187,7 +187,7 @@ python src/eval/eval.py \
 python src/eval/analyze_results.py --path outputs/eval/r2r_single_worker
 ```
 
-For RxR, change the config to `config/vln_rxr.yaml` and the output directory. The stop window defaults to `9` for R2R and `10` for RxR based on the configured dataset type. `--forward-distance` is measured in centimeters in this evaluation CLI; the robot client's `--forward-distance` is measured in meters.
+For RxR, change the config to `config/vln_rxr.yaml` and the output directory. `--forward-distance` is measured in centimeters in this evaluation CLI; the robot client's `--forward-distance` is measured in meters.
 
 ### Outputs and resuming
 
@@ -205,7 +205,7 @@ The model predicts 18 actions. The launchers independently control how many to e
 | `ACTIONS_PER_REPLAN=6` | Use a fixed six-action execution prefix |
 | `UNCERTAINTY_BUDGET=1.2` | Confidence budget for prefix selection |
 
-The launchers use Python defaults for the uncertainty action range `(4, 8)`, the stop-commit window (`9` for R2R, `10` for RxR), and collision recovery after `2` consecutive forward collisions with static RGB. A predicted stop within the stop-commit window takes priority over the fixed execution length or uncertainty budget/range. Retain these defaults when reproducing the reported results.
+The launchers use Python defaults for the uncertainty action range `(4, 8)` and collision recovery after `2` consecutive forward collisions with static RGB. Both benchmarks execute STOP only when it falls within the selected action prefix; STOP does not extend the fixed execution length or the uncertainty-selected horizon.
 
 ## Prepare training data
 
