@@ -182,14 +182,12 @@ python src/eval/eval.py \
   --attn-implementation sdpa \
   --forward-distance 25 --turn-angle 15 \
   --max-memory-images 10 --memory-pool-window-frames 100 \
-  --actions-per-replan uncertainty --replan-action-range 4 8 \
-  --uncertainty-budget 1.2 --stop-commit-max-actions 9 \
-  --collision-recovery-steps 2 --seed 42
+  --actions-per-replan uncertainty --uncertainty-budget 1.2 --seed 42
 
 python src/eval/analyze_results.py --path outputs/eval/r2r_single_worker
 ```
 
-For RxR, change the config to `config/vln_rxr.yaml`, the stop window to `10`, and the output directory. `--forward-distance` is measured in centimeters in this evaluation CLI; the robot client's `--forward-distance` is measured in meters.
+For RxR, change the config to `config/vln_rxr.yaml` and the output directory. The stop window defaults to `9` for R2R and `10` for RxR based on the configured dataset type. `--forward-distance` is measured in centimeters in this evaluation CLI; the robot client's `--forward-distance` is measured in meters.
 
 ### Outputs and resuming
 
@@ -205,12 +203,9 @@ The model predicts 18 actions. The launchers independently control how many to e
 | --- | --- |
 | `ACTIONS_PER_REPLAN="uncertainty"` | Select an execution prefix from action confidence |
 | `ACTIONS_PER_REPLAN=6` | Use a fixed six-action execution prefix |
-| `REPLAN_ACTION_RANGE=(4 8)` | Inclusive bounds in uncertainty mode |
 | `UNCERTAINTY_BUDGET=1.2` | Confidence budget for prefix selection |
-| `STOP_COMMIT_MAX_ACTIONS=9` (R2R), `10` (RxR) | Commit through a predicted stop in this window, overriding the uncertainty range/budget |
-| `COLLISION_RECOVERY_STEPS=2` | Consecutive forward collisions with static RGB before simulator recovery; `0` disables it |
 
-Retain the supplied benchmark-specific settings when reproducing the reported results. R2R and RxR use different stop-commit windows.
+The launchers use Python defaults for the uncertainty action range `(4, 8)`, the stop-commit window (`9` for R2R, `10` for RxR), and collision recovery after `2` consecutive forward collisions with static RGB. A predicted stop within the stop-commit window takes priority over the fixed execution length or uncertainty budget/range. Retain these defaults when reproducing the reported results.
 
 ## Prepare training data
 

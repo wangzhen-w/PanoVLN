@@ -18,16 +18,9 @@ ATTN_IMPLEMENTATION="flash_attention_2"
 MAX_MEMORY_IMAGES=10
 MEMORY_POOL_WINDOW_FRAMES=100
 # Positive integer: fixed execution length.
-# "uncertainty": choose K from this prediction's logits, within REPLAN_ACTION_RANGE.
-# Use a separate SAVE_PATH for each mode/range/budget/stop-window/seed; existing episodes are skipped.
+# "uncertainty": choose K from this prediction's logits using the Python defaults.
+# Use a separate SAVE_PATH for each mode/budget/seed; existing episodes are skipped.
 ACTIONS_PER_REPLAN="uncertainty"
-# Inclusive (minimum maximum) for uncertainty; fixed integer K is unaffected.
-# Bash array syntax uses a space, not a comma
-REPLAN_ACTION_RANGE=(4 8)
-# Execute through STOP if it appears within the first N actions; 0 disables.
-STOP_COMMIT_MAX_ACTIONS=10
-# Consecutive forward collisions with static RGB before recovery; 0 disables.
-COLLISION_RECOVERY_STEPS=2
 # Budget for sum(-log p(action)) in uncertainty mode.
 # This is a fixed input parameter, not recomputed from online episode history.
 UNCERTAINTY_BUDGET=1.2
@@ -63,30 +56,9 @@ if [[ "$ACTIONS_PER_REPLAN" != "uncertainty" &&
     echo "ACTIONS_PER_REPLAN must be a positive integer or uncertainty: $ACTIONS_PER_REPLAN" >&2
     exit 1
 fi
-if [[ ! "$STOP_COMMIT_MAX_ACTIONS" =~ ^(0|[1-9][0-9]*)$ ]]; then
-    echo "STOP_COMMIT_MAX_ACTIONS must be a nonnegative integer (0 disables): $STOP_COMMIT_MAX_ACTIONS" >&2
-    exit 1
-fi
-if [[ ! "$COLLISION_RECOVERY_STEPS" =~ ^(0|[1-9][0-9]*)$ ]]; then
-    echo "COLLISION_RECOVERY_STEPS must be a nonnegative integer (0 disables): $COLLISION_RECOVERY_STEPS" >&2
-    exit 1
-fi
-actions_per_replan_args=(--actions-per-replan "$ACTIONS_PER_REPLAN"
-                         --stop-commit-max-actions "$STOP_COMMIT_MAX_ACTIONS"
-                         --collision-recovery-steps "$COLLISION_RECOVERY_STEPS")
+actions_per_replan_args=(--actions-per-replan "$ACTIONS_PER_REPLAN")
 if [[ "$ACTIONS_PER_REPLAN" == "uncertainty" ]]; then
     actions_per_replan_args+=(--uncertainty-budget "$UNCERTAINTY_BUDGET")
-    if [[ "${#REPLAN_ACTION_RANGE[@]}" -ne 2 ]] ||
-       [[ ! "${REPLAN_ACTION_RANGE[0]}" =~ ^[1-9][0-9]*$ ||
-          ! "${REPLAN_ACTION_RANGE[1]}" =~ ^[1-9][0-9]*$ ]]; then
-        echo "REPLAN_ACTION_RANGE must contain two positive integers: (MIN MAX)" >&2
-        exit 1
-    fi
-    if (( REPLAN_ACTION_RANGE[0] > REPLAN_ACTION_RANGE[1] )); then
-        echo "REPLAN_ACTION_RANGE requires MIN <= MAX" >&2
-        exit 1
-    fi
-    actions_per_replan_args+=(--replan-action-range "${REPLAN_ACTION_RANGE[@]}")
 fi
 
 echo "MODEL_PATH=$MODEL_PATH"
@@ -103,10 +75,7 @@ echo "ATTN_IMPLEMENTATION=$ATTN_IMPLEMENTATION"
 echo "MAX_MEMORY_IMAGES=$MAX_MEMORY_IMAGES"
 echo "MEMORY_POOL_WINDOW_FRAMES=$MEMORY_POOL_WINDOW_FRAMES"
 echo "ACTIONS_PER_REPLAN=$ACTIONS_PER_REPLAN"
-echo "REPLAN_ACTION_RANGE=${REPLAN_ACTION_RANGE[*]}"
 echo "UNCERTAINTY_BUDGET=$UNCERTAINTY_BUDGET"
-echo "STOP_COMMIT_MAX_ACTIONS=$STOP_COMMIT_MAX_ACTIONS"
-echo "COLLISION_RECOVERY_STEPS=$COLLISION_RECOVERY_STEPS"
 echo "EARLY_STOP_MAX_STEPS=$EARLY_STOP_MAX_STEPS"
 echo "Total processes: $CHUNKS"
 

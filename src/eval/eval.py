@@ -85,6 +85,10 @@ from src.qwen_vl import Qwen3_5ForConditionalGenerationForPanoVLN
 from src.train.utils import build_prompt_and_target
 
 CHECKPOINT_DIR_PATTERN = re.compile(r"^checkpoint-\d+$")
+DEFAULT_EVAL_STOP_COMMIT_MAX_ACTIONS = {
+    "R2RVLNCE-v1": 9,
+    "RxRVLNCE-v1": 10,
+}
 DEFAULT_EVAL_GENERATION_KWARGS = {
     "max_new_tokens": 24,
     "temperature": 0,
@@ -414,9 +418,13 @@ def evaluate_agent(
     uncertainty_budget=DEFAULT_UNCERTAINTY_BUDGET,
     seed=42,
     replan_action_range=DEFAULT_REPLAN_ACTION_RANGE,
-    stop_commit_max_actions=DEFAULT_STOP_COMMIT_MAX_ACTIONS,
+    stop_commit_max_actions=None,
     collision_recovery_steps=DEFAULT_COLLISION_RECOVERY_STEPS,
 ) -> None:
+    if stop_commit_max_actions is None:
+        stop_commit_max_actions = DEFAULT_EVAL_STOP_COMMIT_MAX_ACTIONS.get(
+            config.habitat.dataset.type, DEFAULT_STOP_COMMIT_MAX_ACTIONS,
+        )
     done_pairs = _load_done_pairs(result_path)
     pending_episodes = _filter_pending_episodes(list(dataset.episodes), done_pairs)
     dataset.episodes = pending_episodes
@@ -905,9 +913,10 @@ def main():
     )
     parser.add_argument("--seed", type=int, default=42, help="random seed for python, numpy, and torch")
     parser.add_argument(
-        "--stop-commit-max-actions", type=int, default=DEFAULT_STOP_COMMIT_MAX_ACTIONS,
+        "--stop-commit-max-actions", type=int, default=None,
         help="execute through the first STOP within this many predicted actions, including STOP itself "
-             "(default: 12; 0 disables); overrides fixed K and the uncertainty budget/range",
+             "(default: R2R 9, RxR 10, otherwise 12; 0 disables); "
+             "overrides fixed K and the uncertainty budget/range",
     )
     parser.add_argument(
         "--collision-recovery-steps", type=int, default=DEFAULT_COLLISION_RECOVERY_STEPS,
@@ -919,7 +928,8 @@ def main():
     try:
         args.uncertainty_budget = validate_uncertainty_budget(args.uncertainty_budget)
         args.replan_action_range = validate_replan_action_range(args.replan_action_range)
-        args.stop_commit_max_actions = validate_stop_commit_max_actions(args.stop_commit_max_actions)
+        if args.stop_commit_max_actions is not None:
+            args.stop_commit_max_actions = validate_stop_commit_max_actions(args.stop_commit_max_actions)
         args.collision_recovery_steps = validate_collision_recovery_steps(args.collision_recovery_steps)
     except ValueError as exc:
         parser.error(str(exc))
